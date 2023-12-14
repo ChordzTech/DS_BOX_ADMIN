@@ -27,9 +27,7 @@ export class UserComponent {
 
 
   ngOnInit(): void {
-    this.getUsersList();
-
-    
+    this.getUsersList();  
   }
   constructor(private service: ServiceService, dialog: MatDialog) { }
 

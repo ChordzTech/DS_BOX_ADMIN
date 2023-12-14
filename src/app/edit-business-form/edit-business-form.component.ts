@@ -14,9 +14,6 @@ export class EditBusinessFormComponent {
     contactno: this.builder.control('', Validators.required),
     subscriptiondate: this.builder.control('', Validators.required),
     subscription: this.builder.control('', Validators.required),
-    useraccess: this.builder.control('', Validators.required),
-    androidId: this.builder.control('', Validators.required),
-    deviceInfo: this.builder.control('', Validators.required),
     status: this.builder.control(false),
   });
 

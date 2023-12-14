@@ -55,7 +55,7 @@
         <td mat-cell *matCellDef="let row">
           <button
             (click)="(openEditBusinessForm)"
-            routerLink="business/{{ row.id }}/edit"
+            routerLink="/business/{{ row.businessid }}/edit"
           >
             <mat-icon color="primary">edit</mat-icon>
           </button>
