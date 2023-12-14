@@ -9,7 +9,7 @@ import { ServiceService } from 'src/app/shared/service.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'] 
 })
 export class UserComponent {
 
@@ -17,7 +17,7 @@ export class UserComponent {
   status: any;
   dialog: any;
 
-  displayedColumns: string[] = ['username', 'mobileno', 'businessid', 'userrole', 'status', 'action'];
+  displayedColumns: string[] = ['userid', 'username', 'mobileno', 'businessid', 'userrole', 'status', 'action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

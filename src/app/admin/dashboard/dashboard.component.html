@@ -12,7 +12,7 @@
 >
   <mat-card class="example-card">
     <mat-card-header>
-      <div mat-card-avatar class="example-header1-image"></div>
+      <div mat-card-avatar class="example-header1-image"></div> 
       <mat-card-title style="font-size: 20px; display: flex"
         >Trial Business</mat-card-title
       >
@@ -74,6 +74,26 @@
     <h2 style="text-align: left; padding-left: 10px">Joinings</h2>
   </mat-card-title>
 </mat-card>
+
+<div>
+
+  <div style="display: block; width: 400px">
+    <canvas id="canvas" height="320">{{ chart }}</canvas>
+  </div>
+  <!-- <div style="display: block">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="mbarChartLabels"
+            [options]="barChartOptions"
+            [colors]="barChartColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div> -->
+
+
+</div>
 <!-- <highcharts-chart
   *ngIf="chartOptions"
   [Highcharts]="highcharts"
@@ -90,4 +110,6 @@
     [data]="barChartsData"
   ></canvas>
 </div> -->
+
+
 

@@ -15,13 +15,13 @@
     />
   </mat-form-field>
 
-  <div class="mat-elevation-z8 ">
+  <div class="mat-elevation-z8">
     <table class="table mx-3 px-3" mat-table [dataSource]="dataSource" matSort>
       <!-- ID Column -->
-      <!-- <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-      </ng-container> -->
+      <ng-container matColumnDef="userid">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.userid }}</td>
+      </ng-container>
 
       <!-- Progress Column -->
       <ng-container matColumnDef="username">
@@ -54,8 +54,8 @@
         <td mat-cell *matCellDef="let row">
           <button
             (click)="(openEditUserForm)"
-            routerLink="users/{{ row.id }}/edit"
-          > 
+            routerLink="/users/{{ row.userid }}/edit"
+          >
             <mat-icon color="primary">edit</mat-icon>
           </button>
         </td>

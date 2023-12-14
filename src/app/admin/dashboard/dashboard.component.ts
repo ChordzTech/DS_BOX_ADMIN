@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Chart } from "chart.js";
 import { isFormArray } from '@angular/forms';
 import * as pluginDataLables from 'chartjs-plugin-datalabels'
 
@@ -8,12 +9,53 @@ import * as pluginDataLables from 'chartjs-plugin-datalabels'
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+barChartType: any;
 
-   constructor() {}
+  constructor() { }
 
 
-  ngOnInit(): void {
-    // this.barChart();
+  public chart: Chart | undefined;
+  ngOnInit() {
+    this.chart = new Chart("canvas", {
+      type: "bar",
+      data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [
+          {
+            label: "# of Votes",
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)"
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)"
+            ],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          // yAxes: [
+          //   {
+          //     ticks: {
+          //       beginAtZero: true
+          //     }
+          //   }
+          // ]
+        }
+      }
+    });
   }
 
 
@@ -25,7 +67,7 @@ export class DashboardComponent implements OnInit {
   //   public mbarChartLabels:string[] = ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
   //   public barChartType:string = 'bar';
   //   public barChartLegend:boolean = true;
-  
+
   //   public barChartColors:Array<any> = [
   //   {
   //     backgroundColor: 'rgba(105,159,177,0.2)',
@@ -48,16 +90,16 @@ export class DashboardComponent implements OnInit {
   //     {data: [55, 60, 75, 82, 56, 62, 80], label: 'Company A'},
   //     {data: [58, 55, 60, 79, 66, 57, 90], label: 'Company B'}
   //   ];
-  
+
   //   // events
   //   public chartClicked(e:any):void {
   //     console.log(e);
   //   }
-  
+
   //   public chartHovered(e:any):void {
   //     console.log(e);
   //   }
-  
+
   //   public randomize():void {
   //     let data = [
   //       Math.round(Math.random() * 100),
@@ -105,7 +147,7 @@ export class DashboardComponent implements OnInit {
   // chartOptions: any;
   // highcharts: typeof HighCharts = HighCharts;
 
- 
+
 
   // // highchart Data
   // chartData = [
@@ -121,7 +163,7 @@ export class DashboardComponent implements OnInit {
   //     name: 'Year 2018',
   //     data: [731, 689, 8524, 321]
   //   }
-   
+
   // ]
 
 
