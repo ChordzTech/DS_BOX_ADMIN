@@ -16,11 +16,31 @@ mat-card-title {
     padding-left: 20px;
     color: black;
 }
-table{
+.mat-elevation-z8{
     width: 100%;
-    text-align: center;
-    margin-right: 0;
+    overflow-x: auto;
+    // height: 350px;
 }
+
+@media only screen and (max-width: 800px) {
+    .mat-elevation-z8{
+      width: 95%;
+      height: 45%;
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    .mat-elevation-z8{
+      width: 300px;
+      height: 300px;
+    }
+  }
+  @media only screen and (max-width: 350px) {
+    .mat-elevation-z8{
+      width: 90%;
+      height: 90%;
+    }
+  }
+ 
  
 .main-body{
     padding: 20px;

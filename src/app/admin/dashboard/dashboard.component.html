@@ -1,18 +1,18 @@
-<mat-card>
+<!-- <mat-card>
   <mat-card-title>
     <b>Welcome To DS Box Admin Pannel</b>
   </mat-card-title>
-</mat-card>
+</mat-card> -->
 
-<div
+<div class="pb-3 "
   fxLayout="row wrap"
   fxLayout.xs="column"
   fxLayoutAlign="space-around center"
   fxLayoutGap="5px"
 >
-  <mat-card class="example-card">
+  <mat-card class="example-card card-1">
     <mat-card-header>
-      <div mat-card-avatar class="example-header1-image"></div> 
+      <div mat-card-avatar class="example-header1-image"></div>
       <mat-card-title style="font-size: 20px; display: flex"
         >Trial Business</mat-card-title
       >
@@ -27,7 +27,7 @@
       </button>
     </mat-card-actions> -->
   </mat-card>
-  <mat-card class="example-card">
+  <mat-card class="example-card card-1">
     <mat-card-header>
       <div mat-card-avatar class="example-header2-image"></div>
       <mat-card-title style="font-size: 20px">Active Business</mat-card-title>
@@ -41,7 +41,7 @@
       <button mat-button>View</button>
     </mat-card-actions> -->
   </mat-card>
-  <mat-card class="example-card">
+  <mat-card class="example-card card-1">
     <mat-card-header>
       <div mat-card-avatar class="example-header3-image"></div>
       <mat-card-title style="font-size: 20px">Expired Business</mat-card-title>
@@ -55,7 +55,7 @@
       <button mat-button>View</button>
     </mat-card-actions> -->
   </mat-card>
-  <mat-card class="example-card">
+  <mat-card class="example-card card-1">
     <mat-card-header>
       <div mat-card-avatar class="example-header4-image"></div>
       <mat-card-title style="font-size: 20px">All Business</mat-card-title>
@@ -69,18 +69,17 @@
     </mat-card-actions> -->
   </mat-card>
 </div>
-<mat-card>
-  <mat-card-title>
-    <h2 style="text-align: left; padding-left: 10px">Joinings</h2>
-  </mat-card-title>
-</mat-card>
-
-<div>
-
-  <div style="display: block; width: 400px">
-    <canvas id="canvas" height="320">{{ chart }}</canvas>
+<div class="card my-2 me-4">
+  <h2 class="p-3" style="text-align: left; padding-left: 10px">Joinings</h2>
+  <div class="card-body chartBox mx-auto">
+    <canvas id="canvas" >{{ chart }}</canvas>
   </div>
-  <!-- <div style="display: block">
+</div>
+
+<!-- <div>
+
+ 
+  <div style="display: block">
     <canvas baseChart
             [datasets]="barChartData"
             [labels]="mbarChartLabels"
@@ -90,10 +89,10 @@
             [chartType]="barChartType"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas>
-  </div> -->
+  </div>
 
 
-</div>
+</div> -->
 <!-- <highcharts-chart
   *ngIf="chartOptions"
   [Highcharts]="highcharts"
@@ -110,6 +109,3 @@
     [data]="barChartsData"
   ></canvas>
 </div> -->
-
-
-

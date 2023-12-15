@@ -1,6 +1,6 @@
 <mat-card class="head-title">
   <mat-card-title>
-    <b>Users</b>
+    <b><i class="fa-solid fa-users"></i> Users</b>
   </mat-card-title>
 </mat-card>
 
@@ -15,8 +15,8 @@
     />
   </mat-form-field>
 
-  <div class="mat-elevation-z8">
-    <table class="table mx-3 px-3" mat-table [dataSource]="dataSource" matSort>
+  <div class="mat-elevation-z8 me-2 ps-3">
+    <table class="table" mat-table [dataSource]="dataSource" matSort>
       <!-- ID Column -->
       <ng-container matColumnDef="userid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
