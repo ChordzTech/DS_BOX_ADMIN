@@ -27,7 +27,7 @@ export class NonSubsUsersComponent implements OnInit {
   constructor(private service: ServiceService) { }
 
   getUsersList() {
-    this.service.getAllUsers().subscribe({
+    this.service.getAllUserDetails().subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;

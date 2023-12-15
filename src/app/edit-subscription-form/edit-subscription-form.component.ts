@@ -9,18 +9,14 @@ import { ServiceService } from '../shared/service.service';
 })
 export class EditSubscriptionFormComponent {
 
-  editSubscriptionForm = this.builder.group({ 
-    businessname: this.builder.control('', Validators.required),
-    contactno: this.builder.control('', Validators.required),
-    subscriptiondate: this.builder.control('', Validators.required),
+  editSubscriptionForm = this.builder.group({
     subscription: this.builder.control('', Validators.required),
-    useraccess: this.builder.control('', Validators.required),
-    androidId: this.builder.control('', Validators.required),
-    deviceInfo: this.builder.control('', Validators.required),
-    status: this.builder.control(false),
+    duration: this.builder.control('', Validators.required),
+    amount: this.builder.control('', Validators.required),
+    status: this.builder.control(''),
   });
 
-    
+
   constructor(private builder: FormBuilder, private service: ServiceService) {
   }
 

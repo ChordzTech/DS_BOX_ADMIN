@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EdituserFormComponent } from 'src/app/edituser-form/edituser-form.component';
 import { ServiceService } from 'src/app/shared/service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -12,35 +13,23 @@ import { ServiceService } from 'src/app/shared/service.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
-
-  subscription: any;
-  status: any;
-  dialog: any;
-
-  displayedColumns: string[] = ['username', 'mobileno', 'businessid', 'userrole', 'status', 'action'];
+  displayedColumns: string[] = ['username', 'mobileno', 'userrole', 'action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
 
-
+  constructor(private service: ServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getUsersList();
-
-    
-  }
-  constructor(private service: ServiceService, dialog: MatDialog) { }
-
-  openEditUserForm() {
-    this.dialog.open(EdituserFormComponent)
+    this.getUsersList()
   }
 
   getUsersList() {
-    this.service.getAllUsers().subscribe({
+    this.service.getAllUserDetails().subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource(res);
+        console.log(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
@@ -49,31 +38,6 @@ export class UserComponent {
       }
     })
   }
-
-//   getUsersSubscriptList() {
-//     this.service.getUserSubscription().subscribe({
-//       next: (res: any) => {
-//         this.subscription = res;
-//         this.checkStatus();
-//       },
-//       error: (err: any) => {
-//         alert(err);
-//       }
-//     })
-//   }
-
-//   checkStatus(): void {
-//     const currentDate = new Date();
-//     const subscriptionStartDate = new Date(this.subscription.subscriptiondate);
-
-//     if (subscriptionStartDate < currentDate) {
-//       this.status = 'expired', `<style>color: red</style>`;
-//     } else if (subscriptionStartDate === currentDate) {
-//       this.status = 'expiring today';
-//     } else if (subscriptionStartDate > currentDate) {
-//       this.status = 'active';
-//     }
-//  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -84,19 +48,7 @@ export class UserComponent {
     }
   }
 
- 
-  // ReadMore:boolean = true
-
-  
-  // visible:boolean = false
-
-
- 
-  // onclick()
-  // {
-  //   this.ReadMore = !this.ReadMore; 
-  //   this.visible = !this.visible;
-    
-  // }
-
+  onBtnClick() {
+    this.router.navigate(['/editusers']);
+  }
 }

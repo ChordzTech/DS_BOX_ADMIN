@@ -33,7 +33,7 @@ export class MultiUsersComponent implements OnInit {
   }
 
   getUsersList() {
-    this.service.getAllUsers().subscribe({
+    this.service.getAllUserDetails().subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;

@@ -5,6 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EditSubscriptionFormComponent } from 'src/app/edit-subscription-form/edit-subscription-form.component';
 import { ServiceService } from 'src/app/shared/service.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-subscripton',
@@ -18,21 +20,18 @@ export class SubscriptonComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  dialog: any;
-
-
-
+  
   ngOnInit(): void {
     this.getSubscriptionList()
   }
-  constructor(private service: ServiceService, dialog: MatDialog) { }
+  constructor(private service: ServiceService, private router: Router) { }
 
-  openEditSubscription(){
-    this.dialog.open(EditSubscriptionFormComponent)
-  }
+  // openEditSubscription(){
+  //   this.dialog.open(EditSubscriptionFormComponent)
+  // }
 
   getSubscriptionList() {
-    this.service.getSubscription().subscribe({
+    this.service.getAllSubscriptionsDetails().subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
@@ -53,6 +52,7 @@ export class SubscriptonComponent {
     }
   }
 
- 
-
+  onBtnClick() {
+    this.router.navigate(['/editsubscription']);
+  }
 }

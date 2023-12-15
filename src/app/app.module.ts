@@ -23,8 +23,8 @@ import { NonSubsUsersComponent } from './admin/dashboard/user/non-subs-users/non
 import { MultiUsersComponent } from './admin/dashboard/user/multi-users/multi-users.component';
 import { SingleUsersComponent } from './admin/dashboard/user/single-users/single-users.component';
 import { MatTableModule } from '@angular/material/table';
-import {MatSortModule} from '@angular/material/sort';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule } from '@angular/common/http';
 import { NgChartsModule } from 'ng2-charts';
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -36,6 +36,7 @@ import { BusinessComponent } from './admin/dashboard/business/business.component
 import { SubscriptonComponent } from './admin/dashboard/subscripton/subscripton.component';
 import { EditSubscriptionFormComponent } from './edit-subscription-form/edit-subscription-form.component';
 import { EditBusinessFormComponent } from './edit-business-form/edit-business-form.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { EditBusinessFormComponent } from './edit-business-form/edit-business-fo
     SubscriptonComponent,
     EditSubscriptionFormComponent,
     EditBusinessFormComponent,
+    ChangePasswordComponent,
 
 
   ],

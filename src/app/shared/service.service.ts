@@ -6,35 +6,32 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class ServiceService {
-  getById(code: any) {
-    throw new Error('Method not implemented.');
-  }
 
   constructor(private http: HttpClient) { }
 
+  //BusinessDetails API
+  getAllBusinessDetails(): Observable<any> {
+    return this.http.get("http://localhost:3000/business");
 
-  //fetch Data
-  getAllUsers(): Observable<any> {
-    return this.http.get("http://localhost:3000/users");
-    // return this.http.get("https://dsboxapi.beatsacademy.in/api/UserDetails/");
-
+    // return this.http.get("https://dsboxapi.beatsacademy.in/api/BusinessDetails");
   }
 
-  getSubscription(): Observable<any> {
+  //SubscriptionsDetails API
+  getAllSubscriptionsDetails(): Observable<any> {
     return this.http.get("http://localhost:3000/subscriptionData");
+
+    // return this.http.get("https://dsboxapi.beatsacademy.in/api/SubscriptionsDetails/");
   }
 
-  getAllBusiuness(): Observable<any> {
-    return this.http.get("http://localhost:3000/business");
+  //UserDetails API
+  getAllUserDetails(): Observable<any> {
+    return this.http.get("http://localhost:3000/users");
+
+    // return this.http.get("https://dsboxapi.beatsacademy.in/api/UserDetails/");
   }
 
-  getUserSubscription(): Observable<any> {
-    return this.http.get("http://localhost:3000/business");
+  // Update Data
+  updateBusinessDetails(businessid: number, data: any): Observable<any> {
+    return this.http.put(`https://dsboxapi.beatsacademy.in/api/BusinessDetails/${businessid}`, data);
   }
-
-  //Update Data
-  updateUsers(id: number, data: any): Observable<any> {
-    return this.http.get("http://localhost:3000/users/$(id), user");
-  }
-
 }

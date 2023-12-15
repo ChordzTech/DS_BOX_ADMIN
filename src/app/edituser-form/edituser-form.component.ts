@@ -13,7 +13,6 @@ export class EdituserFormComponent implements OnInit {
   id: any;
 
   
-
   editUserForm = this.builder.group({
     username: this.builder.control('', Validators.required),
     mobile: this.builder.control('', Validators.required),

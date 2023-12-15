@@ -4,21 +4,14 @@
   </mat-card-title>
 </mat-card>
 
-<div
-  fxLayout="row wrap"
-  fxLayout.xs="column"
-  fxLayoutAlign="space-around center"
-  fxLayoutGap="5px"
->
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around left" fxLayoutGap="5px">
   <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header1-image"></div>
-      <mat-card-title style="font-size: 20px; display: flex"
-        >Trial Business</mat-card-title
-      >
+      <mat-card-title style="font-size: 20px; display: flex">Trial Businesses</mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
-      <!-- <p class="para">{{ trialcount }}</p> -->
       <p class="para">7170</p>
     </mat-card-content>
     <!-- <mat-card-actions>
@@ -30,11 +23,10 @@
   <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header2-image"></div>
-      <mat-card-title style="font-size: 20px">Active Business</mat-card-title>
+      <mat-card-title style="font-size: 20px">Active Businesses</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-      <!-- <p class="para">{{ activecount }}</p> -->
       <p class="para">452</p>
     </mat-card-content>
     <!-- <mat-card-actions>
@@ -44,11 +36,10 @@
   <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header3-image"></div>
-      <mat-card-title style="font-size: 20px">Expired Business</mat-card-title>
+      <mat-card-title style="font-size: 20px">Expired Businesses</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-      <!-- <p class="para">{{ expiredcount }}</p> -->
       <p class="para">7512</p>
     </mat-card-content>
     <!-- <mat-card-actions>
@@ -58,11 +49,10 @@
   <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header4-image"></div>
-      <mat-card-title style="font-size: 20px">All Business</mat-card-title>
+      <mat-card-title style="font-size: 20px">All Businesses</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <!-- <p class="para">{{ allcount }}</p> -->
-      <p class="para">7622</p>
+      <p class="para">7513</p>
     </mat-card-content>
     <!-- <mat-card-actions>
       <button mat-button>View</button>
@@ -70,24 +60,16 @@
   </mat-card>
 </div>
 <mat-card>
-  <mat-card-title>
-    <h2 style="text-align: left; padding-left: 10px">Joinings</h2>
-  </mat-card-title>
+  <mat-card-content>
+    <h2>Device Info</h2>
+    <p class="p-text">
+      OS : Win64 Device : x64
+    </p>
+  </mat-card-content>
 </mat-card>
-<!-- <highcharts-chart
-  *ngIf="chartOptions"
-  [Highcharts]="highcharts"
-  [options]="chartOptions"
-  >
-</highcharts-chart> -->
-
-<!-- <div class="chat-wrapper">
-  <canvas
-    baseChart
-    width="300"
-    height="200"
-    type="bar"
-    [data]="barChartsData"
-  ></canvas>
-</div> -->
-
+<div class="card my-2 me-4">
+  <h2 class="p-3" style="text-align: left; padding-left: 10px">Joinings</h2>
+  <div class="card-body chartBox mx-auto">
+    <canvas id="canvas">{{ chart }}</canvas>
+  </div>
+</div>

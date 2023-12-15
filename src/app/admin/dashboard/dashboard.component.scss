@@ -5,20 +5,20 @@ mat-card {
   background-color: rgb(238, 238, 238);
   height: 80px;
 }
- 
+
 mat-card-title {
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   justify-content: center;
   text-align: center;
-  font-size: 25px;
+  font-size: 30px;
   color: black;
 }
 
 
 .example-card {
   max-width: 300px;
-  height: 80px;
+  height: 100px;
 }
 
 
@@ -26,6 +26,7 @@ h1,
 h2,
 h3 {
   font-weight: bold;
+  word-spacing: 5px;
 }
 
 p {
@@ -36,15 +37,14 @@ p {
 .para {
   font-weight: bold;
   font-size: medium;
-  padding-bottom: 10px;
+  // padding-bottom: 10px;
 }
 
 .p-text {
-  font-size: medium;
- 
+  font-size: large;
   word-spacing: 5px;
-  text-align: start;
-  padding-left: 20px;
+  text-align: left;
+  // padding-left: 20px;
   font-weight: 500;
 }
 
@@ -59,6 +59,7 @@ p {
   background-size: cover;
 
 }
+
 .example-header3-image {
   // background-image: url('https://www.citypng.com/public/uploads/preview/blue-notification-bell-icon-png-img-11638985034lcbypudcig.png?v=2023062810');
   background-image: url(../../../assets/image/user.png);
@@ -80,5 +81,37 @@ mat-card-actions {
 
     color: white;
     background: black;
+  }
+}
+
+.chartBox {
+  display: block;
+  width: 800px;
+  height: 300px;
+}
+
+
+@media only screen and (max-width: 800px) {
+  .chartBox {
+    width: 90%;
+    height: 45%;
+  }
+
+  .card-1 {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .chartBox {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .chartBox {
+    width: 90%;
+    height: 90%;
   }
 }

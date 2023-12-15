@@ -2,122 +2,65 @@
   <div class="card px-5 py-3">
     <mat-card-title>
       <h2 class="py-2 border-bottom">
-        <i class="fa-solid fa-user"></i> Edit User Details
+        <i class="fa-solid fa-user"></i> User Details
       </h2>
     </mat-card-title>
     <mat-card-content>
       <form [formGroup]="editUserForm" (ngSubmit)="updateUserDetails()">
         <div class="row mb-3">
-          <label for="username" class="col-sm-2 col-form-label"
-            >User Name</label
-          >
+          <label for="username" class="col-sm-2 col-form-label">User Name</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="username" />
+            <input type="text" class="form-control" id="username" placeholder="User Name"/>
           </div>
         </div>
         <div class="row mb-3">
           <label for="mobile" class="col-sm-2 col-form-label">Mobile No.</label>
           <div class="col-sm-10">
-            <input type="number" class="form-control" id="mobile" />
+            <input type="number" class="form-control" id="mobile" placeholder="Mobile No"/>
           </div>
         </div>
         <div class="row mb-3">
-          <label for="businessname" class="col-sm-2 col-form-label"
-            >Business Name</label
-          >
+          <label for="businessname" class="col-sm-2 col-form-label">Business Name</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="businessname" />
+            <input type="text" class="form-control" id="businessname" placeholder="Business Name"/>
           </div>
         </div>
         <div class="row mb-3">
-          <label for="userrole" class="col-sm-2 col-form-label"
-            >User Role</label
-          >
+          <label for="userrole" class="col-sm-2 col-form-label">User Role</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="userrole" />
+            <input type="text" class="form-control" id="userrole" placeholder="User Role"/>
           </div>
         </div>
         <div class="row mb-3">
-          <label for="useraccess" class="col-sm-2 col-form-label"
-            >User Access</label
-          >
+          <label for="useraccess" class="col-sm-2 col-form-label">User Access</label>
           <div class="col-sm-10">
-            <input type="number" class="form-control" id="useraccess" />
+            <input type="number" class="form-control" id="useraccess" placeholder="User Access"/>
           </div>
         </div>
         <div class="row mb-3">
-          <label for="androidId" class="col-sm-2 col-form-label"
-            >Android Id</label
-          >
+          <label for="androidId" class="col-sm-2 col-form-label">Android ID</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="androidId" />
+            <input type="text" class="form-control" id="androidId" placeholder="Android ID"/>
           </div>
         </div>
         <div class="row mb-3">
-          <label for="deviceInfo" class="col-sm-2 col-form-label"
-            >Device Info</label
-          >
+          <label for="deviceInfo" class="col-sm-2 col-form-label">Device Info</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" id="deviceInfo" />
+            <input type="email" class="form-control" id="deviceInfo" placeholder="Device Info"/>
           </div>
         </div>
         <div class="row mb-3">
           <label for="status" class="col-sm-2 col-form-label">Status</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="status" />
+            <input type="text" class="form-control" id="status" placeholder="Status"/>
           </div>
         </div>
-        <div fxLayoutGap="40px">
+        <div fxLayoutGap="25px"><br>
           <button type="button" class="btn btn-primary">
             Update
           </button>
           <button type="button" class="btn btn-danger" routerLink="/users">Close</button>
         </div>
-          <!-- <button type="button" class="btn btn-secondary">Secondary</button> -->
-          
-        
-
-        <!-- <mat-form-field class="example-full-width d-flex">
-          <mat-label>User Name</mat-label>
-          <input matInput placeholder="" formControlName="username" />
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <mat-label>Mobile NO.</mat-label>
-          <input matInput placeholder="" formControlName="mobile" />
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>Business Name</mat-label>
-          <input matInput placeholder="" formControlName="businessname" />
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>User Role</mat-label>
-          <input matInput placeholder="" formControlName="userrole" />
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>User Access</mat-label>
-          <input matInput placeholder="" formControlName="useraccess" />
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>Android ID</mat-label>
-          <input matInput placeholder="" formControlName="androidId" />
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>Device Info</mat-label>
-          <input matInput placeholder="" formControlName="deviceInfo" />
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>Status</mat-label>
-          <input matInput placeholder="" formControlName="status" />
-        </mat-form-field>
-        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="25px">
-          <button type="submit" mat-raised-button color="primary">
-            Update
-          </button>
-          <button mat-raised-button color="warn" routerLink="/users">
-            Close
-          </button>
-        </div> -->
       </form>
     </mat-card-content>
   </div>

@@ -18,11 +18,12 @@ import { SubscriptonComponent } from './admin/dashboard/subscripton/subscripton.
 import { BusinessComponent } from './admin/dashboard/business/business.component';
 import { EditSubscriptionFormComponent } from './edit-subscription-form/edit-subscription-form.component';
 import { EditBusinessFormComponent } from './edit-business-form/edit-business-form.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent, 
+    component: HomeComponent,
     children: [
       { path: 'users', component: UserComponent },
       { path: 'dashboard', component: DashboardComponent },
@@ -31,10 +32,11 @@ const routes: Routes = [
       // { path: 'users/multiusers', component: MultiUsersComponent },
       // { path: 'users/nonsubsusers', component: NonSubsUsersComponent },
       // { path: 'users/nonsubsusers/:id/edit', component: EdituserFormComponent },
-      { path: 'users/:id/edit', component: EdituserFormComponent },
-      { path: 'subscription/:id/edit', component: EditSubscriptionFormComponent },
-      { path: 'business/:id/edit', component: EditBusinessFormComponent },
+      { path: 'editusers', component: EdituserFormComponent },
+      { path: 'editsubscription', component: EditSubscriptionFormComponent },
+      { path: 'editbusiness', component: EditBusinessFormComponent },
       // { path: 'users/singleusers', component: SingleUsersComponent },
+      { path: 'changepassword', component: ChangePasswordComponent },
       { path: 'settings', component: SettingsComponent },
     ]
   },
