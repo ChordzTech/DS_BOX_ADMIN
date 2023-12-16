@@ -36,6 +36,7 @@ import { BusinessComponent } from './admin/dashboard/business/business.component
 import { SubscriptonComponent } from './admin/dashboard/subscripton/subscripton.component';
 import { EditSubscriptionFormComponent } from './edit-subscription-form/edit-subscription-form.component';
 import { EditBusinessFormComponent } from './edit-business-form/edit-business-form.component';
+import { ChangePasswordComponent } from './admin/dashboard/change-password/change-password.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { EditBusinessFormComponent } from './edit-business-form/edit-business-fo
     SubscriptonComponent,
     EditSubscriptionFormComponent,
     EditBusinessFormComponent,
+    ChangePasswordComponent,
 
 
   ],

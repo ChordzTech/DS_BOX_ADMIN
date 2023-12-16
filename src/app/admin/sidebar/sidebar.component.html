@@ -4,7 +4,7 @@
             notifications_none
         </mat-icon> 
      </div> -->
-  <div class="user px-4">
+  <div class="user ps-5 ">
     <img
       src="https://cdn.pixabay.com/photo/2020/07/14/13/07/icon-5404125_960_720.png"
       alt=""
@@ -23,21 +23,25 @@
         <mat-icon>dashboard</mat-icon>
         <span>Home</span>
       </button>
+      <button mat-button class="menu-button" [routerLink]="['/business']">
+        <mat-icon>account_tree</mat-icon>
+        <span>Business</span>
+      </button>
       <button mat-button class="menu-button" [routerLink]="['/users']">
         <mat-icon>people</mat-icon>
         <span>Users</span>
       </button>
       <button mat-button class="menu-button" [routerLink]="['/subscription']">
-        <mat-icon>analytics</mat-icon>
+        <mat-icon>currency_rupee</mat-icon>
         <span>Subscription</span>
       </button>
-      <button mat-button class="menu-button" [routerLink]="['/business']">
-        <mat-icon>account_tree</mat-icon>
-        <span>Business</span>
+      <button mat-button class="menu-button" [routerLink]="['/changePassword']">
+        <mat-icon>lock_reset</mat-icon>
+        <span>Change Password</span>
       </button>
       <button mat-button class="menu-button" [routerLink]="['/settings']">
         <mat-icon>settings</mat-icon>
-        <span>Default Settings</span>
+        <span>App Config</span>
       </button>
       <button mat-button class="menu-button" routerLink="/login">
         <mat-icon>logout</mat-icon>

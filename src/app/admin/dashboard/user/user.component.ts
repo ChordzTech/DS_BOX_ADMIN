@@ -33,7 +33,7 @@ export class UserComponent {
 
   openEditUserForm() {
     this.dialog.open(EdituserFormComponent)
-  }
+  } 
 
   getUsersList() {
     this.service.getAllUsers().subscribe({

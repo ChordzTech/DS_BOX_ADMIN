@@ -18,6 +18,7 @@ import { SubscriptonComponent } from './admin/dashboard/subscripton/subscripton.
 import { BusinessComponent } from './admin/dashboard/business/business.component';
 import { EditSubscriptionFormComponent } from './edit-subscription-form/edit-subscription-form.component';
 import { EditBusinessFormComponent } from './edit-business-form/edit-business-form.component';
+import { ChangePasswordComponent } from './admin/dashboard/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'subscription', component: SubscriptonComponent },
       { path: 'business', component: BusinessComponent },
+      { path: 'changePassword', component: ChangePasswordComponent },
       // { path: 'users/multiusers', component: MultiUsersComponent },
       // { path: 'users/nonsubsusers', component: NonSubsUsersComponent },
       // { path: 'users/nonsubsusers/:id/edit', component: EdituserFormComponent },
