@@ -2,10 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { EditBusinessFormComponent } from 'src/app/edit-business-form/edit-business-form.component';
 import { ServiceService } from 'src/app/shared/service.service';
 import { Router } from '@angular/router';
-
+import { Business } from 'src/app/models';
 
 @Component({
   selector: 'app-business',
@@ -13,8 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./business.component.scss']
 })
 export class BusinessComponent {
-  displayedColumns: string[] = ['businessname', 'contactno', 'multiuser', 'status', 'subscriptiondate', 'action'];
-  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = ['id','businessname', 'contactno', 'multiuser', 'status', 'activationdate', 'action'];
+  dataSource!: MatTableDataSource<Business>;
+  public business!: Business[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort; 
@@ -27,7 +27,9 @@ export class BusinessComponent {
   getBusinessList() {
     this.service.getAllBusinessDetails().subscribe({
       next: (res: any) => {
-       this.dataSource = new MatTableDataSource(res);
+        this.business = res;
+        this.dataSource = new MatTableDataSource(this.business);
+        console.log(this.business);
        this.dataSource.sort = this.sort;
        this.dataSource.paginator = this.paginator;
       },
@@ -46,7 +48,7 @@ export class BusinessComponent {
     }
   }
 
-  onBtnClick(){
-    this.router.navigate(['/editbusiness']);
+  edit(id: number) {
+    this.router.navigate(['editbusiness', id]);
   }
 }

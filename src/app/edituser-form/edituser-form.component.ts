@@ -1,83 +1,71 @@
+import { User } from '../models';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/service/auth.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
 
 @Component({
-  selector: 'app-edituser-form', 
+  selector: 'app-edituser-form',
   templateUrl: './edituser-form.component.html',
   styleUrls: ['./edituser-form.component.scss']
 })
 export class EdituserFormComponent implements OnInit {
-  editData: any;
-  id: any;
 
-  
-  editUserForm = this.builder.group({
-    username: this.builder.control('', Validators.required),
-    mobile: this.builder.control('', Validators.required),
-    businessname: this.builder.control('', Validators.required),
-    userrole: this.builder.control('', Validators.required),
-    useraccess: this.builder.control('', Validators.required),
-    androidId: this.builder.control('', Validators.required),
-    deviceInfo: this.builder.control('', Validators.required),
-    status: this.builder.control(false),
-  });
+  usersForm!: FormGroup;
+  public userIdToUpdate!: number;
 
-
-  constructor(private builder: FormBuilder, private service: ServiceService) {
-  }
+  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    // this.service.getById()
-    this.loadUserdetail(1);
-
-  }
-
-
-  loadUserdetail(code: any) {
-
-    this.editData = {
-      username: "abc",
-      mobile: '9877665566',
-      businessname: 'kj',
-      userrole: 'iuiu',
-      useraccess: 'iuiui',
-      androidId: 'fdf',
-      deviceInfo: 'dd',
-      status: 'hjh'
-
-    }
-    this.editUserForm.setValue({
-      username: this.editData.username,
-      mobile: this.editData.mobile,
-      businessname: this.editData.businessname,
-      userrole: this.editData.userrole,
-      useraccess: this.editData.useraccess,
-      androidId: this.editData.androidId,
-      deviceInfo: this.editData.deviceInfo,
-      status: this.editData.status
+    this.usersForm = this.fb.group({
+      id: [''],
+      businessid: [''],
+      userpassword: [''],
+      username: [''],
+      mobileno: [''],
+      userrole: [''],
+      useraccess: [''],
+      androidid: [''],
+      deviceinfo: [''],
+      status: ['']
     });
 
-    // this.service.getById(code).subscribe(res => {
-
-    //   this.editData = res;
-    //   console.log(this.editData);
-    //   this.registerForm.setValue({
-    //     username: this.editData.id, mobile: this.editData.phone,
-    //     businessname: this.editData.busines, userrole: this.editData.role, useraccess: this.editData.access,
-    //     androidId: this.editData.androidId, deviceInfo: this.editData.deviceInfo,
-    //     status: this.editData.status
-    //   });
-
-
-    // })
+    this.activatedRoute.params.subscribe(val => {
+      this.userIdToUpdate = val['id'];
+      this.service.getUserId(this.userIdToUpdate)
+        .subscribe({
+          next: (res) => {
+            this.fillFormToUpdate(res);
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        })
+    })
   }
 
-  updateUserDetails() {
-    console.log(this.editUserForm.value)
+  fillFormToUpdate(user: User) {
+    this.usersForm.setValue({
+      id: user.id,
+      businessid: user.businessid,
+      userpassword: user.userpassword,
+      username: user.username,
+      mobileno: user.mobileno,
+      userrole: user.userrole,
+      useraccess: user.useraccess,
+      androidid: user.androidid,
+      deviceinfo: user.deviceinfo,
+      status: user.status,
 
+    })
   }
 
-
+  update() {
+    this.service.updateUser(this.usersForm.value, this.userIdToUpdate)
+      .subscribe(res => {
+        alert("Update Successfully...");
+        this.router.navigate(['users']);
+        this.usersForm.reset();
+      });
+  }
 }

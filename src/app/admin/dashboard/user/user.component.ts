@@ -1,20 +1,20 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { EdituserFormComponent } from 'src/app/edituser-form/edituser-form.component';
 import { ServiceService } from 'src/app/shared/service.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent {
-  displayedColumns: string[] = ['username', 'mobileno', 'userrole', 'action'];
-  dataSource!: MatTableDataSource<any>;
+export class UserComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'username', 'mobileno', 'userrole', 'action'];
+  dataSource!: MatTableDataSource<User>;
+  public users!: User[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -28,8 +28,9 @@ export class UserComponent {
   getUsersList() {
     this.service.getAllUserDetails().subscribe({
       next: (res: any) => {
-        this.dataSource = new MatTableDataSource(res);
-        console.log(res);
+        this.users = res;
+        this.dataSource = new MatTableDataSource(this.users);
+        console.log(this.users);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
@@ -48,7 +49,7 @@ export class UserComponent {
     }
   }
 
-  onBtnClick() {
-    this.router.navigate(['/editusers']);
+  edit(id: number) {
+    this.router.navigate(['editusers', id]);
   }
 }

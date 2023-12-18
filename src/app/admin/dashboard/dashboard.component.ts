@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from "chart.js";
-import { isFormArray } from '@angular/forms';
-import * as pluginDataLables from 'chartjs-plugin-datalabels'
+import { ServiceService } from 'src/app/shared/service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,13 +8,41 @@ import * as pluginDataLables from 'chartjs-plugin-datalabels'
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  trialBusinesses: any;
+  activeBusinesses: any;
+  expiredBusinesses: any;
+  allBusinesses :any;
 
   barChartType: any;
 
-  constructor() { }
+  constructor(private service: ServiceService) { }
 
   public chart: Chart | undefined;
+
+  private trialCount(data: any[], status: string): number {
+    return data.filter(item => item.status === status).length;
+  }
+  private activeCount(data: any[], status: string): number {
+    return data.filter(item => item.status === status).length;
+  }
+  private expiredCount(data: any[], status: string): number {
+    return data.filter(item => item.status === status).length;
+  }
+
   ngOnInit() {
+    this.service.getAllBusinessDetails().subscribe({
+      next: (res: any) => {
+        this.trialBusinesses = this.trialCount(res, 'Trial');
+        this.activeBusinesses = this.activeCount(res, 'Active');
+        this.expiredBusinesses = this.expiredCount(res, 'Expired');
+        this.allBusinesses = res.length;
+      },
+      error: (err: any) => {
+        alert(err);
+      }
+    });
+    
+
     this.chart = new Chart("canvas", {
       type: "bar",
       data: {
@@ -68,7 +95,7 @@ export class DashboardComponent implements OnInit {
         ]
       },
       options: {
-        maintainAspectRatio:false,
+        maintainAspectRatio: false,
         scales: {
           // yAxes: [
           //   {
@@ -82,4 +109,3 @@ export class DashboardComponent implements OnInit {
     });
   }
 }
-  

@@ -8,6 +8,7 @@ import { ServiceService } from './shared/service.service';
 })
 export class AppComponent  {
   title = 'adminportal';
+  
 
   // ngOnInit(): void {
   //   this.getUsersList()
