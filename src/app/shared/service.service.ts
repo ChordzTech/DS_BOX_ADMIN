@@ -28,6 +28,10 @@ export class ServiceService {
     return this.http.get("http://localhost:3000/business");
   }
 
+  getAppConfig(): Observable<any> {
+    return this.http.get("http://localhost:3000/appConfig");
+  }
+
   getUserSubscription(): Observable<any> {
     return this.http.get("http://localhost:3000/business");
   }

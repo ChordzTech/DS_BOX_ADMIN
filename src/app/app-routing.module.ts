@@ -19,6 +19,7 @@ import { BusinessComponent } from './admin/dashboard/business/business.component
 import { EditSubscriptionFormComponent } from './edit-subscription-form/edit-subscription-form.component';
 import { EditBusinessFormComponent } from './edit-business-form/edit-business-form.component';
 import { ChangePasswordComponent } from './admin/dashboard/change-password/change-password.component';
+import { EditAppconfigFormComponent } from './edit-appconfig-form/edit-appconfig-form.component';
 
 const routes: Routes = [
   {
@@ -30,14 +31,16 @@ const routes: Routes = [
       { path: 'subscription', component: SubscriptonComponent },
       { path: 'business', component: BusinessComponent },
       { path: 'changePassword', component: ChangePasswordComponent },
+      { path: 'appConfig', component: SettingsComponent },
       // { path: 'users/multiusers', component: MultiUsersComponent },
       // { path: 'users/nonsubsusers', component: NonSubsUsersComponent },
       // { path: 'users/nonsubsusers/:id/edit', component: EdituserFormComponent },
       { path: 'users/:id/edit', component: EdituserFormComponent },
       { path: 'subscription/:id/edit', component: EditSubscriptionFormComponent },
       { path: 'business/:id/edit', component: EditBusinessFormComponent },
+      { path: 'appConfig/:id/edit', component: EditAppconfigFormComponent },
       // { path: 'users/singleusers', component: SingleUsersComponent },
-      { path: 'settings', component: SettingsComponent },
+     
     ]
   },
 

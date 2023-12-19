@@ -25,7 +25,6 @@
       "salary": "74156"
     }
   ],
-  
   "admin": [
     {},
     {
@@ -58,6 +57,143 @@
       "duration": 365,
       "amount": 1799,
       "status": "1"
+    }
+  ],
+  "appConfig": [
+    {
+      "appConfigId": 1,
+      "configuration": "app.android.name",
+      "value": "in.dishaswarajsoft.dsbox"
+    },
+    {
+      "appConfigId": 2,
+      "configuration": "app.burstingfactor",
+      "value": 14
+    },
+    {
+      "appConfigId": 3,
+      "configuration": "app.conversionrate",
+      "value": 10
+    },
+    {
+      "appConfigId": 4,
+      "configuration": "app.flutefactor",
+      "value": 1.5
+    },
+    {
+      "appConfigId": 5,
+      "configuration": "app.gsm",
+      "value": 150
+    },
+    {
+      "appConfigId": 6,
+      "configuration": "app.help",
+      "value": 0
+    },
+    {
+      "appConfigId": 7,
+      "configuration": "app.help.customercare",
+      "value": 9421013332
+    },
+    {
+      "appConfigId": 8,
+      "configuration": "app.help.weblink",
+      "value": "dsbox.dishaswarajsoft.in/help.aspx"
+    },
+    {
+      "appConfigId": 9,
+      "configuration": "app.help.youtubechannelid",
+      "value": "https://www.youtube.com/"
+    },
+    {
+      "appConfigId": 10,
+      "configuration": "app.marginlength",
+      "value": 50
+    },
+    {
+      "appConfigId": 11,
+      "configuration": "app.marginwidth",
+      "value": 20
+    },
+    {
+      "appConfigId": 12,
+      "configuration": "app.name",
+      "value": "DS Box"
+    },
+    {
+      "appConfigId": 13,
+      "configuration": "app.payment.accountname",
+      "value": "Disha Swarajsoft"
+    },
+    {
+      "appConfigId": 14,
+      "configuration": "app.payment.accountno",
+      "value": 29882000000080
+    },
+    {
+      "appConfigId": 15,
+      "configuration": "app.payment.bankifsc",
+      "value": "HDFC0002988"
+    },
+     {
+      "appConfigId": 16,
+      "configuration": "app.payment.branch",
+      "value": "Uruli Kanchan, Pune"
+    },
+     {
+      "appConfigId": 17,
+      "configuration": "app.payment.qrcode",
+      "value": "HDFC0002988"
+    },
+    {
+      "appConfigId": 18,
+      "configuration": "app.profit",
+      "value": 15
+    },
+    {
+      "appConfigId": 19,
+      "configuration": "app.smsauthkey",
+      "value": 0
+    },
+    {
+      "appConfigId": 20,
+      "configuration": "app.tax",
+      "value": 18
+    },
+    {
+      "appConfigId": 21,
+      "configuration": "app.trial.addon.estimates",
+      "value": 1
+    },
+    {
+      "appConfigId": 22,
+      "configuration": "app.trial.days",
+      "value": 4
+    },
+    {
+      "appConfigId": 23,
+      "configuration": "app.trial.estimates",
+      "value": 15
+    },
+    {
+      "appConfigId": 24,
+      "configuration": "app.users",
+      "value": 6
+    },
+    {
+      "appConfigId": 25,
+      "configuration": "app.waste",
+      "value": 3
+    },
+    {
+      "appConfigId": 26,
+      "configuration": "primium.subscriptionend.notification",
+      "value": 5
+    },
+    {
+      "appConfigId": 27,
+      "configuration": "trial.subscription.end.notification",
+      "value": 2
     }
   ],
   "userSubscription": [
@@ -215,7 +351,7 @@
       "status": "Subscription Updated Till 26 Jul 2021"
     }
   ],
-  "business":[
+  "business": [
     {
       "businessid": 1000002,
       "businessname": "Rahul V. Kanchan",
@@ -761,7 +897,7 @@
       "waste": 3,
       "conversionrate": 9,
       "profit": 15,
-      "tax": 12, 
+      "tax": 12,
       "estimatenote": "",
       "activationdate": "2020-08-22",
       "subscriptiondate": "2020-11-05",
@@ -793,7 +929,7 @@
       "status": "Trial"
     }
   ],
-  "users":[
+  "users": [
     {
       "userid": 100000201,
       "businessid": 1000002,
