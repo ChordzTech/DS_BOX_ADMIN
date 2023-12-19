@@ -36,6 +36,10 @@ export class ServiceService {
     return this.http.get("http://localhost:3000/business");
   }
 
+  getChartInfo(){
+    return this.http.get("http://localhost:3000/joiningsData");
+  }
+
   //Update Data
   updateUsers(id: number, data: any): Observable<any> {
     return this.http.get("http://localhost:3000/users/$(id), user");

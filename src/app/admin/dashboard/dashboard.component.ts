@@ -1,87 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from "chart.js";
+import { Chart } from 'chart.js';
 import { isFormArray } from '@angular/forms';
-import * as pluginDataLables from 'chartjs-plugin-datalabels'
+import * as pluginDataLables from 'chartjs-plugin-datalabels';
+import { ServiceService } from 'src/app/shared/service.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-barChartType: any;
+  barChartType: any;
 
-  constructor() { }
-
+  constructor(private service: ServiceService) {}
 
   public chart: Chart | undefined;
   ngOnInit() {
-    this.chart = new Chart("canvas", {
-      type: "bar",
+    this.chart = new Chart('canvas', {
+      type: 'bar',
       data: {
-        labels: ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"],
+        labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'],
         datasets: [
           {
-            label: "# of Last week Joinings",
+            label: '# of Last week Joinings',
             data: [10, 14, 5, 4, 6, 17, 7],
-            backgroundColor: [
-              "rgb(134,142,150)"
-              // "rgba(255, 99, 132, 0.2)",
-              // "rgba(54, 162, 235, 0.2)",
-              // "rgba(255, 206, 86, 0.2)",
-              // "rgba(75, 192, 192, 0.2)",
-              // "rgba(153, 102, 255, 0.2)",
-              // "rgba(255, 159, 64, 0.2)"
-            ],
-            borderColor: [
-              "rgba(238,238,238, 1)",
-              // "rgba(54, 162, 235, 1)",
-              // "rgba(255, 206, 86, 1)",
-              // "rgba(75, 192, 192, 1)",
-              // "rgba(153, 102, 255, 1)",
-              // "rgba(255, 159, 64, 1)"
-            ],
-            borderWidth: 1
+            backgroundColor: ['rgb(134,142,150)'],
+            borderColor: ['rgba(238,238,238, 1)'],
+            borderWidth: 1,
           },
           {
-            label: "# of this week Joinings",
+            label: '# of this week Joinings',
             data: [12, 19, 3, 5, 2, 3, 9],
-            backgroundColor: [
-              // "rgba(255, 99, 132, 0.2)",
-              // "rgba(54, 162, 235, 0.2)",
-              "rgb(7,157,243)"
-              // "rgba(255, 206, 86, 0.2)",
-              // "rgba(75, 192, 192, 0.2)",
-              // "rgba(153, 102, 255, 0.2)",
-              // "rgba(255, 159, 64, 0.2)"
-            ],
-            borderColor: [
-              // "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              // "rgba(255, 206, 86, 1)",
-              // "rgba(75, 192, 192, 1)",
-              // "rgba(153, 102, 255, 1)",
-              // "rgba(255, 159, 64, 1)"
-            ],
-            borderWidth: 1
-          }
-        ]
+            backgroundColor: ['rgb(7,157,243)'],
+            borderColor: ['rgba(54, 162, 235, 1)'],
+            borderWidth: 1,
+          },
+        ],
       },
       options: {
-        maintainAspectRatio:false,
+        maintainAspectRatio: false,
         scales: {
-          // yAxes: [
-          //   {
-          //     ticks: {
-          //       beginAtZero: true
-          //     }
-          //   }
-          // ]
-        }
-      }
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
     });
   }
-
 
   // public barChartOptions:any = {
   //   scaleShowVerticalLines: false,
@@ -101,7 +66,7 @@ barChartType: any;
   //     pointHoverBackgroundColor: '#fafafa',
   //     pointHoverBorderColor: 'rgba(105,159,177)'
   //   },
-  //   { 
+  //   {
   //     backgroundColor: 'rgba(77,20,96,0.3)',
   //     borderColor: 'rgba(77,20,96,1)',
   //     pointBackgroundColor: 'rgba(77,20,96,1)',
@@ -166,12 +131,8 @@ barChartType: any;
   //   }
   // }
 
-
-
   // chartOptions: any;
   // highcharts: typeof HighCharts = HighCharts;
-
-
 
   // // highchart Data
   // chartData = [
@@ -190,12 +151,10 @@ barChartType: any;
 
   // ]
 
-
   trialcount: number = 0;
   activecount: number = 0;
   expiredcount: number = 0;
   allcount: number = 0;
-
 
   trialcountstop: any = setInterval(() => {
     this.trialcount++;
@@ -227,6 +186,5 @@ barChartType: any;
     if (this.allcount == 7622) {
       clearInterval(this.allcountstop);
     }
-  }, 1)
-
+  }, 1);
 }
