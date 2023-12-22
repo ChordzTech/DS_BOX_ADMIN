@@ -6,6 +6,9 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class ServiceService {
+
+  private apiUrl = 'http://localhost:3000/business'; 
+
   getById(code: any) {
     throw new Error('Method not implemented.');
   }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {MatMenuModule} from '@angular/material/menu';
 import { Router } from '@angular/router';
 
 @Component({

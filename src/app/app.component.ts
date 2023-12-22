@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from './shared/service.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-root',

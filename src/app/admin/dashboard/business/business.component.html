@@ -4,7 +4,12 @@
   </mat-card-title>
 </mat-card>
 
-<div class="main-body" fxLayout="row wrap" fxLayout.gt-md="column">
+<div
+  fxLayout="row wrap"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-around center"
+  fxLayoutGap="5px"
+>
   <mat-form-field style="padding-top: 15px">
     <mat-label>Search</mat-label>
     <input
@@ -15,6 +20,16 @@
     />
   </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Select an option</mat-label>
+    <mat-select  (selectionChange)="onChange($event.value)">
+      <mat-option value="">All</mat-option>
+      <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+   </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="main-body" fxLayout="row wrap" fxLayout.gt-md="column">
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <!-- ID Column -->

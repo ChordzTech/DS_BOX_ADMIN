@@ -3,6 +3,7 @@ import { Chart } from 'chart.js';
 import { isFormArray } from '@angular/forms';
 import * as pluginDataLables from 'chartjs-plugin-datalabels';
 import { ServiceService } from 'src/app/shared/service.service';
+import { result } from 'lodash';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,12 +12,42 @@ import { ServiceService } from 'src/app/shared/service.service';
 })
 export class DashboardComponent implements OnInit {
   barChartType: any;
+  chartData: any;
+  labledata: any[] = [];
+  realdata: any[] = [];
+  colordata: any[] = [];
 
-  constructor(private service: ServiceService) {}
+
+
+
+  constructor(private service: ServiceService) { }
 
   public chart: Chart | undefined;
-  ngOnInit() {
-    this.chart = new Chart('canvas', {
+  ngOnInit(): void {
+
+    this.service.getChartInfo().subscribe((result: any) => {
+      this.chartData = result;
+      if (this.chartData != null) {
+        for (let i = 0; i < this.chartData.length; i++) {
+          console.log(this.chartData[i].thisWeek);
+          // console.log(this.chartData[i].lastWeek);
+          // this.labledata.push(this.chartData[i].day);
+          // this.realdata.push(this.chartData[i].joinings);
+          // this.colordata.push(this.chartData[i].colorcode);
+        }
+
+        //
+        // this.realdata.push(this.chartData[i].thisWeek.joinings);
+        // this.colordata.push(this.chartData[i].thisWeek.colorcode);
+      }
+    })
+
+    this.RenderChart()
+
+
+  }
+  RenderChart() {
+    const myChart = new Chart('canvas', {
       type: 'bar',
       data: {
         labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'],
@@ -45,9 +76,8 @@ export class DashboardComponent implements OnInit {
           },
         },
       },
-    });
+    })
   }
-
   // public barChartOptions:any = {
   //   scaleShowVerticalLines: false,
   //   responsive: true

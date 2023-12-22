@@ -38,6 +38,8 @@ import { EditSubscriptionFormComponent } from './edit-subscription-form/edit-sub
 import { EditBusinessFormComponent } from './edit-business-form/edit-business-form.component';
 import { ChangePasswordComponent } from './admin/dashboard/change-password/change-password.component';
 import { EditAppconfigFormComponent } from './edit-appconfig-form/edit-appconfig-form.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -60,6 +62,7 @@ import { EditAppconfigFormComponent } from './edit-appconfig-form/edit-appconfig
     EditBusinessFormComponent,
     ChangePasswordComponent,
     EditAppconfigFormComponent,
+    
 
 
   ],
@@ -84,6 +87,8 @@ import { EditAppconfigFormComponent } from './edit-appconfig-form/edit-appconfig
     HttpClientModule,
     NgChartsModule,
     HighchartsChartModule,
+    MatMenuModule,
+    MatSelectModule,
     ToastrModule.forRoot()
   ],
   providers: [],

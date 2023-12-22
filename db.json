@@ -1,18 +1,83 @@
 {
-  "joiningsData": [{
-    "thisWeek": {
-      "day": "Sun",
-      "joining": 10
-    },
-    "lastWeek": {
-      "geo": {
-        "lat": "-37.3159",
-        "lng": "81.1496"
-      }
+  "joiningsData": [
+    {
+      "thisWeek": [
+        {
+          "day": "Sun",
+          "joining": 10,
+          "colorcode": "blue"
+        },
+        {
+          "day": "Mon",
+          "joining": 7,
+          "colorcode": "blue"
+        },
+        {
+          "day": "Tue",
+          "joining": 10,
+          "colorcode": "blue"
+        },
+        {
+          "day": "Wed",
+          "joining": 10,
+          "colorcode": "blue"
+        },
+        {
+          "day": "Thr",
+          "joining": 10,
+          "colorcode": "blue"
+        },
+        {
+          "day": "Fri",
+          "joining": 10,
+          "colorcode": "blue"
+        },
+        {
+          "day": "Sat",
+          "joining": 10,
+          "colorcode": "blue"
+        }
+      ],
+      "lastWeek": [
+        {
+          "day": "Sun",
+          "joining": 9,
+          "colorcode": "grey"
+        },
+        {
+          "day": "Mon",
+          "joining": 8,
+          "colorcode": "grey"
+        },
+        {
+          "day": "Tue",
+          "joining": 10,
+          "colorcode": "grey"
+        },
+        {
+          "day": "Wed",
+          "joining": 10,
+          "colorcode": "grey"
+        },
+        {
+          "day": "Thr",
+          "joining": 10,
+          "colorcode": "grey"
+        },
+        {
+          "day": "Fri",
+          "joining": 10,
+          "colorcode": "grey"
+        },
+        {
+          "day": "Sat",
+          "joining": 10,
+          "colorcode": "grey"
+        }
+      ]
     }
- } ],
+  ],
   "admin": [
-    {},
     {
       "id": "Thor@123",
       "name": "Chris Hemsworth",
@@ -121,12 +186,12 @@
       "configuration": "app.payment.bankifsc",
       "value": "HDFC0002988"
     },
-     {
+    {
       "appConfigId": 16,
       "configuration": "app.payment.branch",
       "value": "Uruli Kanchan, Pune"
     },
-     {
+    {
       "appConfigId": 17,
       "configuration": "app.payment.qrcode",
       "value": "HDFC0002988"
