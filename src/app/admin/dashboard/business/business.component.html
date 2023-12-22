@@ -1,16 +1,11 @@
-<mat-card>
+<mat-card class="mx-auto">
   <mat-card-title>
     <b><i class="fa-solid fa-briefcase"></i> Business</b>
   </mat-card-title>
 </mat-card>
 
-<div
-  fxLayout="row wrap"
-  fxLayout.xs="column"
-  fxLayoutAlign="space-around center"
-  fxLayoutGap="5px"
->
-  <mat-form-field style="padding-top: 15px">
+<div class="text-center">
+  <mat-form-field class="me-3" style="padding-top: 15px; width: 30%">
     <mat-label>Search</mat-label>
     <input
       matInput
@@ -20,12 +15,14 @@
     />
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Select an option</mat-label>
-    <mat-select  (selectionChange)="onChange($event.value)">
+  <mat-form-field style="padding-top: 15px; width: 30%">
+    <mat-label>Select Business</mat-label>
+    <mat-select (selectionChange)="onChange($event.value)">
       <mat-option value="">All</mat-option>
-      <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
-   </mat-select>
+      <mat-option *ngFor="let status of statusList" [value]="status">{{
+        status
+      }}</mat-option>
+    </mat-select>
   </mat-form-field>
 </div>
 

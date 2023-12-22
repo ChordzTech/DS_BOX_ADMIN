@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+// active: string|string[];
   constructor(
     private router: Router
   ) {
