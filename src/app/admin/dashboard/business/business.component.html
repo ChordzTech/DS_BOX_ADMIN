@@ -2,7 +2,7 @@
   <mat-card-title>
     <b><i class="fa-solid fa-briefcase"></i> Business</b>
   </mat-card-title>
-</mat-card>
+</mat-card> 
 
 <div class="text-center">
   <mat-form-field class="me-3" style="padding-top: 15px; width: 30%">
@@ -19,9 +19,7 @@
     <mat-label>Select Business</mat-label>
     <mat-select (selectionChange)="onChange($event.value)">
       <mat-option value="">All</mat-option>
-      <mat-option *ngFor="let status of statusList" [value]="status">{{
-        status
-      }}</mat-option>
+      <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>

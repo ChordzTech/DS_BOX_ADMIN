@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
+import { User, Business, appConfig, Subscription } from '../models';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
 
-  private apiUrl = 'http://localhost:3000/business'; 
 
   getById(code: any) {
     throw new Error('Method not implemented.');
@@ -17,11 +19,17 @@ export class ServiceService {
 
 
   //fetch Data
-  getAllUsers(): Observable<any> {
-    return this.http.get("http://localhost:3000/users");
-    // return this.http.get("https://dsboxapi.beatsacademy.in/api/UserDetails/");
+  // getAllUsers(): Observable<any> {
+  //   return this.http.get("http://localhost:3000/users");
+  //   return this.http.get("https://dsboxapi.beatsacademy.in/api/UserDetails/");
+  // }
 
+   //UserDetails API
+   getAllUserDetails(): Observable<any> {
+    // return this.http.get<User[]>("http://localhost:3000/users");
+    return this.http.get<any>(/api/UserDetails/);
   }
+
 
   getSubscription(): Observable<any> {
     return this.http.get("http://localhost:3000/subscriptionData");

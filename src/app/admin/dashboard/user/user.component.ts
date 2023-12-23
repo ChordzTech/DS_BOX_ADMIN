@@ -25,7 +25,7 @@ export class UserComponent {
   
 
 
-
+ 
   ngOnInit(): void {
     this.getUsersList();  
   }
@@ -36,7 +36,7 @@ export class UserComponent {
   } 
 
   getUsersList() {
-    this.service.getAllUsers().subscribe({
+    this.service.getAllUserDetails().subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;

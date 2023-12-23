@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get(this.basApi) 
+    return this.http.get(this.basApi)  
   }
 
   //get record by single id 
@@ -31,6 +31,6 @@ export class AuthService {
 
   //Get Admin
   isLoggedIn() {
-    return localStorage.getItem('isLogin');
+    return sessionStorage.getItem('username')!=null;
   }
 }

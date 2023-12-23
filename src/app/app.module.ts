@@ -19,9 +19,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NonSubsUsersComponent } from './admin/dashboard/user/non-subs-users/non-subs-users.component';
-import { MultiUsersComponent } from './admin/dashboard/user/multi-users/multi-users.component';
-import { SingleUsersComponent } from './admin/dashboard/user/single-users/single-users.component';
 import { MatTableModule } from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -50,9 +47,6 @@ import {MatSelectModule} from '@angular/material/select';
     DashboardComponent,
     UserComponent,
     SettingsComponent,
-    NonSubsUsersComponent,
-    MultiUsersComponent,
-    SingleUsersComponent,
     EdituserFormComponent,
     LoginComponent,
     RegisterComponent,

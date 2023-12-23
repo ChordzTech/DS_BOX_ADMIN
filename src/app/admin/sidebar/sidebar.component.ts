@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {MatMenuModule} from '@angular/material/menu';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,14 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-// active: string|string[];
   constructor(
     private router: Router
   ) {
-    // this.router.navigateByUrl('/dashboard')
-
-
-
+    this.router.navigateByUrl('/dashboard')
   }
 
 }

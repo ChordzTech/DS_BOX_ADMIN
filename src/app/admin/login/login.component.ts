@@ -39,11 +39,10 @@ export class LoginComponent {
         console.log(this.userData);
         if (this.userData.password === this.loginForm.value.password) {
           if (this.userData.isActive) {
-            sessionStorage.setItem('usename', this.userData.id)
-            sessionStorage.setItem('role', this.userData.role)
+            sessionStorage.setItem('username', this.userData.id)
             this.router.navigateByUrl('/home')
           } else {
-            this.toastr.error('Please contact to Admin!!!', 'In Active User!')
+            alert('Please contact to Admin!!!')
           }
         } else {
           this.toastr.error('Invalid Credential!!!')
