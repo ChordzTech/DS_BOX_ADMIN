@@ -1,0 +1,52 @@
+<mat-card>
+    <mat-card-title>
+        <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> App Configuration
+        </b>
+    </mat-card-title>
+</mat-card><br>
+
+<div class="main-div">
+    <div class="py-2">
+        <div class="card px-5 py-3">
+            <mat-card-title>
+                <h2 class="py-2 border-bottom">
+                    <i class="fa-solid fa-gears"></i> Update App Configuration Details
+                </h2>
+            </mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="appConfigForm">
+                    <div class="row mb-3">
+                        <label for="configuration" class="col-sm-2 col-form-label">Configuration</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="configuration"
+                                placeholder="Configuration" readonly />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="value" class="col-sm-2 col-form-label">Value</label>
+                        <div class="col-sm-10">
+                            <ng-container *ngIf="configIdToUpdate != 17; else fileInput">
+                                <input type="text" class="form-control" formControlName="value" placeholder="Value" />
+                            </ng-container>
+
+                            <ng-template #fileInput>
+                                <!-- <input type="text" class="form-control" formControlName="value"
+                                    placeholder="Value" /><br> -->
+                                <input type="file" class="form-control" formControlName="value" placeholder="Value"
+                                    (change)="onChange($event)" /><br>
+                            </ng-template>
+                            <div *ngIf="myImage">
+                                <img [src]="myImage" height="200px" width="200px">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayoutGap="25px"><br>
+                        <button type="button" class="btn btn-primary" (click)="update()">Update</button>
+                        <button type="button" class="btn btn-danger" routerLink="/appConfig">Close</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </div>
+    </div>
+</div>

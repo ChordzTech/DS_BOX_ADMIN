@@ -12,7 +12,7 @@ import { User } from 'src/app/models';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'username', 'mobileno', 'userrole', 'action'];
+  displayedColumns: string[] = ['userid', 'username', 'mobileno', 'userrole', 'status', 'action'];
   dataSource!: MatTableDataSource<User>;
   public users!: User[];
 
@@ -28,9 +28,8 @@ export class UserComponent implements OnInit {
   getUsersList() {
     this.service.getAllUserDetails().subscribe({
       next: (res: any) => {
-        this.users = res;
+        this.users = res.data;
         this.dataSource = new MatTableDataSource(this.users);
-        console.log(this.users);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },

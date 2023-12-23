@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Subscription } from '../models';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
 
 @Component({
@@ -7,22 +9,52 @@ import { ServiceService } from '../shared/service.service';
   templateUrl: './edit-subscription-form.component.html',
   styleUrls: ['./edit-subscription-form.component.scss']
 })
-export class EditSubscriptionFormComponent {
+export class EditSubscriptionFormComponent implements OnInit {
 
-  editSubscriptionForm = this.builder.group({
-    subscription: this.builder.control('', Validators.required),
-    duration: this.builder.control('', Validators.required),
-    amount: this.builder.control('', Validators.required),
-    status: this.builder.control(''),
-  });
+  subscriptionForm!: FormGroup;
+  public subscriptionIdToUpdate!: number;
 
+  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
-  constructor(private builder: FormBuilder, private service: ServiceService) {
+  ngOnInit(): void {
+    this.subscriptionForm = this.fb.group({
+      subscriptionid: [''],
+      subscription: [''],
+      duration: [''],
+      amount: [''],
+      status: ['']
+    });
+
+    this.activatedRoute.params.subscribe(val => {
+      this.subscriptionIdToUpdate = val['id'];
+      this.service.getSubscriptionId(this.subscriptionIdToUpdate)
+        .subscribe({
+          next: (res) => {
+            this.fillFormToUpdate(res.data);
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        })
+    })
+  } 
+  
+  fillFormToUpdate(subscription: Subscription) {
+    this.subscriptionForm.setValue({
+      subscriptionid: subscription.subscriptionid,
+      subscription: subscription.subscription,
+      duration: subscription.duration,
+      amount: subscription.amount,
+      status: subscription.status
+    })
   }
 
-  updateSubscrioptionDetails() {
-    console.log(this.editSubscriptionForm.value)
-
+  update() {
+    this.service.updateSubscription(this.subscriptionForm.value, this.subscriptionIdToUpdate)
+      .subscribe(res => {
+        alert("Update Successfully...");
+        this.router.navigate(['subscription']);
+        this.subscriptionForm.reset();
+      });
   }
-
 }

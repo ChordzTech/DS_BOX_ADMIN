@@ -41,7 +41,7 @@ export class LoginComponent {
           if (this.userData.isActive) {
             sessionStorage.setItem('usename', this.userData.id)
             sessionStorage.setItem('role', this.userData.role)
-            this.router.navigateByUrl('/home')
+            this.router.navigateByUrl('/dashboard')
           } else {
             this.toastr.error('Please contact to Admin!!!', 'In Active User!')
           }

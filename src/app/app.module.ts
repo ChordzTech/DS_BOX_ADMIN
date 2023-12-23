@@ -13,15 +13,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './admin/sidebar/sidebar.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { UserComponent } from './admin/dashboard/user/user.component';
-import { SettingsComponent } from './admin/dashboard/settings/settings.component';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NonSubsUsersComponent } from './admin/dashboard/user/non-subs-users/non-subs-users.component';
+// import { NonSubsUsersComponent } from './admin/dashboard/user/non-subs-users/non-subs-users.component';
 import { MultiUsersComponent } from './admin/dashboard/user/multi-users/multi-users.component';
-import { SingleUsersComponent } from './admin/dashboard/user/single-users/single-users.component';
+// import { SingleUsersComponent } from './admin/dashboard/user/single-users/single-users.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -37,6 +36,8 @@ import { SubscriptonComponent } from './admin/dashboard/subscripton/subscripton.
 import { EditSubscriptionFormComponent } from './edit-subscription-form/edit-subscription-form.component';
 import { EditBusinessFormComponent } from './edit-business-form/edit-business-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AppConfigComponent } from './app-config/app-config.component';
+import { EditAppConfigComponent } from './edit-app-config/edit-app-config.component';
 
 
 @NgModule({
@@ -46,10 +47,9 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     SidebarComponent,
     DashboardComponent,
     UserComponent,
-    SettingsComponent,
-    NonSubsUsersComponent,
+    // NonSubsUsersComponent,
     MultiUsersComponent,
-    SingleUsersComponent,
+    // SingleUsersComponent,
     EdituserFormComponent,
     LoginComponent,
     RegisterComponent,
@@ -58,7 +58,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     EditSubscriptionFormComponent,
     EditBusinessFormComponent,
     ChangePasswordComponent,
-
+    AppConfigComponent,
+    EditAppConfigComponent,
 
   ],
   imports: [
@@ -74,7 +75,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     MatInputModule,
     FlexLayoutModule,
     MatSliderModule,
-    // FormsModule,
+    FormsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,

@@ -32,10 +32,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.service.getAllBusinessDetails().subscribe({
       next: (res: any) => {
-        this.trialBusinesses = this.trialCount(res, 'Trial');
-        this.activeBusinesses = this.activeCount(res, 'Active');
-        this.expiredBusinesses = this.expiredCount(res, 'Expired');
-        this.allBusinesses = res.length;
+        this.trialBusinesses = this.trialCount(res.data, 'Trial');
+        this.activeBusinesses = this.activeCount(res.data, 'Active');
+        this.expiredBusinesses = this.expiredCount(res.data, 'Expired');
+        this.allBusinesses = res.data.length;
       },
       error: (err: any) => {
         alert(err);

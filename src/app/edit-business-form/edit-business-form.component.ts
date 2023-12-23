@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
 
-@Component({
+@Component({ 
   selector: 'app-edit-business-form',
   templateUrl: './edit-business-form.component.html',
   styleUrls: ['./edit-business-form.component.scss']
@@ -13,12 +13,13 @@ export class EditBusinessFormComponent implements OnInit {
 
   businessForm!: FormGroup;
   public businessIdToUpdate!: number;
+  subscriptions: string[] = ["Monthly - 149 Rs.", "Yearly Single User - 999 Rs.", "Yearly Multiuser - 1799 Rs."];
 
   constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.businessForm = this.fb.group({
-      id: [''],
+      businessid: [''],
       businessname: [''],
       address: [''],
       pincode: [''],
@@ -47,7 +48,7 @@ export class EditBusinessFormComponent implements OnInit {
       this.service.getBusinessId(this.businessIdToUpdate)
         .subscribe({
           next: (res) => {
-            this.fillFormToUpdate(res);
+            this.fillFormToUpdate(res.data);
           },
           error: (err) => {
             console.log(err);
@@ -58,8 +59,8 @@ export class EditBusinessFormComponent implements OnInit {
 
   fillFormToUpdate(business: Business) {
     this.businessForm.setValue({
-      id: business.id,
-      businessname:business.businessname,
+      businessid: business.businessid,
+      businessname: business.businessname,
       address: business.address,
       pincode: business.pincode,
       contactno: business.contactno,
@@ -87,7 +88,7 @@ export class EditBusinessFormComponent implements OnInit {
     this.service.updateBusiness(this.businessForm.value, this.businessIdToUpdate)
       .subscribe(res => {
         alert("Update Successfully...");
-        this.router.navigate(['users']);
+        this.router.navigate(['business']);
         this.businessForm.reset();
       });
   }

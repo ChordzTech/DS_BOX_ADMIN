@@ -1,16 +1,27 @@
-.card {
-    margin-top: 10px;
-    background-color: rgb(247, 247, 247);
+mat-card {
+    margin-top: 20px;
+    justify-content: center;
+    margin-right: 4%;
+    background-color: rgb(238, 238, 238);
+    height: 70px;
 }
 
 mat-card-title {
     margin-top: 10px;
     margin-bottom: 15px;
-    display: inline-flex;
-    justify-content: left;
+    justify-content: center;
     text-align: left;
-    font-size: 30px;
+    font-size: 20px;
+    padding-left: 20px;
     color: black;
+}
+
+.main-div {
+    margin-right: 4%;
+}
+
+i {
+    padding-right: 8px;
 }
 
 mat-form-field {

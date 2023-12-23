@@ -1,18 +1,18 @@
 export class User {
-    id!: number;
-    businessid!: number;
+    userid!: number;
+    businessid!: string;
     userpassword!: string;
     username!: string;
     mobileno!: number;
     userrole!: string;
-    useraccess!: number;
+    useraccess!: string;
     androidid!: string;
     deviceinfo!: string;
     status!: string;
 }
 
 export class Business {
-    id!: number;
+    businessid!: number;
     businessname!: string;
     address!: string;
     pincode!: number;
@@ -33,5 +33,31 @@ export class Business {
     activationdate!: string;
     subscriptiondate!: string;
     multiuser!: number;
+    status!: string;
+    subscription!: string;
+}
+
+export class Subscription {
+    subscriptionid!: number;
+    subscription!: string;
+    duration!: number;
+    amount!: number;
+    status!: string;
+}
+
+export class appConfig {
+    // id!: number;
+    configname!: string;
+    configvalue!: string;
+}
+
+export class changePassword {
+    adminid!: number;
+    adminname!: string;
+    mobileno!: number;
+    adminpassword!: string;
+    firebaseid!: number;
+    fcmtoken!: number;
+    deviceinfo!: number;
     status!: string;
 }

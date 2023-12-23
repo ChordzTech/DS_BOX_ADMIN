@@ -1,59 +1,55 @@
 <mat-card>
   <mat-card-title>
-    <b
-      >DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> Multi
-      Users</b
-    >
+    <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> Users</b>
   </mat-card-title>
 </mat-card>
 
 <div class="main-div">
   <mat-form-field style="padding-top: 15px">
-    <mat-label>Filter</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Ex. Mia"
-      #input
-    />
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input />
   </mat-form-field>
 
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-      </ng-container>
-
-      <!-- Progress Column -->
-      <ng-container matColumnDef="businessId">
+      <ng-container matColumnDef="businessid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Business ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.businessid }}</td>
       </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="deviceId">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Device ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+      <ng-container matColumnDef="userid">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.userid }}</td>
       </ng-container>
 
-      <!-- Fruit Column -->
       <ng-container matColumnDef="username">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>User Name</th>
         <td mat-cell *matCellDef="let row">{{ row.username }}</td>
       </ng-container>
-      <ng-container matColumnDef="action">
+
+      <ng-container matColumnDef="mobileno">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile No</th>
+        <td mat-cell *matCellDef="let row">{{ row.mobileno }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="userrole">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User Role</th>
+        <td mat-cell *matCellDef="let row">{{ row.userrole }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button
-            (click)="(openEditUserForm)"
-            routerLink="/users/multiusers/{{ row.id }}/edit"
-          >
+          <button (click)="edit(row.userid)">
             <mat-icon color="primary">edit</mat-icon>
           </button>
         </td>
-      </ng-container>
+      </ng-container> -->
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -65,10 +61,6 @@
         </td>
       </tr>
     </table>
-
-    <mat-paginator
-      [pageSizeOptions]="[5, 10, 25, 100]"
-      aria-label="Select page of users"
-    ></mat-paginator>
+    <!-- <mat-paginator [pageSizeOptions]="[25, 50, 75, 100]" aria-label="Select page of users"></mat-paginator> -->
   </div>
 </div>

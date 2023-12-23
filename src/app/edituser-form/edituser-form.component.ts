@@ -10,15 +10,16 @@ import { ServiceService } from '../shared/service.service';
   styleUrls: ['./edituser-form.component.scss']
 })
 export class EdituserFormComponent implements OnInit {
-
+  isMarkUserClicked = false;
   usersForm!: FormGroup;
   public userIdToUpdate!: number;
+  useraccesses: string[] = ["Read Only", "Full Access", "No Access"];
 
   constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.usersForm = this.fb.group({
-      id: [''],
+      userid: [''],
       businessid: [''],
       userpassword: [''],
       username: [''],
@@ -35,7 +36,7 @@ export class EdituserFormComponent implements OnInit {
       this.service.getUserId(this.userIdToUpdate)
         .subscribe({
           next: (res) => {
-            this.fillFormToUpdate(res);
+            this.fillFormToUpdate(res.data);
           },
           error: (err) => {
             console.log(err);
@@ -46,7 +47,7 @@ export class EdituserFormComponent implements OnInit {
 
   fillFormToUpdate(user: User) {
     this.usersForm.setValue({
-      id: user.id,
+      userid: user.userid,
       businessid: user.businessid,
       userpassword: user.userpassword,
       username: user.username,
@@ -56,7 +57,6 @@ export class EdituserFormComponent implements OnInit {
       androidid: user.androidid,
       deviceinfo: user.deviceinfo,
       status: user.status,
-
     })
   }
 
@@ -67,5 +67,9 @@ export class EdituserFormComponent implements OnInit {
         this.router.navigate(['users']);
         this.usersForm.reset();
       });
+  }
+
+  markNewUser() {
+    this.isMarkUserClicked = true;
   }
 }

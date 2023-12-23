@@ -1,66 +1,81 @@
-<div class="pe-5 py-3">
-  <div class="card px-5 py-3">
-    <mat-card-title>
-      <h2 class="py-2 border-bottom">
-        <i class="fa-solid fa-user"></i> User Details
-      </h2>
-    </mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="usersForm">
-        <div class="row mb-3">
-          <label for="username" class="col-sm-2 col-form-label">User Name</label>
-          <div class="col-sm-10">
-            <input type="text" formControlName="username" class="form-control" placeholder="User Name">
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="mobileno" class="col-sm-2 col-form-label">Mobile No.</label>
-          <div class="col-sm-10">
-            <input type="number" formControlName="mobileno" class="form-control" placeholder="Mobile No" />
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="businessid" class="col-sm-2 col-form-label">Business Name</label>
-          <div class="col-sm-10">
-            <input type="text" formControlName="businessid" class="form-control" placeholder="Business Name" readonly/>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="userrole" class="col-sm-2 col-form-label">User Role</label>
-          <div class="col-sm-10">
-            <input type="text" formControlName="userrole" class="form-control" placeholder="User Role" readonly/>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="useraccess" class="col-sm-2 col-form-label">User Access</label>
-          <div class="col-sm-10">
-            <input type="number" formControlName="useraccess" class="form-control" placeholder="User Access" />
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="androidid" class="col-sm-2 col-form-label">Android ID</label>
-          <div class="col-sm-10">
-            <input type="text" formControlName="androidid" class="form-control" placeholder="Android ID" readonly/>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="deviceinfo" class="col-sm-2 col-form-label">Device Info</label>
-          <div class="col-sm-10">
-            <input type="text" formControlName="deviceinfo" class="form-control" placeholder="Device Info" readonly/>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="status" class="col-sm-2 col-form-label">Status</label>
-          <div class="col-sm-10">
-            <input type="text" formControlName="status" class="form-control" placeholder="Status" readonly/>
-          </div>
-        </div>
+<mat-card>
+  <mat-card-title>
+    <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> Users
+    </b>
+  </mat-card-title>
+</mat-card><br>
 
-        <div fxLayoutGap="25px"><br>
-          <button type="button" class="btn btn-primary" (click)="update()">Update</button>
-          <button type="button" class="btn btn-danger" routerLink="/users">Close</button>
-        </div>
-      </form>
-    </mat-card-content>
+<div class="main-div">
+  <div class="py-2">
+    <div class="card px-5 py-3">
+      <mat-card-title>
+        <h2 class="py-2 border-bottom">
+          <i class="fa-solid fa-user"></i> Update User Details
+        </h2>
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="usersForm">
+          <div class="row mb-3">
+            <label for="username" class="col-sm-2 col-form-label">User Name</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="username" class="form-control" placeholder="User Name">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="mobileno" class="col-sm-2 col-form-label">Mobile No.</label>
+            <div class="col-sm-10">
+              <input type="number" formControlName="mobileno" class="form-control" placeholder="Mobile No" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="businessid" class="col-sm-2 col-form-label">Business Name</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="businessid" class="form-control" placeholder="Business Name"
+                readonly />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="userrole" class="col-sm-2 col-form-label">User Role</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="userrole" class="form-control" placeholder="User Role" readonly />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="useraccess" class="col-sm-2 col-form-label">User Access</label>
+            <div class="col-sm-10">
+              <select class="form-control" aria-label="Default select example" formControlName="useraccess">Subscription
+                <option *ngFor="let useraccess of useraccesses" [value]="useraccess">
+                  {{useraccess}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="androidid" class="col-sm-2 col-form-label">Android ID</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="androidid" class="form-control" placeholder="Android ID" [readonly]="!isMarkUserClicked"/>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="deviceinfo" class="col-sm-2 col-form-label">Device Info</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="deviceinfo" class="form-control" placeholder="Device Info" [readonly]="!isMarkUserClicked"/>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="status" class="col-sm-2 col-form-label">Status</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="status" class="form-control" placeholder="Status" readonly />
+            </div>
+          </div>
+
+          <div fxLayoutGap="25px"><br>
+            <button type="button" class="btn btn-primary" (click)="update()">Update</button>
+            <button type="button" class="btn btn-success" (click)="markNewUser()">Mark New User</button>
+            <button type="button" class="btn btn-danger" routerLink="/users">Close</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </div>
   </div>
 </div>

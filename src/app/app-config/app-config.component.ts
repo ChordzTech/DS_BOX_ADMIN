@@ -4,33 +4,30 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServiceService } from 'src/app/shared/service.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'src/app/models';
 
 @Component({
-  selector: 'app-subscripton',
-  templateUrl: './subscripton.component.html',
-  styleUrls: ['./subscripton.component.scss']
+  selector: 'app-app-config',
+  templateUrl: './app-config.component.html',
+  styleUrls: ['./app-config.component.scss']
 })
-export class SubscriptonComponent {
+export class AppConfigComponent {
 
-  displayedColumns: string[] = ['subscriptionid','subscription', 'duration', 'amount', 'action'];
-  dataSource!: MatTableDataSource<Subscription>;
-  public subscription!: Subscription[];
+  displayedColumns: string[] = ['configname', 'configvalue', 'action'];
+  dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   constructor(private service: ServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getSubscriptionList()
+    this.getAppConfigList()
   }
 
-  getSubscriptionList() {
-    this.service.getAllSubscriptionDetails().subscribe({
+  getAppConfigList() {
+    this.service.getAllAppConfig().subscribe({
       next: (res: any) => {
-        this.subscription = res.data;
-        this.dataSource = new MatTableDataSource(this.subscription);
+        this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
@@ -48,8 +45,7 @@ export class SubscriptonComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  edit(id: number) {
-    this.router.navigate(['editsubscription', id]);
+  edit() {
+    this.router.navigate(['editappConfig']);
   }
 }

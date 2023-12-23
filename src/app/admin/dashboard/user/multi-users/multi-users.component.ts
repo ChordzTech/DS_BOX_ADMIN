@@ -1,12 +1,10 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
-import { ServiceService } from '../../../../shared/service.service';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDialog } from '@angular/material/dialog';
-import { EdituserFormComponent } from "../../../../edituser-form/edituser-form.component";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ServiceService } from 'src/app/shared/service.service';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models';
 
 @Component({
   selector: 'app-multi-users',
@@ -14,30 +12,38 @@ import { EdituserFormComponent } from "../../../../edituser-form/edituser-form.c
   styleUrls: ['./multi-users.component.scss']
 })
 export class MultiUsersComponent implements OnInit {
-  displayedColumns: string[] = ['businessId', 'deviceId', 'username', 'action'];
-  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = ['businessid', 'userid', 'username', 'mobileno', 'userrole', 'status'];
+  dataSource!: MatTableDataSource<User>;
+  public users!: User[];
+  selectedBusinessId: string | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  dialog: any;
 
-
+  constructor(private service: ServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getUsersList()
-  }
-  constructor(private service: ServiceService, dialog: MatDialog) { }
-
-  openEditUserForm() {
-    this.dialog.open(EdituserFormComponent)
+    this.service.selectedBusinessId$.subscribe((businessId) => {
+      this.selectedBusinessId = businessId;
+      this.getUsersList(this.selectedBusinessId);
+    });
   }
 
-  getUsersList() {
+  getUsersList(businessId: string | null) {
     this.service.getAllUserDetails().subscribe({
       next: (res: any) => {
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        if (Array.isArray(res.data)) {
+          if (businessId) {
+            this.users = res.data.filter((user:User) => user.businessid === businessId);
+          } else {
+            this.users = res.data;
+          }
+          this.dataSource = new MatTableDataSource(this.users);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        } else {
+          console.error('API response is not an array:', res.data);
+        }
       },
       error: (err: any) => {
         alert(err);
@@ -48,9 +54,13 @@ export class MultiUsersComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  edit(id: number) {
+    this.router.navigate(['editusers', id]);
+  }
 }
+

@@ -2,14 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './admin/home/home.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
-// import { PostsComponent } from './admin/dashboard/posts/posts.component';
 import { UserComponent } from './admin/dashboard/user/user.component';
-
-
-import { SettingsComponent } from './admin/dashboard/settings/settings.component';
-import { NonSubsUsersComponent } from './admin/dashboard/user/non-subs-users/non-subs-users.component';
+// import { NonSubsUsersComponent } from './admin/dashboard/user/non-subs-users/non-subs-users.component';
 import { MultiUsersComponent } from './admin/dashboard/user/multi-users/multi-users.component';
-import { SingleUsersComponent } from './admin/dashboard/user/single-users/single-users.component';
+// import { SingleUsersComponent } from './admin/dashboard/user/single-users/single-users.component';
 import { LoginComponent } from './admin/login/login.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { AuthGuard } from './guard/auth.guard';
@@ -19,6 +15,8 @@ import { BusinessComponent } from './admin/dashboard/business/business.component
 import { EditSubscriptionFormComponent } from './edit-subscription-form/edit-subscription-form.component';
 import { EditBusinessFormComponent } from './edit-business-form/edit-business-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AppConfigComponent } from './app-config/app-config.component';
+import { EditAppConfigComponent } from './edit-app-config/edit-app-config.component';
 
 const routes: Routes = [
   {
@@ -29,15 +27,16 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'subscription', component: SubscriptonComponent },
       { path: 'business', component: BusinessComponent },
-      // { path: 'users/multiusers', component: MultiUsersComponent },
+      { path: 'multiusers/:id', component: MultiUsersComponent },
       // { path: 'users/nonsubsusers', component: NonSubsUsersComponent },
       // { path: 'users/nonsubsusers/:id/edit', component: EdituserFormComponent },
       { path: 'editusers/:id', component: EdituserFormComponent },
-      { path: 'editsubscription', component: EditSubscriptionFormComponent },
+      { path: 'editsubscription/:id', component: EditSubscriptionFormComponent },
       { path: 'editbusiness/:id', component: EditBusinessFormComponent },
       // { path: 'users/singleusers', component: SingleUsersComponent },
       { path: 'changepassword', component: ChangePasswordComponent },
-      { path: 'settings', component: SettingsComponent },
+      { path: 'appConfig', component: AppConfigComponent },
+      { path: 'editappConfig', component: EditAppConfigComponent },
     ]
   },
 

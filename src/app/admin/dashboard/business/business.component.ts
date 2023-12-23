@@ -12,13 +12,13 @@ import { Business } from 'src/app/models';
   styleUrls: ['./business.component.scss']
 })
 export class BusinessComponent {
-  displayedColumns: string[] = ['id','businessname', 'contactno', 'multiuser', 'status', 'activationdate', 'action'];
+  displayedColumns: string[] = ['businessid', 'businessname', 'contactno', 'multiuser', 'status', 'activationdate', 'action'];
   dataSource!: MatTableDataSource<Business>;
   public business!: Business[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort; 
-  
+  @ViewChild(MatSort) sort!: MatSort;
+
   ngOnInit(): void {
     this.getBusinessList()
   }
@@ -27,18 +27,17 @@ export class BusinessComponent {
   getBusinessList() {
     this.service.getAllBusinessDetails().subscribe({
       next: (res: any) => {
-        this.business = res;
+        this.business = res.data;
         this.dataSource = new MatTableDataSource(this.business);
-        console.log(this.business);
-       this.dataSource.sort = this.sort;
-       this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       },
       error: (err: any) => {
         alert(err);
       }
     })
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -50,5 +49,10 @@ export class BusinessComponent {
 
   edit(id: number) {
     this.router.navigate(['editbusiness', id]);
+  }
+
+  showUsers(businessId: string) {
+    this.service.setSelectedBusinessId(businessId);
+    this.router.navigate(['multiusers', businessId]);
   }
 }

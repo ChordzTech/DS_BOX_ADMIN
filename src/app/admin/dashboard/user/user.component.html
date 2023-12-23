@@ -1,7 +1,6 @@
 <mat-card>
   <mat-card-title>
-    <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i>
-      Users</b>
+    <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> Users</b>
   </mat-card-title>
 </mat-card>
 
@@ -13,9 +12,9 @@
 
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="id">
+      <ng-container matColumnDef="userid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.userid }}</td>
       </ng-container>
 
       <ng-container matColumnDef="username">
@@ -32,10 +31,16 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>User Role</th>
         <td mat-cell *matCellDef="let row">{{ row.userrole }}</td>
       </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+      </ng-container>
+
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button (click)="edit(row.id)">
+          <button (click)="edit(row.userid)">
             <mat-icon color="primary">edit</mat-icon>
           </button>
         </td>
@@ -51,7 +56,6 @@
         </td>
       </tr>
     </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <!-- <mat-paginator [pageSizeOptions]="[25, 50, 75, 100]" aria-label="Select page of users"></mat-paginator> -->
   </div>
 </div>
