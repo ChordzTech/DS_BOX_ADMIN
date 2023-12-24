@@ -14,7 +14,7 @@ import { ServiceService } from 'src/app/shared/service.service';
 export class SettingsComponent {
 
   
-  displayedColumns: string[] = ['configuration', 'value', 'action'];
+  displayedColumns: string[] = ['id', 'configuration', 'value', 'action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -35,7 +35,7 @@ export class SettingsComponent {
   getAppConfigList() {
     this.service.getAppConfig().subscribe({
       next: (res: any) => {
-        this.dataSource = new MatTableDataSource(res);
+        this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },

@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EditBusinessFormComponent } from 'src/app/edit-business-form/edit-business-form.component';
 import { ServiceService } from 'src/app/shared/service.service';
+import { Router } from '@angular/router';
+import { Business } from 'src/app/models';
 // /// <reference types="lodash" />
 // import * as _ from 'lodash';
 
@@ -27,17 +29,17 @@ export class BusinessComponent {
   ngOnInit(): void {
     this.getBusinessList()
   }
-  constructor(private service: ServiceService) { }
+  constructor(private service: ServiceService,  private router: Router) { }
 
   openEditBusinessForm() {
     this.dialog.open(EditBusinessFormComponent)
   }
 
-  getBusinessList() {
+  getBusinessList() { 
     this.service.getAllBusiuness().subscribe({
       next: (res: any) => {
         this.apiResponse = res;
-        this.dataSource = new MatTableDataSource(res);
+        this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
@@ -55,6 +57,14 @@ export class BusinessComponent {
     }
   }
 
+  edit(id: number) {
+    this.router.navigate(['editbusiness', id]);
+  }
+
+  showUsers(businessId: string) {
+    this.service.setSelectedBusinessId(businessId);
+    this.router.navigate(['multiusers', businessId]);
+  }
 
 
   onChange(filterValue: string) {

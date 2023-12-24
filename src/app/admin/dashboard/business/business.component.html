@@ -2,7 +2,7 @@
   <mat-card-title>
     <b><i class="fa-solid fa-briefcase"></i> Business</b>
   </mat-card-title>
-</mat-card> 
+</mat-card>  
 
 <div class="text-center">
   <mat-form-field class="me-3" style="padding-top: 15px; width: 30%">
@@ -63,11 +63,17 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button
+          <!-- <button
             (click)="(openEditBusinessForm)"
             routerLink="/business/{{ row.businessid }}/edit"
           >
             <mat-icon color="primary">edit</mat-icon>
+          </button> -->
+          <button (click)="edit(row.businessid)">
+            <mat-icon color="primary">edit</mat-icon>
+          </button>&nbsp;
+          <button (click)="showUsers(row.businessid)">
+            <mat-icon color="primary">people</mat-icon>
           </button>
         </td>
       </ng-container>

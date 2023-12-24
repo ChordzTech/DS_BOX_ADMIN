@@ -38,7 +38,7 @@ export class UserComponent {
   getUsersList() {
     this.service.getAllUserDetails().subscribe({
       next: (res: any) => {
-        this.dataSource = new MatTableDataSource(res);
+        this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },

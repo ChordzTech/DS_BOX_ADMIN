@@ -43,7 +43,7 @@ export class LoginComponent {
             this.router.navigateByUrl('/home')
           } else {
             alert('Please contact to Admin!!!')
-          }
+          } 
         } else {
           this.toastr.error('Invalid Credential!!!')
         }

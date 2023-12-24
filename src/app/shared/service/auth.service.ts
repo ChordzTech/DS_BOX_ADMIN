@@ -6,20 +6,22 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  basApi = 'http://localhost:3000/admin'
+  basApi = 'https://dsboxapi.beatsacademy.in/api/Administrators/'
 
   constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.http.get(this.basApi)  
-  }
+  // getAll() {
+  //   return this.http.get<any>("api/Administrators/");
+  //   return this.http.get(this.basApi)
+  // }
 
   //get record by single id 
-  getById(id: any) {
-    return this.http.get(this.basApi + '/' + id)
+  getById(adminid: any) {
+    return this.http.get<any>("api/Administrators/");
+    // return this.http.get(this.basApi + '/' + adminid)
   }
 
-  //register user by post method
+  //register user by post method 
   registerData(inputdata: any) {
     return this.http.post(this.basApi, inputdata)
   }
@@ -31,6 +33,6 @@ export class AuthService {
 
   //Get Admin
   isLoggedIn() {
-    return sessionStorage.getItem('username')!=null;
+    return sessionStorage.getItem('username') != null;
   }
 }

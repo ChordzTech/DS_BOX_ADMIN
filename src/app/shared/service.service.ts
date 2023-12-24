@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { User, Business, appConfig, Subscription } from '../models';
 
 
@@ -24,30 +24,49 @@ export class ServiceService {
   //   return this.http.get("https://dsboxapi.beatsacademy.in/api/UserDetails/");
   // }
 
-   //UserDetails API
-   getAllUserDetails(): Observable<any> {
+  //UserDetails API
+  getAllUserDetails(): Observable<any> {
     // return this.http.get<User[]>("http://localhost:3000/users");
-    return this.http.get<any>(/api/UserDetails/);
+    return this.http.get<any>("/api/UserDetails/");
   }
 
 
   getSubscription(): Observable<any> {
-    return this.http.get("http://localhost:3000/subscriptionData");
+    return this.http.get<any>("api/SubscriptionsDetails/");
+    // return this.http.get("http://localhost:3000/subscriptionData");
   }
 
   getAllBusiuness(): Observable<any> {
-    return this.http.get("http://localhost:3000/business");
+    return this.http.get<any>("api/BusinessDetails/");
+    // return this.http.get("http://localhost:3000/business");
+  }
+  getBusinessId(id: number): Observable<any> {
+    return this.http.get<Business>("/api/BusinessDetails/${id}/");
+  }
+  updateBusiness(businessData: Business, id: number) {
+    return this.http.put<Business>("/api/BusinessDetails/${id}/", businessData);
+    // return this.http.put(/api/UserDetails/${id}, businessData);
   }
 
+
   getAppConfig(): Observable<any> {
-    return this.http.get("http://localhost:3000/appConfig");
+    return this.http.get<any>("api/AppConfig/");
+    // return this.http.get("http://localhost:3000/appConfig");
   }
+
+   //Display multiusers by business id 
+   private selectedBusinessIdSource = new BehaviorSubject<string | null>(null);
+   selectedBusinessId$ = this.selectedBusinessIdSource.asObservable();
+ 
+   setSelectedBusinessId(businessId: string | null) {
+     this.selectedBusinessIdSource.next(businessId);
+   }
 
   getUserSubscription(): Observable<any> {
     return this.http.get("http://localhost:3000/business");
   }
 
-  getChartInfo(){
+  getChartInfo() {
     return this.http.get("http://localhost:3000/joiningsData");
   }
 

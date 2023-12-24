@@ -2,90 +2,50 @@
   <div class="card px-5 py-3">
     <mat-card-title>
       <h2 class="py-2 border-bottom">
-        <i class="fa-solid fa-briefcase"></i> Business Details
+        <i class="fa-solid fa-briefcase"></i> Business Details 
       </h2>
     </mat-card-title>
     <mat-card-content>
-      <form [formGroup]="editBusinessForm" (ngSubmit)="updateBusinessDetails()">
+      <form [formGroup]="businessForm">
         <div class="row mb-3">
-          <label for="businessname" class="col-sm-2 col-form-label"
-            >Business Name</label
-          >
+          <label for="businessname" class="col-sm-2 col-form-label">Business Name</label>
           <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control"
-              id="businessname"
-              placeholder="Business Name"
-              disabled
-            />
+            <input type="text" class="form-control" formControlName="businessname" placeholder="Business Name" readonly/>
           </div>
         </div>
         <div class="row mb-3">
-          <label for="contactno" class="col-sm-2 col-form-label"
-            >Mobile No.</label
-          >
+          <label for="contactno" class="col-sm-2 col-form-label">Mobile No.</label>
           <div class="col-sm-10">
-            <input
-              type="number"
-              class="form-control"
-              id="contactno"
-              placeholder="Mobile No."
-            />
+            <input type="number" class="form-control" formControlName="contactno" placeholder="Mobile No." readonly />
           </div>
         </div>
         <div class="row mb-3">
-          <label for="subscriptiondate" class="col-sm-2 col-form-label"
-            >Subscription Date</label
-          >
+          <label for="subscriptiondate" class="col-sm-2 col-form-label">Subscription Date</label>
           <div class="col-sm-10">
-            <input type="date" class="form-control" id="subscriptiondate" />
+            <input type="date" class="form-control" formControlName="activationdate" readonly />
           </div>
         </div>
         <div class="row mb-3">
-          <label for="subscription" class="col-sm-2 col-form-label"
-            >Subsription</label
-          >
+          <label for="subscription" class="col-sm-2 col-form-label">Subscription</label>
           <div class="col-sm-10">
-            <select
-              class="form-select"
-              aria-label="Default select example"
-              id="subscription"
-            >
-              <option selected>-- Select Subscription --</option>
-              <option value="1">
-                Monthly - <i class="fa-solid fa-indian-rupee-sign"></i> 149
-              </option>
-              <option value="2">
-                Yearly Single User -
-                <i class="fa-solid fa-indian-rupee-sign"></i> 999
-              </option>
-              <option value="3">
-                Yearly Multi User -
-                <i class="fa-solid fa-indian-rupee-sign"></i> 1799
+            <select class="form-control" aria-label="Default select example"
+              formControlName="subscription">Subscription
+              <option *ngFor="let subscription of subscriptions" [value]="subscription">
+                {{subscription}}
               </option>
             </select>
           </div>
         </div>
         <div class="row mb-3">
-          <label for="transactionDetails" class="col-sm-2 col-form-label"
-            >Transaction Details</label
-          >
+          <label for="transactionDetails" class="col-sm-2 col-form-label">Transaction Details</label>
           <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control"
-              id="transactionDetails"
-              placeholder="Transaction Details"
-            />
+            <input type="text" class="form-control" formControlName="transactionDetails"
+              placeholder="Transaction Details" />
           </div>
         </div>
-        <div fxLayoutGap="25px">
-          <br />
-          <button type="button" class="btn btn-primary">Update</button>
-          <button type="button" class="btn btn-danger" routerLink="/business">
-            Close
-          </button>
+        <div fxLayoutGap="25px"><br>
+          <button type="button" class="btn btn-primary" (click)="update()">Update</button>
+          <button type="button" class="btn btn-danger" routerLink="/business">Close</button>
         </div>
       </form>
     </mat-card-content>

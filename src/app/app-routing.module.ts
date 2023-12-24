@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'appConfig', component: SettingsComponent },
       { path: 'users/:id/edit', component: EdituserFormComponent },
       { path: 'subscription/:id/edit', component: EditSubscriptionFormComponent },
-      { path: 'business/:id/edit', component: EditBusinessFormComponent },
+      { path: 'editbusiness/:id', component: EditBusinessFormComponent },
       { path: 'appConfig/:id/edit', component: EditAppconfigFormComponent },    
     ]
   },
