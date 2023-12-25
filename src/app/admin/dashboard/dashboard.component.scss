@@ -1,7 +1,7 @@
 mat-card {
   margin-top: 20px;
   justify-content: center;
-  margin-right: 35px;
+  margin-right: 38px;
   background-color: rgb(238, 238, 238);
   height: 80px;
 }
@@ -11,14 +11,14 @@ mat-card-title {
   margin-bottom: 10px;
   justify-content: center;
   text-align: center;
-  font-size: 30px;
+  font-size: 28px;
   color: black;
 }
 
-
 .example-card {
-  max-width: 300px;
+  width: 340px;
   height: 100px;
+
 }
 
 
@@ -76,12 +76,6 @@ p {
 mat-card-actions {
   text-align: center;
   justify-content: center;
-
-  button {
-
-    color: white;
-    background: black;
-  }
 }
 
 .chartBox {
@@ -93,25 +87,33 @@ mat-card-actions {
 
 @media only screen and (max-width: 800px) {
   .chartBox {
-    width: 90%;
+    width: 80%;
     height: 45%;
   }
 
-  .card-1 {
-    width: 100%;
+  .example-card {
+    width: 310px;
   }
 }
 
 @media only screen and (max-width: 400px) {
   .chartBox {
-    width: 300px;
+    width: 250px;
     height: 300px;
+  }
+
+  .example-card {
+    width: 310px;
   }
 }
 
 @media only screen and (max-width: 350px) {
   .chartBox {
-    width: 90%;
+    width: 80%;
     height: 90%;
+  }
+
+  .example-card {
+    width: 310px;
   }
 }

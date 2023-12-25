@@ -1,6 +1,9 @@
+import { changePassword } from '../models';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
+
 
 @Component({
   selector: 'app-change-password',
@@ -9,52 +12,74 @@ import { ServiceService } from '../shared/service.service';
 })
 export class ChangePasswordComponent implements OnInit {
   changePasswordForm!: FormGroup;
+  public adminIdToUpdate!: number;
 
-  constructor(private fb: FormBuilder, private service: ServiceService) { }
+  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
-  ngOnInit() {
-    this.initForm();
-  }
-
-  initForm() {
+  ngOnInit(): void {
     this.changePasswordForm = this.fb.group({
       adminid: [''],
       adminname: [''],
       mobileno: [''],
-      // adminpassword: [''],
+      adminpassword: [''],
       firebaseid: [''],
       fcmtoken: [''],
       deviceinfo: [''],
       status: [''],
-      oldPassword: ['', Validators.required],
-      adminpassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required],
-    }, {
-      validator: this.passwordMatchValidator
+      confirmPassword: [''],
     });
+
+    this.activatedRoute.params.subscribe(val => {
+      this.adminIdToUpdate = val['id'];
+      this.service.getAdminId(this.adminIdToUpdate)
+        .subscribe({
+          next: (res) => {
+            this.fillFormToUpdate(res.data);
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        })
+    })
   }
 
-  passwordMatchValidator(g: FormGroup) {
-    const newPassword = g.get('adminpassword')?.value;
-    const confirmPassword = g.get('confirmPassword')?.value;
-
-    return newPassword === confirmPassword ? null : { 'mismatch': true };
+  fillFormToUpdate(changePassword: changePassword) {
+    this.changePasswordForm.patchValue({
+      adminid: changePassword.adminid,
+      adminname: changePassword.adminname,
+      mobileno: changePassword.mobileno,
+      firebaseid: changePassword.firebaseid,
+      fcmtoken: changePassword.fcmtoken,
+      deviceinfo: changePassword.deviceinfo,
+      status: changePassword.status,
+    })
   }
 
-  onSubmit() {
+  update() {
     if (this.changePasswordForm.valid) {
-      const newPassword = this.changePasswordForm.value.newPassword;
-      // You can call your user service to update the password
-      this.service.changePassword(newPassword).subscribe(
-        (response) => {
-          console.log('Password changed successfully:', response);
-          // Handle success (e.g., show a success message)
+      const newPassword = this.changePasswordForm.value.adminpassword;
+      const confirmPassword = this.changePasswordForm.value.confirmPassword;
+  
+      if (!newPassword || !confirmPassword) {
+        alert("Please enter both new password and confirm password.");
+        return;
+      }
+  
+      if (newPassword !== confirmPassword) {
+        alert("New password and confirm password do not match.");
+        return;
+      }
+  
+      this.service.updateAdminPassword(this.changePasswordForm.value, this.adminIdToUpdate).subscribe(
+        (res) => {
+          alert('Update Successfully...');
+          this.changePasswordForm.reset();
         },
         (error) => {
-          console.error('Error changing password:', error);
-          // Handle error (e.g., show an error message)
+          console.error('Error updating password', error);
         }
       );
     }
   }
+  
 }

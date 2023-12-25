@@ -4,44 +4,44 @@
             notifications_none
         </mat-icon> 
      </div> -->
-  <div class="user px-4">
+  <div class="user ps-5">
     <img src="https://cdn.pixabay.com/photo/2020/07/14/13/07/icon-5404125_960_720.png" alt="" height="150px"
       width="150px" />
     <h4 class="name">Admin</h4>
-    <p class="mail">admin@gmail.com</p>
+    <!-- <p class="mail">admin@gmail.com</p> -->
   </div>
   <div class="menu">
-    <div class="menu-head">
+    <div class="menu-head text-center">
       <span>Dashboard</span>
     </div>
     <div class="menu-item">
-      <button mat-button class="menu-button" [routerLink]="['dashboard']">
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['dashboard']">
         <mat-icon>dashboard</mat-icon>
         <span>Home</span>
       </button>
-      <button mat-button class="menu-button" [routerLink]="['/business']">
-        <mat-icon>account_tree</mat-icon>
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/business']">
+        <mat-icon>cases</mat-icon>
         <span>Businesses</span>
       </button>
-      <button mat-button class="menu-button" [routerLink]="['/users']">
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/users']">
         <mat-icon>people</mat-icon>
         <span>Users</span>
       </button>
-      <button mat-button class="menu-button" [routerLink]="['/subscription']">
-        <mat-icon>₹</mat-icon>
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/subscription']">
+        <mat-icon>currency_rupee</mat-icon>
         <span>Subscriptions</span>
       </button>
-      <button mat-button class="menu-button" [routerLink]="['/changepassword']">
-        <mat-icon>lock</mat-icon>
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/changePassword/1007/']">
+        <mat-icon>lock_reset</mat-icon>
         <span>Change Password</span>
       </button>
-      <button mat-button class="menu-button" [routerLink]="['/appConfig']">
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/appConfig']">
         <mat-icon>settings</mat-icon>
         <span>App Configuration</span>
       </button>
       <button mat-button class="menu-button" routerLink="/login">
         <mat-icon>logout</mat-icon>
-        <span>Log Out</span>
+        <span>Logout</span>
       </button>
     </div>
   </div>

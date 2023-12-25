@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AppConfigComponent {
 
-  displayedColumns: string[] = ['configname', 'configvalue', 'action'];
+  displayedColumns: string[] = ['configid', 'configname', 'configvalue', 'action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -45,7 +45,7 @@ export class AppConfigComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-  edit() {
-    this.router.navigate(['editappConfig']);
+  edit(id: number) {
+    this.router.navigate(['editappConfig', id]);
   }
 }

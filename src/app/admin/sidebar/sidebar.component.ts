@@ -7,13 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-  constructor(
-    private router: Router
-  ) {
-    // this.router.navigateByUrl('/dashboard')
-
-
-
-  }
+  constructor(private router: Router) { }
+  
 
 }

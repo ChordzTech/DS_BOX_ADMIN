@@ -3,9 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './admin/home/home.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { UserComponent } from './admin/dashboard/user/user.component';
-// import { NonSubsUsersComponent } from './admin/dashboard/user/non-subs-users/non-subs-users.component';
 import { MultiUsersComponent } from './admin/dashboard/user/multi-users/multi-users.component';
-// import { SingleUsersComponent } from './admin/dashboard/user/single-users/single-users.component';
 import { LoginComponent } from './admin/login/login.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { AuthGuard } from './guard/auth.guard';
@@ -28,15 +26,12 @@ const routes: Routes = [
       { path: 'subscription', component: SubscriptonComponent },
       { path: 'business', component: BusinessComponent },
       { path: 'multiusers/:id', component: MultiUsersComponent },
-      // { path: 'users/nonsubsusers', component: NonSubsUsersComponent },
-      // { path: 'users/nonsubsusers/:id/edit', component: EdituserFormComponent },
       { path: 'editusers/:id', component: EdituserFormComponent },
       { path: 'editsubscription/:id', component: EditSubscriptionFormComponent },
       { path: 'editbusiness/:id', component: EditBusinessFormComponent },
-      // { path: 'users/singleusers', component: SingleUsersComponent },
-      { path: 'changepassword', component: ChangePasswordComponent },
+      { path: 'changePassword/:id', component: ChangePasswordComponent },
       { path: 'appConfig', component: AppConfigComponent },
-      { path: 'editappConfig', component: EditAppConfigComponent },
+      { path: 'editappConfig/:id', component: EditAppConfigComponent },
     ]
   },
 

@@ -1,16 +1,9 @@
-<mat-card>
-  <mat-card-title>
-    <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> Users
-    </b>
-  </mat-card-title>
-</mat-card><br>
-
-<div class="main-div">
+<div class="main-div" style="padding-top: 20px;">
   <div class="py-2">
     <div class="card px-5 py-3">
       <mat-card-title>
         <h2 class="py-2 border-bottom">
-          <i class="fa-solid fa-user"></i> Update User Details
+          <i class="fa-solid fa-user"></i> User Details
         </h2>
       </mat-card-title>
       <mat-card-content>
@@ -24,14 +17,13 @@
           <div class="row mb-3">
             <label for="mobileno" class="col-sm-2 col-form-label">Mobile No.</label>
             <div class="col-sm-10">
-              <input type="number" formControlName="mobileno" class="form-control" placeholder="Mobile No" />
+              <input type="text" formControlName="mobileno" class="form-control" placeholder="Mobile No" />
             </div>
           </div>
           <div class="row mb-3">
-            <label for="businessid" class="col-sm-2 col-form-label">Business Name</label>
+            <label for="businessid" class="col-sm-2 col-form-label">Business ID</label>
             <div class="col-sm-10">
-              <input type="text" formControlName="businessid" class="form-control" placeholder="Business Name"
-                readonly />
+              <input type="text" formControlName="businessid" class="form-control" placeholder="Business ID" readonly />
             </div>
           </div>
           <div class="row mb-3">
@@ -43,23 +35,28 @@
           <div class="row mb-3">
             <label for="useraccess" class="col-sm-2 col-form-label">User Access</label>
             <div class="col-sm-10">
-              <select class="form-control" aria-label="Default select example" formControlName="useraccess">Subscription
-                <option *ngFor="let useraccess of useraccesses" [value]="useraccess">
-                  {{useraccess}}
-                </option>
-              </select>
+              <div class="dropdown-with-arrow">
+                <select class="form-control" aria-label="Default select example" formControlName="useraccess">
+                  <option *ngFor="let useraccess of useraccesses; let idx = index;" value="{{idx+1}}">
+                    {{useraccess}}
+                  </option>
+                </select>
+                <div class="arrow-down"></div>
+              </div>
             </div>
           </div>
           <div class="row mb-3">
             <label for="androidid" class="col-sm-2 col-form-label">Android ID</label>
             <div class="col-sm-10">
-              <input type="text" formControlName="androidid" class="form-control" placeholder="Android ID" [readonly]="!isMarkUserClicked"/>
+              <input type="text" formControlName="androidid" class="form-control" placeholder="Android ID"
+                [readonly]="!isMarkUserClicked" />
             </div>
           </div>
           <div class="row mb-3">
             <label for="deviceinfo" class="col-sm-2 col-form-label">Device Info</label>
             <div class="col-sm-10">
-              <input type="text" formControlName="deviceinfo" class="form-control" placeholder="Device Info" [readonly]="!isMarkUserClicked"/>
+              <input type="text" formControlName="deviceinfo" class="form-control" placeholder="Device Info"
+                [readonly]="!isMarkUserClicked" />
             </div>
           </div>
           <div class="row mb-3">

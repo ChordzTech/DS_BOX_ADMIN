@@ -40,7 +40,9 @@ export class EditBusinessFormComponent implements OnInit {
       activationdate: [''],
       subscriptiondate: [''],
       multiuser: [''],
-      status: ['']
+      status: [''],
+      // subscription:[''],
+      // transaction:['']
     });
 
     this.activatedRoute.params.subscribe(val => {
@@ -80,7 +82,9 @@ export class EditBusinessFormComponent implements OnInit {
       activationdate: business.activationdate,
       subscriptiondate: business.subscriptiondate,
       multiuser: business.multiuser,
-      status: business.status
+      status: business.status,
+      // subscription:business.subscription,
+      // transaction:business.transaction
     })
   }
 

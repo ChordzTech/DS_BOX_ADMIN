@@ -1,16 +1,16 @@
-<mat-card>
+<!-- <mat-card>
   <mat-card-title>
     <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> Businesses
     </b>
   </mat-card-title>
-</mat-card><br>
+</mat-card><br> -->
 
-<div class="main-div">
+<div class="main-div" style="padding-top: 20px;">
   <div class="py-2">
     <div class="card px-5 py-3">
       <mat-card-title>
         <h2 class="py-2 border-bottom">
-          <i class="fa-solid fa-user"></i> Update Business Details
+          <i class="fa-solid fa-user"></i> Business Details
         </h2>
       </mat-card-title>
       <mat-card-content>
@@ -18,7 +18,8 @@
           <div class="row mb-3">
             <label for="businessname" class="col-sm-2 col-form-label">Business Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" formControlName="businessname" placeholder="Business Name" readonly/>
+              <input type="text" class="form-control" formControlName="businessname" placeholder="Business Name"
+                readonly />
             </div>
           </div>
           <div class="row mb-3">
@@ -36,12 +37,15 @@
           <div class="row mb-3">
             <label for="subscription" class="col-sm-2 col-form-label">Subscription</label>
             <div class="col-sm-10">
-              <select class="form-control" aria-label="Default select example"
-                formControlName="subscription">Subscription
-                <option *ngFor="let subscription of subscriptions" [value]="subscription">
-                  {{subscription}}
-                </option>
-              </select>
+              <div class="dropdown-with-arrow">
+                <select class="form-control" aria-label="Default select example" formControlName="subscription">
+                  <option value="" selected>Select Option</option> <!-- Default option -->
+                  <option *ngFor="let subscription of subscriptions" [value]="subscription">
+                    {{subscription}}
+                  </option>
+                </select>
+                <div class="arrow-down"></div>
+              </div>
             </div>
           </div>
           <div class="row mb-3">

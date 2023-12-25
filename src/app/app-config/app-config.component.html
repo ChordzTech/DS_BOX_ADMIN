@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-title>
-    <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> App Configuration</b>
+    <b><i class="fa-solid fa-gear"></i> App Configuration </b>
   </mat-card-title>
 </mat-card>
 
@@ -12,10 +12,10 @@
 
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
-      <!-- <ng-container matColumnDef="id">
+      <ng-container matColumnDef="configid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-      </ng-container> -->
+        <td mat-cell *matCellDef="let row">{{ row.configid }}</td>
+      </ng-container>
       <ng-container matColumnDef="configname">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Configuration</th>
         <td mat-cell *matCellDef="let row">{{ row.configname }}</td>
@@ -23,16 +23,17 @@
 
       <ng-container matColumnDef="configvalue">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
-        <td mat-cell *matCellDef="let row">
-          <ng-container *ngIf="row.id === 17">{{ row.configvalue | slice:0:40 }}...</ng-container>
-          <ng-container *ngIf="row.id !== 17">{{ row.configvalue }}</ng-container>
+        <!-- <td mat-cell *matCellDef="let row"> -->
+          <td mat-cell *matCellDef="let row">{{ row.configvalue }}
+          <!-- <ng-container *ngIf="row.configid !== 18">{{ row.configvalue }}</ng-container> -->
+          <ng-container *ngIf="row.configid === 18"> {{ row.base64_code }}</ng-container>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button (click)="edit()">
+          <button (click)="edit(row.configid)">
             <mat-icon color="primary">edit</mat-icon>
           </button>
         </td>

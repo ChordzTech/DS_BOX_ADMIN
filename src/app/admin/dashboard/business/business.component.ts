@@ -15,6 +15,7 @@ export class BusinessComponent {
   displayedColumns: string[] = ['businessid', 'businessname', 'contactno', 'multiuser', 'status', 'activationdate', 'action'];
   dataSource!: MatTableDataSource<Business>;
   public business!: Business[];
+  public statusList: string[] = ['Active', 'Trial', 'Expired'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -45,6 +46,10 @@ export class BusinessComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  onChange(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   edit(id: number) {

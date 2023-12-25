@@ -34,7 +34,8 @@ export class Business {
     subscriptiondate!: string;
     multiuser!: number;
     status!: string;
-    subscription!: string;
+    // subscription!: string;
+    // transaction!: string;
 }
 
 export class Subscription {
@@ -46,7 +47,7 @@ export class Subscription {
 }
 
 export class appConfig {
-    // id!: number;
+    configid!: number;
     configname!: string;
     configvalue!: string;
 }
@@ -54,10 +55,16 @@ export class appConfig {
 export class changePassword {
     adminid!: number;
     adminname!: string;
-    mobileno!: number;
+    mobileno!: string;
     adminpassword!: string;
-    firebaseid!: number;
-    fcmtoken!: number;
-    deviceinfo!: number;
+    firebaseid!: string;
+    fcmtoken!: string;
+    deviceinfo!: string;
     status!: string;
+    oldPassword!: string;
+    confirmPassword!: string;
+}
+
+export class myimages {
+    base64_code!: string;
 }

@@ -13,7 +13,7 @@ export class EdituserFormComponent implements OnInit {
   isMarkUserClicked = false;
   usersForm!: FormGroup;
   public userIdToUpdate!: number;
-  useraccesses: string[] = ["Read Only", "Full Access", "No Access"];
+  useraccesses: string[] = ['Read Only', 'Full Access', 'No Access'];
 
   constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
 

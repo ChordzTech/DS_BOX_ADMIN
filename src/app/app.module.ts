@@ -38,6 +38,7 @@ import { EditBusinessFormComponent } from './edit-business-form/edit-business-fo
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AppConfigComponent } from './app-config/app-config.component';
 import { EditAppConfigComponent } from './edit-app-config/edit-app-config.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { EditAppConfigComponent } from './edit-app-config/edit-app-config.compon
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatSelectModule,
     MatPaginatorModule,
     MatSortModule,
     HttpClientModule,

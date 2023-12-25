@@ -1,16 +1,9 @@
-<mat-card>
-    <mat-card-title>
-        <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> App Configuration
-        </b>
-    </mat-card-title>
-</mat-card><br>
-
-<div class="main-div">
+<div class="main-div" style="padding-top: 20px;">
     <div class="py-2">
         <div class="card px-5 py-3">
             <mat-card-title>
                 <h2 class="py-2 border-bottom">
-                    <i class="fa-solid fa-gears"></i> Update App Configuration Details
+                    <i class="fa-solid fa-gear"></i> App Configuration Details
                 </h2>
             </mat-card-title>
             <mat-card-content>
@@ -18,26 +11,25 @@
                     <div class="row mb-3">
                         <label for="configuration" class="col-sm-2 col-form-label">Configuration</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" formControlName="configuration"
+                            <input type="text" class="form-control" formControlName="configname"
                                 placeholder="Configuration" readonly />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="value" class="col-sm-2 col-form-label">Value</label>
                         <div class="col-sm-10">
-                            <ng-container *ngIf="configIdToUpdate != 17; else fileInput">
-                                <input type="text" class="form-control" formControlName="value" placeholder="Value" />
+                            <ng-container *ngIf="configIdToUpdate != 18; else fileInput">
+                                <input type="text" class="form-control" formControlName="configvalue"
+                                    placeholder="Value" />
                             </ng-container>
 
                             <ng-template #fileInput>
-                                <!-- <input type="text" class="form-control" formControlName="value"
-                                    placeholder="Value" /><br> -->
-                                <input type="file" class="form-control" formControlName="value" placeholder="Value"
-                                    (change)="onChange($event)" /><br>
+                                <input type="file" class="form-control" formControlName="base64_code"
+                                    placeholder="Value" (change)="onFileSelected($event)" /><br>
                             </ng-template>
-                            <div *ngIf="myImage">
-                                <img [src]="myImage" height="200px" width="200px">
-                            </div>
+                            <!-- <div *ngIf="myImage1">
+                                <img [src]="myImage1" height="200px" width="200px">
+                            </div> -->
                         </div>
                     </div>
 
