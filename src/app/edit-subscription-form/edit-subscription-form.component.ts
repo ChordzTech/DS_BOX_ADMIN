@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-subscription-form',
@@ -14,7 +15,7 @@ export class EditSubscriptionFormComponent implements OnInit {
   subscriptionForm!: FormGroup;
   public subscriptionIdToUpdate!: number;
 
-  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.subscriptionForm = this.fb.group({
@@ -52,7 +53,7 @@ export class EditSubscriptionFormComponent implements OnInit {
   update() {
     this.service.updateSubscription(this.subscriptionForm.value, this.subscriptionIdToUpdate)
       .subscribe(res => {
-        alert("Update Successfully...");
+        this.toastr.success('Update Successfully');
         this.router.navigate(['subscription']);
         this.subscriptionForm.reset();
       });

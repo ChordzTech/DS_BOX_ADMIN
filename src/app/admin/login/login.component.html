@@ -1,40 +1,25 @@
-<div
-  fxLayout="row wrap"
-  fxLayout.xs="column"
-  fxLayoutAlign="space-around center"
->
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center">
   <mat-card>
     <mat-card-title>
-      <h2>Sign-Up for Admin Pannel</h2>
+      <h2>Login to Admin Panel</h2>
     </mat-card-title>
     <mat-card-content>
-      <form
-        class="example-form"
-        [formGroup]="loginForm"
-        (ngSubmit)="login()"
-      >
+      <form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
         <mat-form-field class="example-full-width">
           <mat-label>User Name</mat-label>
-          <input matInput placeholder="Thor@123" formControlName="username" />
+          <input matInput placeholder="Thor@123" formControlName="adminname" />
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
           <mat-label>Password</mat-label>
-          <input matInput placeholder="********" formControlName="password" />
+          <input matInput type="password" placeholder="********" formControlName="password" />
         </mat-form-field>
 
-        <div
-          fxLayout="row wrap"
-          fxLayout.xs="column"
-          fxLayoutAlign="space-around center"
-          fxLayoutGap="25px"
-        >
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px">
           <button type="submit" mat-raised-button color="primary">
-            Submit
+            Login
           </button>
-          <a routerLink="/register" mat-raised-button color="accent"
-            >Back to Sign-Up</a
-          >
+          <a routerLink="/register" mat-raised-button color="accent">Register</a>
         </div>
       </form>
     </mat-card-content>

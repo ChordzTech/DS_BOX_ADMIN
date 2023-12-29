@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/service/auth.service';
@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 })
 export class LoginComponent {
   userData: any;
+  loginForm: FormGroup;
 
   constructor(
     private builder: FormBuilder,
@@ -19,39 +20,36 @@ export class LoginComponent {
     private router: Router
   ) {
     sessionStorage.clear();
+    this.loginForm = this.builder.group({
+      adminname: this.builder.control('', Validators.required),
+      password: this.builder.control('', Validators.required),
+    });
   }
-
-  loginForm = this.builder.group({
-    username: this.builder.control(
-      '',
-      Validators.compose([Validators.required])
-    ),
-
-    password: this.builder.control('', Validators.required),
-    // password: this.builder.control('',
-    //   Validators.compose([Validators.required, Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])),
-  });
 
   login() {
     if (this.loginForm.valid) {
-      this.service.getById(this.loginForm.value.username).subscribe((res: any) => {
-        this.userData = res;
-        console.log(this.userData);
-        if (this.userData.password === this.loginForm.value.password) {
-          if (this.userData.isActive) {
-            sessionStorage.setItem('usename', this.userData.id)
-            sessionStorage.setItem('role', this.userData.role)
-            this.router.navigateByUrl('/dashboard')
-          } else {
-            this.toastr.error('Please contact to Admin!!!', 'In Active User!')
-          }
-        } else {
-          this.toastr.error('Invalid Credential!!!')
-        }
-      })
-    } else {
-      this.toastr.error('Please Enter Valid Data')
+      this.service.getByCredentials(this.loginForm.value.adminname, this.loginForm.value.password).subscribe(
+        (res: any) => {
+          console.log('API Response:', res);
 
+          this.userData = res;
+
+          if (!this.userData) {
+            this.toastr.error('User not found. Please check your credentials.');
+          } else if (this.userData.isActive === undefined || this.userData.isActive) {
+            sessionStorage.setItem('adminname', this.userData.adminname);
+            this.router.navigateByUrl('/dashboard');
+          } else {
+            this.toastr.error('Access Denied. Please contact Admin.');
+          }
+        },
+        (error) => {
+          console.error('API Error:', error);
+          this.toastr.error('Error occurred while logging in.');
+        }
+      );
+    } else {
+      this.toastr.error('Please Enter Valid Data');
     }
   }
 }

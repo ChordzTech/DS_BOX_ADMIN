@@ -1,25 +1,39 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
-import { User, Business, appConfig, Subscription, changePassword } from '../models';
+import { User, Business, appConfig, Subscription, changePassword, TransactionDetails } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
-
+  
   constructor(private http: HttpClient) { }
 
   //BusinessDetails API
   getAllBusinessDetails(): Observable<any> {
-    return this.http.get<Business[]>(`/api/BusinessDetails/`);
+    return this.http.get<any>(`/api/BusinessDetails/`);
   }
   getBusinessId(id: number): Observable<any> {
-    return this.http.get<Business>(`/api/BusinessDetails/${id}/`);
+    return this.http.get<any>(`/api/BusinessDetails/${id}/`);
   }
   updateBusiness(businessData: Business, id: number) {
-    return this.http.put<Business>(`/api/BusinessDetails/${id}/`, businessData);
+    return this.http.put<any>(`/api/BusinessDetails/${id}/`, businessData);
   }
+
+
+  getAllTransactionDetails(): Observable<any> {
+    return this.http.get<TransactionDetails[]>(`/api/TransactionDetails/`);
+  }
+  getTransactionDetailsByBusinessId(businessId: number, transactionid: number): Observable<any> {
+    return this.http.get<TransactionDetails>(`/api/TransactionDetails/${businessId}/${transactionid}/`);
+  }
+
+  updateTransaction(transactionData: TransactionDetails, businessId: number, transactionid: number) {
+    return this.http.put<TransactionDetails>(`/api/TransactionDetails/${businessId}/${transactionid}/`, transactionData);
+  }
+
+
 
   //Display multiusers by business id 
   private selectedBusinessIdSource = new BehaviorSubject<string | null>(null);

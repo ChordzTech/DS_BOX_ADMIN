@@ -34,9 +34,22 @@ export class Business {
     subscriptiondate!: string;
     multiuser!: number;
     status!: string;
-    // subscription!: string;
-    // transaction!: string;
 }
+
+export class TransactionDetails {
+    transactionid!: number;
+    businessid!: number;
+    transactiondate!: string;
+    duration!: number;
+    amount!: number; 
+    perticulars!: string;
+    status!: string;
+}
+//   subscription: {
+//     amount: number;
+//     // ... other subscription properties ...
+//   };
+
 
 export class Subscription {
     subscriptionid!: number;

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
 import { appConfig, myimages } from '../models';
 import { Observable, Subscriber } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-app-config',
@@ -18,7 +19,7 @@ export class EditAppConfigComponent implements OnInit {
 
   selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -76,7 +77,7 @@ export class EditAppConfigComponent implements OnInit {
 
     this.service.updateappConfig(this.appConfigForm.value, this.configIdToUpdate)    // , this.base64code)
       .subscribe(res => {
-        alert("Update Successfully...");
+        this.toastr.success('Update Successfully');
         this.router.navigate(['appConfig']);
         this.appConfigForm.reset();
       });

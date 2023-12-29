@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-change-password',
@@ -14,7 +14,7 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordForm!: FormGroup;
   public adminIdToUpdate!: number;
 
-  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.changePasswordForm = this.fb.group({
@@ -59,27 +59,26 @@ export class ChangePasswordComponent implements OnInit {
     if (this.changePasswordForm.valid) {
       const newPassword = this.changePasswordForm.value.adminpassword;
       const confirmPassword = this.changePasswordForm.value.confirmPassword;
-  
+
       if (!newPassword || !confirmPassword) {
-        alert("Please enter both new password and confirm password.");
+        this.toastr.error('Please enter both new password and confirm password')
         return;
       }
-  
+
       if (newPassword !== confirmPassword) {
-        alert("New password and confirm password do not match.");
+        this.toastr.error("New password and confirm password do not match.");
         return;
       }
-  
-      this.service.updateAdminPassword(this.changePasswordForm.value, this.adminIdToUpdate).subscribe(
-        (res) => {
-          alert('Update Successfully...');
+
+      this.service.updateAdminPassword(this.changePasswordForm.value, this.adminIdToUpdate).subscribe({
+        next: (res) => {
+          this.toastr.success('Update Successfully');
           this.changePasswordForm.reset();
         },
-        (error) => {
+        error: (error) => {
           console.error('Error updating password', error);
         }
-      );
+      });
     }
   }
-  
 }

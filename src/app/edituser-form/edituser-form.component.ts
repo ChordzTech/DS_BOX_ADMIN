@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edituser-form',
@@ -15,7 +16,7 @@ export class EdituserFormComponent implements OnInit {
   public userIdToUpdate!: number;
   useraccesses: string[] = ['Read Only', 'Full Access', 'No Access'];
 
-  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.usersForm = this.fb.group({
@@ -63,7 +64,7 @@ export class EdituserFormComponent implements OnInit {
   update() {
     this.service.updateUser(this.usersForm.value, this.userIdToUpdate)
       .subscribe(res => {
-        alert("Update Successfully...");
+        this.toastr.success('Update Successfully');
         this.router.navigate(['users']);
         this.usersForm.reset();
       });

@@ -1,36 +1,24 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  basApi = 'http://localhost:3000/admin'
+  basApi = '/api/Administrators/';
 
   constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.http.get(this.basApi) 
+  getByCredentials(adminname: string, password: string) {
+    const headers = new HttpHeaders({
+      'adminname': adminname,
+      'adminpassword': password,
+    });
+
+    return this.http.get<any>(this.basApi, { headers });
   }
 
-  //get record by single id 
-  getById(id: any) {
-    return this.http.get(this.basApi + '/' + id)
-  }
-
-  //register user by post method
-  registerData(inputdata: any) {
-    return this.http.post(this.basApi, inputdata)
-  }
-
-  //update user by put method
-  updateData(id: any, inputdata: any) {
-    return this.http.put(this.basApi + '/' + id, inputdata)
-  }
-
-  //Get Admin
   isLoggedIn() {
-    return localStorage.getItem('isLogin');
+    return sessionStorage.getItem('adminname') !== null;
   }
 }

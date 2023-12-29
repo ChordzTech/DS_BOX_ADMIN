@@ -12,7 +12,7 @@ import { Business } from 'src/app/models';
   styleUrls: ['./business.component.scss']
 })
 export class BusinessComponent {
-  displayedColumns: string[] = ['businessid', 'businessname', 'contactno', 'multiuser', 'status', 'activationdate', 'action'];
+  displayedColumns: string[] = ['businessid', 'businessname', 'contactno', 'multiuser', 'status', 'subscriptiondate', 'action'];
   dataSource!: MatTableDataSource<Business>;
   public business!: Business[];
   public statusList: string[] = ['Active', 'Trial', 'Expired'];
@@ -21,8 +21,9 @@ export class BusinessComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
-    this.getBusinessList()
+    this.getBusinessList();
   }
+
   constructor(private service: ServiceService, private router: Router) { }
 
   getBusinessList() {
@@ -36,7 +37,7 @@ export class BusinessComponent {
       error: (err: any) => {
         alert(err);
       }
-    })
+    });
   }
 
   applyFilter(event: Event) {
@@ -59,5 +60,15 @@ export class BusinessComponent {
   showUsers(businessId: string) {
     this.service.setSelectedBusinessId(businessId);
     this.router.navigate(['multiusers', businessId]);
+  }
+
+  calculateRemainingDays(subscriptiondate: string): string {
+    const currentDate = new Date();
+    const expirationDate = new Date(subscriptiondate); // Assuming subscriptiondate is in a valid date format
+
+    const timeDifference = expirationDate.getTime() - currentDate.getTime();
+    const remainingDays = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Convert milliseconds to days
+
+    return remainingDays.toString();
   }
 }

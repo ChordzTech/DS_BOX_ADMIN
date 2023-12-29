@@ -45,10 +45,9 @@
         <td mat-cell *matCellDef="let row">{{ row.status }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="activationdate">
+      <ng-container matColumnDef="subscriptiondate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Subscription</th>
-        <td mat-cell *matCellDef="let row">{{ row.activationdate }}</td>
-        <!-- <td mat-cell *matCellDef="let row"><img [src]="row.subscriptiondate"></td> -->
+        <td mat-cell *matCellDef="let row">{{ calculateRemainingDays(row.subscriptiondate) }} days</td>
       </ng-container>
 
       <ng-container matColumnDef="action">
