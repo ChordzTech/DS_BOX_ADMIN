@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { EditAppconfigFormComponent } from 'src/app/edit-appconfig-form/edit-appconfig-form.component';
 import { ServiceService } from 'src/app/shared/service.service';
 
@@ -10,11 +11,11 @@ import { ServiceService } from 'src/app/shared/service.service';
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
-})
+})  
 export class SettingsComponent {
 
   
-  displayedColumns: string[] = ['id', 'configuration', 'value', 'action'];
+  displayedColumns: string[] = ['configid', 'configname', 'configvalue', 'action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -26,11 +27,7 @@ export class SettingsComponent {
   ngOnInit(): void {
     this.getAppConfigList()
   }
-  constructor(private service: ServiceService, dialog: MatDialog) { }
-
-  openEditAppConfig(){
-    this.dialog.open(EditAppconfigFormComponent)
-  }
+  constructor(private service: ServiceService, private router: Router) { }
 
   getAppConfigList() {
     this.service.getAppConfig().subscribe({
@@ -52,6 +49,10 @@ export class SettingsComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  edit(id: number) {
+    this.router.navigate(['editappConfig', id]);
   }
 
 

@@ -49,9 +49,25 @@ export class ServiceService {
   }
 
 
+  //AppConfig Service
   getAppConfig(): Observable<any> {
     return this.http.get<any>("api/AppConfig/");
     // return this.http.get("http://localhost:3000/appConfig");
+  }
+
+  getappConfigId(id: number): Observable<any> {
+    return this.http.get<appConfig>(`/api/AppConfig/${id}/`);
+  }
+  updateappConfig(appConfigData: appConfig, id: number): Observable<any> {              //base64Code: string
+    // //const headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    // });
+    // const updatedData = { ...appConfigData, configvalue: base64Code !== undefined ? base64Code : appConfigData.configvalue };
+    return this.http.put<appConfig>(`/api/AppConfig/${id}/`, appConfigData);         //{ headers }
+  }
+
+  postImage(imageData: any): Observable<any> {
+    return this.http.post(`/api/UploadCode/`, { base64_code: imageData });
   }
 
   //Display multiusers by business id 
