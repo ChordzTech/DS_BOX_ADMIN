@@ -19,23 +19,39 @@ export class BusinessComponent {
   dataSource!: MatTableDataSource<any>;
   statusList = ['Active', 'Trial', 'Expired'];
   apiResponse: any[] | undefined;
+  subscriptionData: any[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   dialog: any;
 
+  constructor(private service: ServiceService, private router: Router) { }
 
 
   ngOnInit(): void {
-    this.getBusinessList()
+    this.getBusinessList();
+    this.loadSubscriptionData();
   }
-  constructor(private service: ServiceService,  private router: Router) { }
+
+  loadSubscriptionData(): void {
+    this.service.getAllBusiuness().subscribe((data: any[]) => {
+      this.subscriptionData = data.map(item => {
+        let subscriptionDate = new Date(item.subscriptiondate);
+        let currentDateTime = new Date();
+        let timeDifference = subscriptionDate.getTime() - currentDateTime.getTime();
+        let remainingDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+        return { ...item, remainingDays };
+      });
+    });
+  }
+
 
   openEditBusinessForm() {
     this.dialog.open(EditBusinessFormComponent)
   }
 
-  getBusinessList() { 
+  getBusinessList() {
     this.service.getAllBusiuness().subscribe({
       next: (res: any) => {
         this.apiResponse = res;

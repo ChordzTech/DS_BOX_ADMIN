@@ -73,7 +73,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     FlexLayoutModule,
     MatSliderModule,
-    // FormsModule,
+    FormsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,

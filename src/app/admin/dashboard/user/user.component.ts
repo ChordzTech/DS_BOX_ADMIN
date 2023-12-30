@@ -9,7 +9,7 @@ import { ServiceService } from 'src/app/shared/service.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'] 
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
 
@@ -22,18 +22,18 @@ export class UserComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
 
 
- 
+
+
   ngOnInit(): void {
-    this.getUsersList();  
+    this.getUsersList();
   }
   constructor(private service: ServiceService, dialog: MatDialog) { }
 
   openEditUserForm() {
     this.dialog.open(EdituserFormComponent)
-  } 
+  }
 
   getUsersList() {
     this.service.getAllUserDetails().subscribe({
@@ -48,30 +48,30 @@ export class UserComponent {
     })
   }
 
-//   getUsersSubscriptList() {
-//     this.service.getUserSubscription().subscribe({
-//       next: (res: any) => {
-//         this.subscription = res;
-//         this.checkStatus();
-//       },
-//       error: (err: any) => {
-//         alert(err);
-//       }
-//     })
-//   }
+  //   getUsersSubscriptList() {
+  //     this.service.getUserSubscription().subscribe({
+  //       next: (res: any) => {
+  //         this.subscription = res;
+  //         this.checkStatus();
+  //       },
+  //       error: (err: any) => {
+  //         alert(err);
+  //       }
+  //     })
+  //   }
 
-//   checkStatus(): void {
-//     const currentDate = new Date();
-//     const subscriptionStartDate = new Date(this.subscription.subscriptiondate);
+  //   checkStatus(): void {
+  //     const currentDate = new Date();
+  //     const subscriptionStartDate = new Date(this.subscription.subscriptiondate);
 
-//     if (subscriptionStartDate < currentDate) {
-//       this.status = 'expired', `<style>color: red</style>`;
-//     } else if (subscriptionStartDate === currentDate) {
-//       this.status = 'expiring today';
-//     } else if (subscriptionStartDate > currentDate) {
-//       this.status = 'active';
-//     }
-//  }
+  //     if (subscriptionStartDate < currentDate) {
+  //       this.status = 'expired', `<style>color: red</style>`;
+  //     } else if (subscriptionStartDate === currentDate) {
+  //       this.status = 'expiring today';
+  //     } else if (subscriptionStartDate > currentDate) {
+  //       this.status = 'active';
+  //     }
+  //  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -82,19 +82,19 @@ export class UserComponent {
     }
   }
 
- 
+
   // ReadMore:boolean = true
 
-  
+
   // visible:boolean = false
 
 
- 
+
   // onclick()
   // {
   //   this.ReadMore = !this.ReadMore; 
   //   this.visible = !this.visible;
-    
+
   // }
 
 }

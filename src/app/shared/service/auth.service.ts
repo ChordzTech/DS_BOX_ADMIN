@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,33 +6,28 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  basApi = 'https://dsboxapi.beatsacademy.in/api/Administrators/'
-
-  constructor(private http: HttpClient) { }
-
   // getAll() {
   //   return this.http.get<any>("api/Administrators/");
   //   return this.http.get(this.basApi)
   // }
 
   //get record by single id 
-  getById(adminid: any) {
-    return this.http.get<any>("api/Administrators/");
-    // return this.http.get(this.basApi + '/' + adminid)
+  basApi = '/api/Administrators/';
+
+  constructor(private http: HttpClient) { }
+
+  getByCredentials(adminname: string, password: string) {
+    const headers = new HttpHeaders({
+      'adminname': adminname,
+      'adminpassword': password,
+    });
+
+    // return this.http.get<any>(this.basApi, { headers });
+    return this.http.post<any>(this.basApi, { headers });
   }
 
-  //register user by post method 
-  registerData(inputdata: any) {
-    return this.http.post(this.basApi, inputdata)
-  }
-
-  //update user by put method
-  updateData(id: any, inputdata: any) {
-    return this.http.put(this.basApi + '/' + id, inputdata)
-  }
-
-  //Get Admin
   isLoggedIn() {
-    return sessionStorage.getItem('username') != null;
+    return sessionStorage.getItem('adminname') !== null;
   }
+
 }

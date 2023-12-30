@@ -19,23 +19,23 @@ const routes: Routes = [
   {
     // canActivate: [AuthGuard],
     path: '',
-    component: HomeComponent, 
+    component: HomeComponent,
     children: [
       { path: 'users', component: UserComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'subscription', component: SubscriptonComponent },
       { path: 'business', component: BusinessComponent },
-      { path: 'changePassword', component: ChangePasswordComponent },
       { path: 'appConfig', component: SettingsComponent },
       { path: 'users/:id/edit', component: EdituserFormComponent },
       { path: 'subscription/:id/edit', component: EditSubscriptionFormComponent },
       { path: 'editbusiness/:id', component: EditBusinessFormComponent },
-      { path: 'appConfig/:id/edit', component: EditAppconfigFormComponent },    
+      { path: 'appConfig/:id/edit', component: EditAppconfigFormComponent },
     ]
   },
 
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'changePassword', component: ChangePasswordComponent },
   { path: 'register', component: RegisterComponent }
 ];
 

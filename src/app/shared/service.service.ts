@@ -41,10 +41,10 @@ export class ServiceService {
     // return this.http.get("http://localhost:3000/business");
   }
   getBusinessId(id: number): Observable<any> {
-    return this.http.get<Business>("/api/BusinessDetails/${id}/");
+    return this.http.get<any>("/api/BusinessDetails/${id}/");
   }
   updateBusiness(businessData: Business, id: number) {
-    return this.http.put<Business>("/api/BusinessDetails/${id}/", businessData);
+    return this.http.put<any>("/api/BusinessDetails/${id}/", businessData);
     // return this.http.put(/api/UserDetails/${id}, businessData);
   }
 
@@ -54,20 +54,20 @@ export class ServiceService {
     // return this.http.get("http://localhost:3000/appConfig");
   }
 
-   //Display multiusers by business id 
-   private selectedBusinessIdSource = new BehaviorSubject<string | null>(null);
-   selectedBusinessId$ = this.selectedBusinessIdSource.asObservable();
- 
-   setSelectedBusinessId(businessId: string | null) {
-     this.selectedBusinessIdSource.next(businessId);
-   }
+  //Display multiusers by business id 
+  private selectedBusinessIdSource = new BehaviorSubject<string | null>(null);
+  selectedBusinessId$ = this.selectedBusinessIdSource.asObservable();
 
-  getUserSubscription(): Observable<any> {
-    return this.http.get("http://localhost:3000/business");
+  setSelectedBusinessId(businessId: string | null) {
+    this.selectedBusinessIdSource.next(businessId);
   }
 
-  getChartInfo() {
-    return this.http.get("http://localhost:3000/joiningsData");
+  getAllCountBusiness(): Observable<any> {
+    return this.http.get<any>("api/AdminHome/");
+  }
+
+  getChartInfo(): Observable<any> {
+    return this.http.get<any>("api/AdminHome/");
   }
 
   //Update Data

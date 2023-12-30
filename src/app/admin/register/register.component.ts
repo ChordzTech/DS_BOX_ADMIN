@@ -32,14 +32,14 @@ export class RegisterComponent {
   });
   //
   registration() {
-    if (this.registerForm.valid) {
-      this.service.registerData(this.registerForm.value).subscribe(((res: any) => {
-        this.toastr.success('Registraton Successfull');
-        this.router.navigate(['login'])
-      }))
+    // if (this.registerForm.valid) {
+    //   this.service.registerData(this.registerForm.value).subscribe(((res: any) => {
+    //     this.toastr.success('Registraton Successfull');
+    //     this.router.navigate(['login'])
+    //   }))
 
-    } else {
-      this.toastr.warning('Please Enter Valid Data');
-    }
+    // } else {
+    //   this.toastr.warning('Please Enter Valid Data');
+    // }
   }
 }

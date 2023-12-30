@@ -5,6 +5,7 @@
 </mat-card>
 
 <div
+  *ngIf="data"
   class="pb-3"
   fxLayout="row wrap"
   fxLayout.xs="column"
@@ -15,48 +16,37 @@
     <mat-card-header class="text-center">
       <div mat-card-avatar class="example-header1-image"></div>
       <mat-card-title style="font-size: 20px; display: flex"
-        >Trial Business</mat-card-title
+        >Trial Businesses</mat-card-title
       >
     </mat-card-header>
     <mat-card-content>
-      <p class="para">7170</p>
+      <p class="para">{{ data["trialBusiness"] }}</p>
     </mat-card-content>
   </mat-card>
   <mat-card class="example-card card-1">
     <mat-card-header>
       <div mat-card-avatar class="example-header2-image"></div>
       <mat-card-title style="font-size: 20px; display: flex"
-        >Active Business</mat-card-title
+        >Active Businesses</mat-card-title
       >
     </mat-card-header>
     <mat-card-content>
-      <p class="para">452</p>
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="example-card card-1">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header3-image"></div>
-      <mat-card-title style="font-size: 20px; display: flex"
-        >Expired Business</mat-card-title
-      >
-    </mat-card-header>
-    <mat-card-content>
-      <p class="para">7512</p>
+      <p class="para">{{ data["activeBusiness"] }}</p>
     </mat-card-content>
   </mat-card>
   <mat-card class="example-card card-1">
     <mat-card-header>
       <div mat-card-avatar class="example-header4-image"></div>
-      <mat-card-title style="font-size: 20px">All Business</mat-card-title>
+      <mat-card-title style="font-size: 20px">All Businesses</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p class="para">7622</p>
+      <p class="para">{{ data["totalBusiness"] }}</p>
     </mat-card-content>
   </mat-card>
 </div>
 <div class="card my-2 me-4">
   <h2 class="p-3" style="text-align: left; padding-left: 10px">Joinings</h2>
   <div class="card-body chartBox mx-auto">
-    <canvas id="canvas">{{ chart }}</canvas>
+    <canvas id="myChart"></canvas>
   </div>
 </div>

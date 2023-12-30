@@ -5,38 +5,96 @@
 >
   <mat-card>
     <mat-card-title>
-      <h2>Sign-Up for Admin Pannel</h2>
+      <h2>Login to Admin Panel</h2>
     </mat-card-title>
     <mat-card-content>
-      <form
-        class="example-form"
-        [formGroup]="loginForm"
-        (ngSubmit)="login()"
-      >
+      <form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
         <mat-form-field class="example-full-width">
           <mat-label>User Name</mat-label>
-          <input matInput placeholder="Thor@123" formControlName="username" />
+          <input matInput placeholder="Thor@123" formControlName="adminname" />
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
           <mat-label>Password</mat-label>
-          <input matInput placeholder="********" formControlName="password" />
+          <input
+            matInput
+            type="password"
+            placeholder="********"
+            formControlName="password"
+          />
         </mat-form-field>
 
         <div
+          class="pb-3"
           fxLayout="row wrap"
           fxLayout.xs="column"
           fxLayoutAlign="space-around center"
           fxLayoutGap="25px"
         >
-          <button type="submit" mat-raised-button color="primary">
-            Submit
-          </button>
+          <button type="submit" mat-raised-button color="primary">Login</button>
           <a routerLink="/register" mat-raised-button color="accent"
-            >Back to Sign-Up</a
+            >Register</a
+          >
+        </div>
+        <div class="text-primary">
+          <a
+            id="forgot"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            style="text-decoration: none; font-weight: bold"
+            >Forgot Password?</a
           >
         </div>
       </form>
     </mat-card-content>
   </mat-card>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title" id="exampleModalLabel">
+          <span style="font-size: 25px; font-weight: 700"
+            >Forgot your password?</span
+          ><br />
+          <small>Please provide your E-mail we will send the reset link</small>
+        </p>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group pt-3">
+          <div class="input-field">
+            <!-- <span class="fa-solid fa-user p-2"></span>&nbsp; -->
+            <input [(ngModel)]="resetPasswordEmail"
+              type="email"
+              placeholder="name@example.com"
+              style="width: 100%"
+            />
+          </div>
+          <small class="text-danger">*Email is required</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary"><a routerLink="/changePassword"
+          >Send</a
+        ></button>
+      </div>
+    </div>
+  </div>
 </div>

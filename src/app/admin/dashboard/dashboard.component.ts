@@ -13,55 +13,113 @@ import { result } from 'lodash';
 export class DashboardComponent implements OnInit {
   barChartType: any;
   chartData: any;
-  labledata: any[] = [];
-  realdata: any[] = [];
-  colordata: any[] = [];
+  businessData: any;
+  data: any;
 
-
-
-
-  constructor(private service: ServiceService) { }
+  constructor(private service: ServiceService) {}
 
   public chart: Chart | undefined;
   ngOnInit(): void {
-
-    this.service.getChartInfo().subscribe((result: any) => {
-      this.chartData = result;
-      if (this.chartData != null) {
-        for (let i = 0; i < this.chartData.length; i++) {
-          console.log(this.chartData[i].thisWeek);
-          // console.log(this.chartData[i].lastWeek);
-          // this.labledata.push(this.chartData[i].day);
-          // this.realdata.push(this.chartData[i].joinings);
-          // this.colordata.push(this.chartData[i].colorcode);
-        }
-
-        //
-        // this.realdata.push(this.chartData[i].thisWeek.joinings);
-        // this.colordata.push(this.chartData[i].thisWeek.colorcode);
-      }
-    })
-
-    this.RenderChart()
-
-
+    this.allCountBusiness();
+    this.getChartData();
+    this.RenderChart();
   }
-  RenderChart() {
-    const myChart = new Chart('canvas', {
+  // RenderChart() {
+  //   const myChart = new Chart('canvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'],
+  //       datasets: [
+  //         {
+  //           label: '# of Last week Joinings',
+  //           data: [10, 14, 5, 4, 6, 17, 7],
+  //           backgroundColor: ['rgb(134,142,150)'],
+  //           borderColor: ['rgba(238,238,238, 1)'],
+  //           borderWidth: 1,
+  //         },
+  //         {
+  //           label: '# of this week Joinings',
+  //           data: [12, 19, 3, 5, 2, 3, 9],
+  //           backgroundColor: ['rgb(7,157,243)'],
+  //           borderColor: ['rgba(54, 162, 235, 1)'],
+  //           borderWidth: 1,
+  //         },
+  //       ],
+  //     },
+  //     options: {
+  //       maintainAspectRatio: false,
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //         },
+  //       },
+  //     },
+  //   })
+  // }
+
+  allCountBusiness() {
+    this.service.getAllCountBusiness().subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.data = res.data;
+      },
+      error: (err: any) => {
+        alert(err);
+      },
+    });
+  }
+
+  getCurrentDay(): string {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDate = new Date();
+    return days[currentDate.getDay()];
+  }
+
+  rearrangeDays(currentDay: string): string[] {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDayIndex = days.indexOf(currentDay);
+    const rearrangedDays = [...days.slice(currentDayIndex), ...days.slice(0, currentDayIndex)];
+    return rearrangedDays;
+  }
+  
+  rearrangeData(data: any, currentDay: string): number[] {
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const currentDayIndex = days.indexOf(currentDay);
+    const rearrangedData = [
+      ...Object.values(data).slice(currentDayIndex),
+      ...Object.values(data).slice(0, currentDayIndex),
+    ];
+    return rearrangedData as number[];
+  }
+
+  getChartData(): void {
+    this.service.getChartInfo().subscribe((res) => {
+      this.chartData = res.data;
+      // console.log("chart data", this.data);
+      this.RenderChart();
+    });
+  }
+
+  RenderChart(): void {
+    const currentDay = this.getCurrentDay();
+    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    // const ctx = canvas.getContext('2d');
+
+    const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'],
+        labels:this.rearrangeDays(currentDay), // ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         datasets: [
           {
-            label: '# of Last week Joinings',
-            data: [10, 14, 5, 4, 6, 17, 7],
+            label: 'Past Week Records',
+            data: this.rearrangeData(this.chartData.pastWeekRecords, currentDay),
             backgroundColor: ['rgb(134,142,150)'],
             borderColor: ['rgba(238,238,238, 1)'],
             borderWidth: 1,
           },
           {
-            label: '# of this week Joinings',
-            data: [12, 19, 3, 5, 2, 3, 9],
+            label: 'Current Week Records',
+            data: this.rearrangeData(this.chartData.currentWeekRecords, currentDay),
             backgroundColor: ['rgb(7,157,243)'],
             borderColor: ['rgba(54, 162, 235, 1)'],
             borderWidth: 1,
@@ -76,145 +134,43 @@ export class DashboardComponent implements OnInit {
           },
         },
       },
-    })
+    });
   }
-  // public barChartOptions:any = {
-  //   scaleShowVerticalLines: false,
-  //   responsive: true
-  // };
 
-  //   public mbarChartLabels:string[] = ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
-  //   public barChartType:string = 'bar';
-  //   public barChartLegend:boolean = true;
+  // trialcount: number = 0;
+  // activecount: number = 0;
+  // expiredcount: number = 0;
+  // allcount: number = 0;
 
-  //   public barChartColors:Array<any> = [
-  //   {
-  //     backgroundColor: 'rgba(105,159,177,0.2)',
-  //     borderColor: 'rgba(105,159,177,1)',
-  //     pointBackgroundColor: 'rgba(105,159,177,1)',
-  //     pointBorderColor: '#fafafa',
-  //     pointHoverBackgroundColor: '#fafafa',
-  //     pointHoverBorderColor: 'rgba(105,159,177)'
-  //   },
-  //   {
-  //     backgroundColor: 'rgba(77,20,96,0.3)',
-  //     borderColor: 'rgba(77,20,96,1)',
-  //     pointBackgroundColor: 'rgba(77,20,96,1)',
-  //     pointBorderColor: '#fff',
-  //     pointHoverBackgroundColor: '#fff',
-  //     pointHoverBorderColor: 'rgba(77,20,96,1)'
+  // trialcountstop: any = setInterval(() => {
+  //   this.trialcount++;
+
+  //   if (this.trialcount == 7170) {
+  //     clearInterval(this.trialcountstop);
   //   }
-  // ];
-  //   public barChartData:any[] = [
-  //     {data: [55, 60, 75, 82, 56, 62, 80], label: 'Company A'},
-  //     {data: [58, 55, 60, 79, 66, 57, 90], label: 'Company B'}
-  //   ];
+  // }, 1);
 
-  //   // events
-  //   public chartClicked(e:any):void {
-  //     console.log(e);
+  // activecountstop: any = setInterval(() => {
+  //   this.activecount++;
+
+  //   if (this.trialcount == 452) {
+  //     clearInterval(this.activecountstop);
   //   }
+  // }, 1);
 
-  //   public chartHovered(e:any):void {
-  //     console.log(e);
+  // expiredcountstop: any = setInterval(() => {
+  //   this.expiredcount++;
+
+  //   if (this.expiredcount == 7512) {
+  //     clearInterval(this.expiredcountstop);
   //   }
+  // }, 1);
 
-  //   public randomize():void {
-  //     let data = [
-  //       Math.round(Math.random() * 100),
-  //       Math.round(Math.random() * 100),
-  //       Math.round(Math.random() * 100),
-  //       (Math.random() * 100),
-  //       Math.round(Math.random() * 100),
-  //       (Math.random() * 100),
-  //       Math.round(Math.random() * 100)];
-  //     let clone = JSON.parse(JSON.stringify(this.barChartData));
-  //     clone[0].data = data;
-  //     this.barChartData = clone;
+  // allcountstop: any = setInterval(() => {
+  //   this.allcount++;
+
+  //   if (this.allcount == 7622) {
+  //     clearInterval(this.allcountstop);
   //   }
-
-  // barChartsData = {
-  //   lables:["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  //   datasets:[
-  //     {
-  //       data: [89, 78, 95, 56, 74, 23, 41],
-  //       lable : 'Joinings in Week'
-  //     }
-  //   ]
-  // }
-
-  // barChart(){
-  //   this.chartOptions = {
-  //     chart:{
-  //       type: 'column'
-  //     },
-  //     title: 'Joinings In Week'
-  //   },
-  //   {
-  //     xAxis:{
-  //       categories:[
-  //         'Africa', 'America', 'Asia', 'Europe'
-  //       ]
-  //     },
-
-  //     series: this.chartData
-  //   }
-  // }
-
-  // chartOptions: any;
-  // highcharts: typeof HighCharts = HighCharts;
-
-  // // highchart Data
-  // chartData = [
-  //   {
-  //     name: 'Year 1990',
-  //     data: [631, 789, 6524, 721]
-  //   },
-  //   {
-  //     name: 'Year 2000',
-  //     data: [450, 554, 7524, 421]
-  //   },
-  //   {
-  //     name: 'Year 2018',
-  //     data: [731, 689, 8524, 321]
-  //   }
-
-  // ]
-
-  trialcount: number = 0;
-  activecount: number = 0;
-  expiredcount: number = 0;
-  allcount: number = 0;
-
-  trialcountstop: any = setInterval(() => {
-    this.trialcount++;
-
-    if (this.trialcount == 7170) {
-      clearInterval(this.trialcountstop);
-    }
-  }, 1);
-
-  activecountstop: any = setInterval(() => {
-    this.activecount++;
-
-    if (this.trialcount == 452) {
-      clearInterval(this.activecountstop);
-    }
-  }, 1);
-
-  expiredcountstop: any = setInterval(() => {
-    this.expiredcount++;
-
-    if (this.expiredcount == 7512) {
-      clearInterval(this.expiredcountstop);
-    }
-  }, 1);
-
-  allcountstop: any = setInterval(() => {
-    this.allcount++;
-
-    if (this.allcount == 7622) {
-      clearInterval(this.allcountstop);
-    }
-  }, 1);
+  // }, 1);
 }
