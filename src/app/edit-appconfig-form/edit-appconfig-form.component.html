@@ -1,42 +1,65 @@
 <div class="pe-5 py-2">
-    <div class="card px-5 py-3">
-        <mat-card-title>
-            <h2 class="py-2 border-bottom">
-                <i class="fa-solid fa-gears"></i> Edit App Configuration Details
-            </h2> 
-        </mat-card-title>
-        <mat-card-content>
-            <form [formGroup]="appConfigForm">
-                <div class="row mb-3">
-                    <label for="configuration" class="col-sm-2 col-form-label">Configuration</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" formControlName="configname"
-                            placeholder="Configuration" readonly />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="value" class="col-sm-2 col-form-label">Value</label>
-                    <div class="col-sm-10">
-                        <ng-container *ngIf="configIdToUpdate != 18; else fileInput">
-                            <input type="text" class="form-control" formControlName="configvalue"
-                                placeholder="Value" />
-                        </ng-container>
+  <div class="card px-5 py-3">
+    <mat-card-title>
+      <h2 class="py-2 border-bottom">
+        <i class="fa-solid fa-gears"></i> Edit App Configuration Details
+      </h2>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="appConfigForm">
+        <div class="row mb-3">
+          <label for="configuration" class="col-sm-2 col-form-label"
+            >Configuration</label
+          >
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="configname"
+              placeholder="Configuration"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="value" class="col-sm-2 col-form-label">Value</label>
+          <div class="col-sm-10">
+            <ng-container *ngIf="configIdToUpdate != 18; else fileInput">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="configvalue"
+                placeholder="Value"
+              />
+            </ng-container>
 
-                        <ng-template #fileInput>
-                            <input type="file" name="myImage" accept="image/png, image/gif, image/jpeg" class="form-control" formControlName="base64_code"
-                                placeholder="Value" (change)="onFileSelected($event)" /><br>
-                        </ng-template>
-                        <!-- <div *ngIf="myImage1">
-                            <img [src]="myImage1" height="200px" width="200px">
-                        </div> -->
-                    </div>
-                </div>
+            <ng-template #fileInput>
+              <input
+                type="file"
+                name="myImage"
+                accept="image/png, image/gif, image/jpeg"
+                class="form-control"
+                formControlName="base64_code"
+                placeholder="Value"
+                (change)="onFileSelected($event)"
+              /><br />
+            </ng-template>
+            <div *ngIf="uploadedFileName">
+              <p>{{ uploadedFileName }} uploaded successfully!</p>
+            </div>
+          </div>
+        </div>
 
-                <div fxLayoutGap="25px"><br>
-                    <button type="button" class="btn btn-primary" (click)="update()">Update</button>
-                    <button type="button" class="btn btn-danger" routerLink="/appConfig">Close</button>
-                </div>
-            </form>
-        </mat-card-content>
-    </div>
+        <div fxLayoutGap="25px">
+          <br />
+          <button type="button" class="btn btn-primary" (click)="update()">
+            Update
+          </button>
+          <button type="button" class="btn btn-danger" routerLink="/appConfig">
+            Close
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </div>
 </div>

@@ -3,7 +3,7 @@ import { AuthService } from '../shared/service/auth.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ServiceService } from '../shared/service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router'; 
 
 @Component({
   selector: 'app-edituser-form', 

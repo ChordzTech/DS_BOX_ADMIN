@@ -17,6 +17,7 @@ export class EditAppconfigFormComponent {
   public configIdToUpdate!: number;
   myImage1!: Observable<any>;
   base64code!: any;
+  uploadedFileName: any | null = null;
 
   selectedFile: File | null = null;
 
@@ -40,6 +41,7 @@ export class EditAppconfigFormComponent {
         .subscribe({
           next: (res) => {
             this.fillFormToUpdate(res.data);
+            this.uploadedFileName = this.selectedFile;
           },
           error: (err) => {
             console.log(err);
