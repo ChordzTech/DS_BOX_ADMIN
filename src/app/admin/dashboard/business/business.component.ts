@@ -26,7 +26,7 @@ export class BusinessComponent {
   dialog: any;
 
   constructor(private service: ServiceService, private router: Router) { }
-
+  public dataLoaded: boolean = false;
 
   ngOnInit(): void {
     this.getBusinessList();
@@ -54,7 +54,9 @@ export class BusinessComponent {
   getBusinessList() {
     this.service.getAllBusiuness().subscribe({
       next: (res: any) => {
+
         this.apiResponse = res;
+        this.dataLoaded = true;
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

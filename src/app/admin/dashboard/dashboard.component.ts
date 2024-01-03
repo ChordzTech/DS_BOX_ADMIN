@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private service: ServiceService) {}
 
+  isLoading = true;
+
   public chart: Chart | undefined;
   ngOnInit(): void {
     this.allCountBusiness();
@@ -62,6 +64,7 @@ export class DashboardComponent implements OnInit {
       next: (res: any) => {
         console.log(res);
         this.data = res.data;
+        this.isLoading = false;
       },
       error: (err: any) => {
         alert(err);

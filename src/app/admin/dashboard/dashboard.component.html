@@ -5,7 +5,7 @@
 </mat-card>
 
 <div
-  *ngIf="data"
+*ngIf="data; else loadingSpinner"
   class="pb-3"
   fxLayout="row wrap"
   fxLayout.xs="column"
@@ -44,6 +44,9 @@
     </mat-card-content>
   </mat-card>
 </div>
+<ng-template #loadingSpinner>
+  <mat-spinner class="loading-spinner mx-auto " diameter="70">Loading!!!!</mat-spinner>
+</ng-template>
 <div class="card my-2 me-4">
   <h2 class="p-3" style="text-align: left; padding-left: 10px">Joinings</h2>
   <div class="card-body chartBox mx-auto">

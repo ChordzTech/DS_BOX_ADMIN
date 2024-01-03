@@ -19,7 +19,7 @@ export class SubscriptonComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   dialog: any;
-
+  public dataLoaded: boolean = false;
 
 
   ngOnInit(): void {
@@ -34,6 +34,7 @@ export class SubscriptonComponent {
   getSubscriptionList() {
     this.service.getSubscription().subscribe({
       next: (res: any) => {
+        this.dataLoaded = true;
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

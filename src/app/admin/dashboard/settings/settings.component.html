@@ -15,7 +15,7 @@
     />
   </mat-form-field>
 
-  <div class="mat-elevation-z8">
+  <div *ngIf="dataLoaded; else loading" class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <!-- ID Column -->
       <ng-container matColumnDef="configid">
@@ -65,10 +65,10 @@
         </td>
       </tr>
     </table>
-
-    <!-- <mat-paginator
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        aria-label="Select page of users"
-      ></mat-paginator> -->
   </div>
 </div>
+<ng-template #loading>
+  <div class="spinner mx-auto">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+</ng-template>

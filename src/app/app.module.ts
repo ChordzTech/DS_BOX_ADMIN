@@ -37,6 +37,7 @@ import { ChangePasswordComponent } from './admin/dashboard/change-password/chang
 import { EditAppconfigFormComponent } from './edit-appconfig-form/edit-appconfig-form.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import {MatSelectModule} from '@angular/material/select';
     HighchartsChartModule,
     MatMenuModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
     ToastrModule.forRoot()
   ],
   providers: [],
