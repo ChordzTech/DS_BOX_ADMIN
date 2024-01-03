@@ -73,3 +73,17 @@ table {
         width: 50%;
     }
 }
+
+/* edit-business-form.component.scss */
+
+.trial-row {
+    background-color: orange;
+}
+
+.active-row {
+    background-color: green;
+}
+
+.expired-row {
+    background-color: red;
+}

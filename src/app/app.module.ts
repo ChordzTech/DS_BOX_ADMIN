@@ -39,6 +39,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { AppConfigComponent } from './app-config/app-config.component';
 import { EditAppConfigComponent } from './edit-app-config/edit-app-config.component';
 import { MatSelectModule } from '@angular/material/select';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -87,7 +88,7 @@ import { MatSelectModule } from '@angular/material/select';
     HighchartsChartModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

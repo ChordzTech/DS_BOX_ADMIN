@@ -41,15 +41,10 @@ export class TransactionDetails {
     businessid!: number;
     transactiondate!: string;
     duration!: number;
-    amount!: number; 
+    amount!: number;
     perticulars!: string;
     status!: string;
 }
-//   subscription: {
-//     amount: number;
-//     // ... other subscription properties ...
-//   };
-
 
 export class Subscription {
     subscriptionid!: number;

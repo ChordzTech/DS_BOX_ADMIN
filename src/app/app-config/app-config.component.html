@@ -24,7 +24,7 @@
       <ng-container matColumnDef="configvalue">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
         <!-- <td mat-cell *matCellDef="let row"> -->
-          <td mat-cell *matCellDef="let row">{{ row.configvalue }}
+        <td mat-cell *matCellDef="let row">{{ row.configvalue }}
           <!-- <ng-container *ngIf="row.configid !== 18">{{ row.configvalue }}</ng-container> -->
           <ng-container *ngIf="row.configid === 18"> {{ row.base64_code }}</ng-container>
         </td>

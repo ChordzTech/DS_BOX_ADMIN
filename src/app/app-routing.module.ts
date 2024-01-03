@@ -17,8 +17,9 @@ import { AppConfigComponent } from './app-config/app-config.component';
 import { EditAppConfigComponent } from './edit-app-config/edit-app-config.component';
 
 const routes: Routes = [
+  { path: '', component: LoginComponent },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
     children: [
       { path: 'users', component: UserComponent },
@@ -28,15 +29,16 @@ const routes: Routes = [
       { path: 'multiusers/:id', component: MultiUsersComponent },
       { path: 'editusers/:id', component: EdituserFormComponent },
       { path: 'editsubscription/:id', component: EditSubscriptionFormComponent },
-      { path: 'editbusiness/:id', component: EditBusinessFormComponent },
+      { path: 'editbusiness/:businessid', component: EditBusinessFormComponent },
+      // { path: 'editbusiness/:businessid/:transactionid', component: EditBusinessFormComponent },
       { path: 'changePassword/:id', component: ChangePasswordComponent },
       { path: 'appConfig', component: AppConfigComponent },
       { path: 'editappConfig/:id', component: EditAppConfigComponent },
     ]
   },
 
-  { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  
+  // { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent }
 ];
 

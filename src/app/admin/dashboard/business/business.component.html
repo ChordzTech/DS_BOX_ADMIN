@@ -45,10 +45,20 @@
         <td mat-cell *matCellDef="let row">{{ row.status }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="subscriptiondate">
+      <ng-container matColumnDef="activationdate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Subscription</th>
-        <td mat-cell *matCellDef="let row">{{ calculateRemainingDays(row.subscriptiondate) }} days</td>
+        <td mat-cell *matCellDef="let row" [style.color]="getRowTextColor(row)">
+          <!--[style.color]="getRowTextColor(row)"-->
+          <i class="fa-solid fa-calendar-check"></i>
+          {{ calculateRemainingDays(row.activationdate) }}
+        </td>
       </ng-container>
+
+      <!-- <tr [ngClass]="{
+        'trial-row': businessDetails.status === 'Trial',
+        'active-row': businessDetails.status === 'Active',
+        'expired-row': businessDetails.status === 'Expired'
+      }"></tr> -->
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>

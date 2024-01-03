@@ -24,18 +24,19 @@
                             </ng-container>
 
                             <ng-template #fileInput>
-                                <input type="file" class="form-control" formControlName="base64_code"
-                                    placeholder="Value" (change)="onFileSelected($event)" /><br>
+                                <input type="file" name="myImage" accept="image/png, image/gif, image/jpeg, image/webp"
+                                    class="form-control" formControlName="base64_code" placeholder="Value"
+                                    (change)="onFileSelected($event)" /><br>
+                                <div *ngIf="selectedFile">
+                                    <img [src]="getBase64Image()" height="150px" width="150px" />
+                                </div>
                             </ng-template>
-                            <!-- <div *ngIf="myImage1">
-                                <img [src]="myImage1" height="200px" width="200px">
-                            </div> -->
                         </div>
                     </div>
 
                     <div fxLayoutGap="25px"><br>
                         <button type="button" class="btn btn-primary" (click)="update()">Update</button>
-                        <button type="button" class="btn btn-danger" routerLink="/appConfig">Close</button>
+                        <button type="button" class="btn btn-danger" routerLink="/home/appConfig">Close</button>
                     </div>
                 </form>
             </mat-card-content>

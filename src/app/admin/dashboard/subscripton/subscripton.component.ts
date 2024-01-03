@@ -50,6 +50,6 @@ export class SubscriptonComponent {
   }
 
   edit(id: number) {
-    this.router.navigate(['editsubscription', id]);
+    this.router.navigate(['/home/editsubscription', id]);
   }
 }

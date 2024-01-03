@@ -46,6 +46,6 @@ export class AppConfigComponent {
     }
   }
   edit(id: number) {
-    this.router.navigate(['editappConfig', id]);
+    this.router.navigate(['/home/editappConfig', id]);
   }
 }

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
 import { appConfig, myimages } from '../models';
-import { Observable, Subscriber } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -14,16 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 export class EditAppConfigComponent implements OnInit {
   appConfigForm!: FormGroup;
   public configIdToUpdate!: number;
-  myImage1!: Observable<any>;
-  base64code!: any;
-
   selectedFile: File | null = null;
+  base64Image: string | null = null;
 
   constructor(private fb: FormBuilder, private service: ServiceService, private activatedRoute: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
-
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
 
   ngOnInit(): void {
     this.appConfigForm = this.fb.group({
@@ -43,8 +36,8 @@ export class EditAppConfigComponent implements OnInit {
           error: (err) => {
             console.log(err);
           }
-        })
-    })
+        });
+    });
   }
 
   fillFormToUpdate(appconfig: appConfig) {
@@ -56,61 +49,46 @@ export class EditAppConfigComponent implements OnInit {
     });
   }
 
-  update() {
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.convertToBase64();
+  }
+
+  convertToBase64() {
     if (this.selectedFile) {
       const reader = new FileReader();
-
       reader.onload = (e) => {
-        const base64String = e.target?.result as string;
-        this.service.postImage(base64String).subscribe(
-          (response => {
-            console.log('Image uploaded successfully:', response);
-          }),
-          (error => {
-            console.error('Error uploading image:', error);
-          })
-        );
+        this.base64Image = e.target?.result as string;
       };
-
       reader.readAsDataURL(this.selectedFile);
     }
+  }
 
-    this.service.updateappConfig(this.appConfigForm.value, this.configIdToUpdate)    // , this.base64code)
+  getBase64Image() {
+    return this.base64Image;
+  }
+
+  update() {
+    this.service.updateappConfig(this.appConfigForm.value, this.configIdToUpdate)
       .subscribe(res => {
         this.toastr.success('Update Successfully');
         this.router.navigate(['appConfig']);
         this.appConfigForm.reset();
       });
+
+    if (this.selectedFile) {
+      this.service.postImage(this.base64Image).subscribe(
+        (response => {
+          console.log('Image uploaded successfully:', response);
+
+          if (this.appConfigForm.value.configid === 18) {
+            this.appConfigForm.patchValue({ configvalue: 'QR Code Image Uploaded' });
+          }
+        }),
+        (error => {
+          console.error('Error uploading image:', error);
+        })
+      );
+    }
   }
-
-  // onChange = ($event: Event) => {
-  //   const target = $event.target as HTMLInputElement;
-  //   const file: File = (target.files as FileList)[0];
-  //   console.log(file);
-  //   this.convertToBase64(file);
-  // }
-
-  // convertToBase64(file: File) {
-  //   const observable = new Observable((subscriber: Subscriber<any>) => {
-  //     this.readFile(file, subscriber)
-  //   })
-  //   observable.subscribe((d) => {
-  //     console.log(d);
-  //     this.myImage1 = d;
-  //     this.base64code = d;
-  //   })
-  // }
-
-  // readFile(file: File, subscriber: Subscriber<any>) {
-  //   const filereader = new FileReader();
-  //   filereader.readAsDataURL(file);
-  //   filereader.onload = () => {
-  //     subscriber.next(filereader.result);
-  //     subscriber.complete();
-  //   }
-  //   filereader.onerror = () => {
-  //     subscriber.error();
-  //     subscriber.complete();
-  //   }
-  // }
 }

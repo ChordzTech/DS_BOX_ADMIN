@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent {
   constructor(private router: Router) { }
-  
 
+  logout() {
+    localStorage.removeItem('admin');
+    this.router.navigate(['']);
+  }
 }

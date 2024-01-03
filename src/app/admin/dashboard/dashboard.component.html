@@ -1,61 +1,52 @@
-<mat-card>
+<mat-card class="text-center">
   <mat-card-title>
     <b>Welcome To DS Box Admin Panel</b>
   </mat-card-title>
 </mat-card>
 
-<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around left" fxLayoutGap="5px">
-  <mat-card class="example-card">
-    <mat-card-header>
+<div
+  *ngIf="data"
+  class="pb-3"
+  fxLayout="row wrap"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-around center"
+  fxLayoutGap="5px"
+>
+  <mat-card class="example-card card-1">
+    <mat-card-header class="text-center">
       <div mat-card-avatar class="example-header1-image"></div>
-      <mat-card-title style="font-size: 20px;">Trial Businesses</mat-card-title>
+      <mat-card-title style="font-size: 20px; display: flex"
+        >Trial Businesses</mat-card-title
+      >
     </mat-card-header>
-
     <mat-card-content>
-      <p class="para">{{trialBusinesses}}</p>
+      <p class="para">{{ data["trialBusiness"] }}</p>
     </mat-card-content>
   </mat-card>
-  <mat-card class="example-card">
+  <mat-card class="example-card card-1">
     <mat-card-header>
       <div mat-card-avatar class="example-header2-image"></div>
-      <mat-card-title style="font-size: 20px">Active Businesses</mat-card-title>
+      <mat-card-title style="font-size: 20px; display: flex"
+        >Active Businesses</mat-card-title
+      >
     </mat-card-header>
-
     <mat-card-content>
-      <p class="para">{{activeBusinesses}}</p>
+      <p class="para">{{ data["activeBusiness"] }}</p>
     </mat-card-content>
   </mat-card>
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header3-image"></div>
-      <mat-card-title style="font-size: 20px">Expired Businesses</mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-      <p class="para">{{expiredBusinesses}}</p>
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="example-card">
+  <mat-card class="example-card card-1">
     <mat-card-header>
       <div mat-card-avatar class="example-header4-image"></div>
       <mat-card-title style="font-size: 20px">All Businesses</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p class="para">{{allBusinesses}}</p>
+      <p class="para">{{ data["totalBusiness"] }}</p>
     </mat-card-content>
   </mat-card>
 </div>
-<mat-card>
-  <mat-card-content>
-    <h2>Device Info</h2>
-    <p class="p-text">
-      OS : Win64 Device : x64
-    </p>
-  </mat-card-content>
-</mat-card>
 <div class="card my-2 me-4">
   <h2 class="p-3" style="text-align: left; padding-left: 10px">Joinings</h2>
   <div class="card-body chartBox mx-auto">
-    <canvas id="canvas">{{ chart }}</canvas>
+    <canvas id="myChart"></canvas>
   </div>
 </div>

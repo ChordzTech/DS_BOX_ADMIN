@@ -49,6 +49,6 @@ export class UserComponent implements OnInit {
   }
 
   edit(id: number) {
-    this.router.navigate(['editusers', id]);
+    this.router.navigate(['/home/editusers', id]);
   }
 }

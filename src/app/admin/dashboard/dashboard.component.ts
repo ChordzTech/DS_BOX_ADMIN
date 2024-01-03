@@ -1,111 +1,176 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from "chart.js";
+import { Chart } from 'chart.js';
+// import { isFormArray } from '@angular/forms';
+// import * as pluginDataLables from 'chartjs-plugin-datalabels';
 import { ServiceService } from 'src/app/shared/service.service';
+// import { result } from 'lodash';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  trialBusinesses: any;
-  activeBusinesses: any;
-  expiredBusinesses: any;
-  allBusinesses :any;
-
   barChartType: any;
+  chartData: any;
+  businessData: any;
+  data: any;
 
-  constructor(private service: ServiceService) { }
+  constructor(private service: ServiceService) {}
 
   public chart: Chart | undefined;
+  ngOnInit(): void {
+    this.allCountBusiness();
+    this.getChartData();
+    this.RenderChart();
+  }
+  // RenderChart() {
+  //   const myChart = new Chart('canvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'],
+  //       datasets: [
+  //         {
+  //           label: '# of Last week Joinings',
+  //           data: [10, 14, 5, 4, 6, 17, 7],
+  //           backgroundColor: ['rgb(134,142,150)'],
+  //           borderColor: ['rgba(238,238,238, 1)'],
+  //           borderWidth: 1,
+  //         },
+  //         {
+  //           label: '# of this week Joinings',
+  //           data: [12, 19, 3, 5, 2, 3, 9],
+  //           backgroundColor: ['rgb(7,157,243)'],
+  //           borderColor: ['rgba(54, 162, 235, 1)'],
+  //           borderWidth: 1,
+  //         },
+  //       ],
+  //     },
+  //     options: {
+  //       maintainAspectRatio: false,
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //         },
+  //       },
+  //     },
+  //   })
+  // }
 
-  private trialCount(data: any[], status: string): number {
-    return data.filter(item => item.status === status).length;
-  }
-  private activeCount(data: any[], status: string): number {
-    return data.filter(item => item.status === status).length;
-  }
-  private expiredCount(data: any[], status: string): number {
-    return data.filter(item => item.status === status).length;
-  }
-
-  ngOnInit() {
-    this.service.getAllBusinessDetails().subscribe({
+  allCountBusiness() {
+    this.service.getAllCountBusiness().subscribe({
       next: (res: any) => {
-        this.trialBusinesses = this.trialCount(res.data, 'Trial');
-        this.activeBusinesses = this.activeCount(res.data, 'Active');
-        this.expiredBusinesses = this.expiredCount(res.data, 'Expired');
-        this.allBusinesses = res.data.length;
+        console.log(res);
+        this.data = res.data;
       },
       error: (err: any) => {
         alert(err);
-      }
+      },
     });
-    
+  }
 
-    this.chart = new Chart("canvas", {
-      type: "bar",
+  getCurrentDay(): string {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDate = new Date();
+    return days[currentDate.getDay()];
+  }
+
+  rearrangeDays(currentDay: string): string[] {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDayIndex = days.indexOf(currentDay);
+    const rearrangedDays = [...days.slice(currentDayIndex), ...days.slice(0, currentDayIndex)];
+    return rearrangedDays;
+  }
+  
+  rearrangeData(data: any, currentDay: string): number[] {
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const currentDayIndex = days.indexOf(currentDay);
+    const rearrangedData = [
+      ...Object.values(data).slice(currentDayIndex),
+      ...Object.values(data).slice(0, currentDayIndex),
+    ];
+    return rearrangedData as number[];
+  }
+
+  getChartData(): void {
+    this.service.getChartInfo().subscribe((res) => {
+      this.chartData = res.data;
+      // console.log("chart data", this.data);
+      this.RenderChart();
+    });
+  }
+
+  RenderChart(): void {
+    const currentDay = this.getCurrentDay();
+    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    // const ctx = canvas.getContext('2d');
+
+    const myChart = new Chart(ctx, {
+      type: 'bar',
       data: {
-        labels: ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"],
+        labels:this.rearrangeDays(currentDay), // ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         datasets: [
           {
-            label: "# of Last week Joinings",
-            data: [10, 14, 5, 4, 6, 17, 7],
-            backgroundColor: [
-              "rgb(134,142,150)",
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
-            ],
-            borderColor: [
-              "rgba(238,238,238, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)"
-            ],
-            borderWidth: 1
+            label: 'Past Week Records',
+            data: this.rearrangeData(this.chartData.pastWeekRecords, currentDay),
+            backgroundColor: ['rgb(134,142,150)'],
+            borderColor: ['rgba(238,238,238, 1)'],
+            borderWidth: 1,
           },
           {
-            label: "# of this week Joinings",
-            data: [12, 19, 3, 5, 2, 3, 9],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgb(7,157,243)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)"
-            ],
-            borderWidth: 1
-          }
-        ]
+            label: 'Current Week Records',
+            data: this.rearrangeData(this.chartData.currentWeekRecords, currentDay),
+            backgroundColor: ['rgb(7,157,243)'],
+            borderColor: ['rgba(54, 162, 235, 1)'],
+            borderWidth: 1,
+          },
+        ],
       },
       options: {
         maintainAspectRatio: false,
         scales: {
-          // yAxes: [
-          //   {
-          //     ticks: {
-          //       beginAtZero: true
-          //     }
-          //   }
-          // ]
-        }
-      }
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
     });
   }
+
+  // trialcount: number = 0;
+  // activecount: number = 0;
+  // expiredcount: number = 0;
+  // allcount: number = 0;
+
+  // trialcountstop: any = setInterval(() => {
+  //   this.trialcount++;
+
+  //   if (this.trialcount == 7170) {
+  //     clearInterval(this.trialcountstop);
+  //   }
+  // }, 1);
+
+  // activecountstop: any = setInterval(() => {
+  //   this.activecount++;
+
+  //   if (this.trialcount == 452) {
+  //     clearInterval(this.activecountstop);
+  //   }
+  // }, 1);
+
+  // expiredcountstop: any = setInterval(() => {
+  //   this.expiredcount++;
+
+  //   if (this.expiredcount == 7512) {
+  //     clearInterval(this.expiredcountstop);
+  //   }
+  // }, 1);
+
+  // allcountstop: any = setInterval(() => {
+  //   this.allcount++;
+
+  //   if (this.allcount == 7622) {
+  //     clearInterval(this.allcountstop);
+  //   }
+  // }, 1);
 }

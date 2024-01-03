@@ -1,7 +1,7 @@
 mat-card {
   margin-top: 20px;
   justify-content: center;
-  margin-right: 38px;
+  margin-right: 25px;
   background-color: rgb(238, 238, 238);
   height: 80px;
 }
@@ -11,14 +11,14 @@ mat-card-title {
   margin-bottom: 10px;
   justify-content: center;
   text-align: center;
-  font-size: 28px;
+  font-size: 30px;
   color: black;
 }
 
-.example-card {
-  width: 340px;
-  height: 100px;
 
+.example-card {
+  max-width: 300px;
+  height: 100px;
 }
 
 
@@ -26,7 +26,6 @@ h1,
 h2,
 h3 {
   font-weight: bold;
-  word-spacing: 5px;
 }
 
 p {
@@ -37,14 +36,15 @@ p {
 .para {
   font-weight: bold;
   font-size: medium;
-  // padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .p-text {
-  font-size: large;
+  font-size: medium;
+
   word-spacing: 5px;
-  text-align: left;
-  // padding-left: 20px;
+  text-align: start;
+  padding-left: 20px;
   font-weight: 500;
 }
 
@@ -76,6 +76,12 @@ p {
 mat-card-actions {
   text-align: center;
   justify-content: center;
+
+  button {
+
+    color: white;
+    background: black;
+  }
 }
 
 .chartBox {
@@ -87,33 +93,25 @@ mat-card-actions {
 
 @media only screen and (max-width: 800px) {
   .chartBox {
-    width: 80%;
+    width: 90%;
     height: 45%;
   }
 
-  .example-card {
-    width: 310px;
+  .card-1 {
+    width: 100%;
   }
 }
 
 @media only screen and (max-width: 400px) {
   .chartBox {
-    width: 250px;
+    width: 300px;
     height: 300px;
-  }
-
-  .example-card {
-    width: 310px;
   }
 }
 
 @media only screen and (max-width: 350px) {
   .chartBox {
-    width: 80%;
+    width: 90%;
     height: 90%;
-  }
-
-  .example-card {
-    width: 310px;
   }
 }

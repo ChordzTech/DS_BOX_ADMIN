@@ -1,14 +1,23 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
+import { DatePipe } from '@angular/common';
 import { User, Business, appConfig, Subscription, changePassword, TransactionDetails } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
-  
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private datePipe: DatePipe) { }
+
+  //Home API
+  getAllCountBusiness(): Observable<any> {
+    return this.http.get<any>("/api/AdminHome/");
+  }
+  getChartInfo(): Observable<any> {
+    return this.http.get<any>("/api/AdminHome/");
+  }
 
   //BusinessDetails API
   getAllBusinessDetails(): Observable<any> {
@@ -20,20 +29,6 @@ export class ServiceService {
   updateBusiness(businessData: Business, id: number) {
     return this.http.put<any>(`/api/BusinessDetails/${id}/`, businessData);
   }
-
-
-  getAllTransactionDetails(): Observable<any> {
-    return this.http.get<TransactionDetails[]>(`/api/TransactionDetails/`);
-  }
-  getTransactionDetailsByBusinessId(businessId: number, transactionid: number): Observable<any> {
-    return this.http.get<TransactionDetails>(`/api/TransactionDetails/${businessId}/${transactionid}/`);
-  }
-
-  updateTransaction(transactionData: TransactionDetails, businessId: number, transactionid: number) {
-    return this.http.put<TransactionDetails>(`/api/TransactionDetails/${businessId}/${transactionid}/`, transactionData);
-  }
-
-
 
   //Display multiusers by business id 
   private selectedBusinessIdSource = new BehaviorSubject<string | null>(null);
@@ -72,13 +67,49 @@ export class ServiceService {
   getappConfigId(id: number): Observable<any> {
     return this.http.get<appConfig>(`/api/AppConfig/${id}/`);
   }
-  updateappConfig(appConfigData: appConfig, id: number): Observable<any> {              //base64Code: string
-    // //const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    // });
-    // const updatedData = { ...appConfigData, configvalue: base64Code !== undefined ? base64Code : appConfigData.configvalue };
-    return this.http.put<appConfig>(`/api/AppConfig/${id}/`, appConfigData);         //{ headers }
+  updateappConfig(appConfigData: appConfig, id: number): Observable<any> {
+    return this.http.put<appConfig>(`/api/AppConfig/${id}/`, appConfigData);
   }
+  postImage(imageData: any): Observable<any> {
+    return this.http.post(`/api/UploadCode/`, { base64_code: imageData });
+  }
+
+  // post data to transactionDetails API  
+  postTransaction(businessId: number, amount: number, status: string): Observable<TransactionDetails> {
+    const currentDate = new Date();
+    const formattedDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd') ?? '';
+
+    // Extract the numeric value from the subscription
+    const numericValue = this.extractNumericValue(amount.toString());
+
+    // Determine the duration based on the selected subscription
+    let duration = 0;
+    if (numericValue === 149) {
+      duration = 30;
+    } else if (numericValue === 999 || numericValue === 1799) {
+      duration = 365;
+    }
+
+    const postData: TransactionDetails = {
+      businessid: businessId,
+      transactiondate: formattedDate,
+      amount: amount,
+      status: status,
+      transactionid: 0,
+      duration: duration,
+      perticulars: '',
+    };
+
+    return this.http.post<TransactionDetails>(`/api/TransactionDetails/`, postData as TransactionDetails);
+  }
+
+  // Function to extract the numeric value from the subscription string
+  extractNumericValue(amount: string): number {
+    const numericValue = parseInt(amount.match(/\d+/)?.[0] || '0', 10);
+    return isNaN(numericValue) ? 0 : numericValue;
+  }
+
+
 
   updateAdminPassword(adminData: changePassword, id: number) {
     return this.http.put<changePassword>(`/api/Administrators/${id}/`, adminData);
@@ -86,9 +117,4 @@ export class ServiceService {
   getAdminId(id: number): Observable<any> {
     return this.http.get<changePassword>(`/api/Administrators/${id}/`);
   }
-
-  postImage(imageData: any): Observable<any> {
-    return this.http.post(`/api/UploadCode/`, { base64_code: imageData });
-  }
-
 }

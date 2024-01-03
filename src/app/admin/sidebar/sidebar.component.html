@@ -19,27 +19,27 @@
         <mat-icon>dashboard</mat-icon>
         <span>Home</span>
       </button>
-      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/business']">
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/home/business']">
         <mat-icon>cases</mat-icon>
         <span>Businesses</span>
       </button>
-      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/users']">
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/home/users']">
         <mat-icon>people</mat-icon>
         <span>Users</span>
       </button>
-      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/subscription']">
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/home/subscription']">
         <mat-icon>currency_rupee</mat-icon>
         <span>Subscriptions</span>
       </button>
-      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/changePassword/1001/']">
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/home/changePassword/1001/']">
         <mat-icon>lock_reset</mat-icon>
         <span>Change Password</span>
       </button>
-      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/appConfig']">
+      <button mat-button class="menu-button" [routerLinkActive]="['active']" [routerLink]="['/home/appConfig']">
         <mat-icon>settings</mat-icon>
         <span>App Configuration</span>
       </button>
-      <button mat-button class="menu-button" routerLink="/login">
+      <button mat-button class="menu-button" (click)="logout()">
         <mat-icon>logout</mat-icon>
         <span>Logout</span>
       </button>

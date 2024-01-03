@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/service/auth.service';
@@ -10,46 +9,36 @@ import { AuthService } from 'src/app/shared/service/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  userData: any;
-  loginForm: FormGroup;
+  adminname: string = '';
+  adminpassword: string = '';
 
-  constructor(
-    private builder: FormBuilder,
-    private toastr: ToastrService,
-    private service: AuthService,
-    private router: Router
-  ) {
-    sessionStorage.clear();
-    this.loginForm = this.builder.group({
-      adminname: this.builder.control('', Validators.required),
-      password: this.builder.control('', Validators.required),
-    });
+  constructor(private authService: AuthService, private toastr: ToastrService, private router: Router) { }
+
+  login(): void {
+    const encryptedPassword = this.authService.encryptPassword(this.adminpassword);
+
+    this.authService.login(this.adminname, encryptedPassword).subscribe(
+      (response: any) => {
+        if (this.credentialsAreValid(response)) {
+          localStorage.setItem('admin', JSON.stringify(response));
+          this.router.navigate(['/home/dashboard']);
+          this.toastr.success('Login successful', 'Success');
+        } else {
+          this.toastr.error('Invalid credentials. Please try again.', 'Error');
+        }
+      },
+      (error: any) => {
+        console.error('Login failed:', error);
+        this.toastr.error('An error occurred. Please try again later.', 'Error');
+      }
+    );
   }
 
-  login() {
-    if (this.loginForm.valid) {
-      this.service.getByCredentials(this.loginForm.value.adminname, this.loginForm.value.password).subscribe(
-        (res: any) => {
-          console.log('API Response:', res);
+  private credentialsAreValid(response: any): boolean {
+    return response && response.data && response.data.length > 0 &&
+      response.data[0].adminname === this.adminname;
+      // response.data[0].adminpassword === this.authService.encryptPassword(this.adminpassword);
 
-          this.userData = res;
-
-          if (!this.userData) {
-            this.toastr.error('User not found. Please check your credentials.');
-          } else if (this.userData.isActive === undefined || this.userData.isActive) {
-            sessionStorage.setItem('adminname', this.userData.adminname);
-            this.router.navigateByUrl('/dashboard');
-          } else {
-            this.toastr.error('Access Denied. Please contact Admin.');
-          }
-        },
-        (error) => {
-          console.error('API Error:', error);
-          this.toastr.error('Error occurred while logging in.');
-        }
-      );
-    } else {
-      this.toastr.error('Please Enter Valid Data');
-    }
+    // Note: Do not compare passwords here, as the server should handle password verification
   }
 }

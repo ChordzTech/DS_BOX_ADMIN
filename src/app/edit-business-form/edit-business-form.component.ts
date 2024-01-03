@@ -15,8 +15,8 @@ export class EditBusinessFormComponent implements OnInit {
   businessForm!: FormGroup;
   transactionForm!: FormGroup;
   businessIdToUpdate!: number;
-  transactionIdToUpdate!: number;
-  // public transaction!: TransactionDetails[];
+  transactionIdToUpdate!: number;  
+  subscriptions: string[] = ['Monthly - Rs. 149', 'Yearly Single User - Rs. 999', 'Yearly Multiuser - Rs. 1799'];
 
   constructor(
     private fb: FormBuilder,
@@ -63,7 +63,7 @@ export class EditBusinessFormComponent implements OnInit {
     });
 
     this.activatedRoute.params.subscribe(params => {
-      this.businessIdToUpdate = +params['id'];
+      this.businessIdToUpdate = +params['businessid'];
       // Fetch business details
       this.service.getBusinessId(this.businessIdToUpdate)
         .subscribe({
@@ -74,82 +74,25 @@ export class EditBusinessFormComponent implements OnInit {
             console.log(err);
           }
         });
-    
-      // Fetch transaction details
-      this.service.getTransactionDetailsByBusinessId(this.businessIdToUpdate, this.transactionIdToUpdate)
-        .subscribe({
-          next: (res) => {
-            this.fillFormToUpdate1(res.data);
-          },
-          error: (err) => {
-            console.log(err);
-          }
-        });
+        return this.businessIdToUpdate;
     });
-  }    
 
-    // this.getTransactionList();
+    this.transactionForm.get('amount')?.valueChanges.subscribe((newValue) => {
+      // Extract the numeric value and update the form control
+      const numericValue = this.extractNumericValue(newValue);
+      this.transactionForm.get('amount')?.setValue(numericValue, { emitEvent: false });
+    });
+  }
 
-  //   this.activatedRoute.params.subscribe(val => {
-  //     this.businessIdToUpdate = val['id'];
-  //     this.service.getBusinessId(this.businessIdToUpdate)
-  //       .subscribe({
-  //         next: (res) => {
-  //           this.fillFormToUpdate(res.data);
-  //         },
-  //         error: (err) => {
-  //           console.log(err);
-  //         }
-  //       })
-  //   });
+  extractNumericValue(subscription: string): number {
+    const numericValue = parseInt(subscription.match(/\d+/)?.[0] || '0', 10);
+    return isNaN(numericValue) ? 0 : numericValue;
+  }
 
-
-  //   this.activatedRoute.params.subscribe(val => {
-  //     this.transactionIdToUpdate = val['id'];
-  //     this.service.getTransactionDetailsByBusinessId(this.businessIdToUpdate, this.transactionIdToUpdate)
-  //       .subscribe({
-  //         next: (res) => {
-  //           this.fillFormToUpdate1(res.data);
-  //         },
-  //         error: (err) => {
-  //           console.log(err);
-  //         }
-  //       })
-  //   })
-  // }
-
-
-
-  //   this.activatedRoute.params.subscribe(params => {
-  //     this.businessIdToUpdate = +params['id'];
-  //     this.fetchBusinessAndTransactionData();
-  //   });
-  // }
-
-  // fetchBusinessAndTransactionData(): void {
-  //   this.service.getBusinessId(this.businessIdToUpdate).subscribe({
-  //     next: (res) => {
-  //       this.fillFormToUpdate(res.data);
-  //     },
-  //     error: (err) => {
-  //       console.error('Error fetching business data', err);
-  //     }
-  //   });
-
-  //   this.service.getTransactionDetailsByBusinessId(this.businessIdToUpdate).subscribe({
-  //     next: (transactionDetailsList) => {
-  //       if (transactionDetailsList.length > 0) {
-  //         const firstTransactionDetail = transactionDetailsList[0];
-  //         this.fillFormToUpdate1(firstTransactionDetail);
-  //       } else {
-  //         console.log("No transaction details found for the business ID");
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error('Error fetching transaction details', err);
-  //     }
-  //   });
-  // }
+  // Function to get the numeric value for ngFor [value] binding
+  getNumericValue(subscription: string): number {
+    return this.extractNumericValue(subscription);
+  }
 
   fillFormToUpdate(business: Business): void {
     this.businessForm.setValue({
@@ -178,39 +121,15 @@ export class EditBusinessFormComponent implements OnInit {
     });
   }
 
-  fillFormToUpdate1(transaction: TransactionDetails): void {
-    this.transactionForm.setValue({
-      transactionid: transaction.transactionid,
-      businessid: transaction.businessid,
-      transactiondate: transaction.transactiondate,
-      duration: transaction.duration,
-      amount: transaction.amount,
-      perticulars: transaction.perticulars,
-      status: transaction.status
-    });
-  }
-
-
   update() {
-    this.service.updateTransaction(this.transactionForm.value, this.businessIdToUpdate, this.transactionForm.value.transactionid)
+    const businessId = this.businessForm.get('businessid')?.value;
+    const amount = this.transactionForm.get('amount')?.value;
+    const status = this.transactionForm.get('status')?.value;
+  
+    this.service.postTransaction(businessId, amount, status)
       .subscribe(res => {
         this.toastr.success('Update Successfully');
         this.router.navigate(['business']);
       });
   }
-  
-
-  // update(): void {
-  //   this.service.updateTransaction(this.transactionForm.value, this.businessIdToUpdate).subscribe(
-  //     (res) => {
-  //       this.toastr.success('Update Successfully');
-  //       this.router.navigate(['business']);
-  //       this.businessForm.reset();
-  //     },
-  //     (error) => {
-  //       console.error('Error updating transaction', error);
-  //       this.toastr.error('Failed to update transaction');
-  //     }
-  //   );
-  // }
 }
