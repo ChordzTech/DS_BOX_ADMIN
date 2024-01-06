@@ -1,9 +1,7 @@
 mat-card {
     margin-top: 20px;
     justify-content: center;
-    // margin-right: 4%;
     background-color: rgb(238, 238, 238);
-    // height: 70px;
     width: 20%;
 }
 
@@ -13,7 +11,6 @@ mat-card-title {
     justify-content: center;
     text-align: center;
     font-size: 20px;
-    // padding-left: 20px;
     color: black;
 }
 
@@ -38,7 +35,6 @@ i {
 .mat-elevation-z8 {
     width: 100%;
     overflow-x: auto;
-    // height: 350px;
 }
 
 @media only screen and (max-width: 800px) {
@@ -84,4 +80,11 @@ i {
     mat-form-field {
         width: 98%;
     }
+}
+
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
 }

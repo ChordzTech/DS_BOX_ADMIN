@@ -54,7 +54,7 @@ export class EditSubscriptionFormComponent implements OnInit {
     this.service.updateSubscription(this.subscriptionForm.value, this.subscriptionIdToUpdate)
       .subscribe(res => {
         this.toastr.success('Update Successfully');
-        this.router.navigate(['subscription']);
+        this.router.navigate(['/home/subscription']);
         this.subscriptionForm.reset();
       });
   }

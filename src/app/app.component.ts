@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ServiceService } from './shared/service.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,21 +7,4 @@ import { ServiceService } from './shared/service.service';
 })
 export class AppComponent  {
   title = 'adminportal';
-  
-
-  // ngOnInit(): void {
-  //   this.getUsersList()
-  // }
-  // constructor(private service: ServiceService) { }
-
-  // getUsersList() {
-  //   this.service.getAllUsers().subscribe({
-  //     next: (res: any) => {
-  //       console.log(res);
-  //     },
-  //     error: (err: any) => {
-  //       alert(err);
-  //     }
-  //   })
-  // }
 }

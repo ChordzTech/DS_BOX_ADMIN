@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+// import { MatPaginator } from '@angular/material/paginator';
+// import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServiceService } from 'src/app/shared/service.service';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 import { User } from 'src/app/models';
 
 @Component({
@@ -16,11 +16,12 @@ export class MultiUsersComponent implements OnInit {
   dataSource!: MatTableDataSource<User>;
   public users!: User[];
   selectedBusinessId: string | null = null;
+  public dataLoaded: boolean = false;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  // @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private service: ServiceService, private router: Router) { }
+  constructor(private service: ServiceService) { }
 
   ngOnInit(): void {
     this.service.selectedBusinessId$.subscribe((businessId) => {
@@ -38,9 +39,10 @@ export class MultiUsersComponent implements OnInit {
           } else {
             this.users = res.data;
           }
+          this.dataLoaded = true;
           this.dataSource = new MatTableDataSource(this.users);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+          // this.dataSource.sort = this.sort;
+          // this.dataSource.paginator = this.paginator;
         } else {
           console.error('API response is not an array:', res.data);
         }
@@ -54,13 +56,13 @@ export class MultiUsersComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
   }
 
-  edit(id: number) {
-    this.router.navigate(['editusers', id]);
-  }
+  // edit(id: number) {
+  //   this.router.navigate(['editusers', id]);
+  // }
 }
 

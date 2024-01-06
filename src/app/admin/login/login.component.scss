@@ -1,15 +1,39 @@
-mat-card {
-    margin-top: 30px;
-    
-    background-color: lightgray;
-    
+body {
+    background: rgb(221, 235, 239);
+}
+
+.login-card {
+    width: 400px;
+    height: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    text-align: center;
 }
 
 mat-card-title {
-    margin-top: 40px;
-    margin-bottom: 15px;
-    justify-content: center;
-    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
     font-size: 30px;
     color: black;
+}
+
+mat-form-field {
+    padding-top: 10px;
+}
+
+img {
+    height: 150px;
+    width: 250px;
+    // border-radius: 35%;
+}
+
+button {
+    padding: 25px;
+    font-size: 18px;
+    width: 200px;
+    margin-top: 25px;
+    margin-bottom: 40px;
 }

@@ -10,7 +10,7 @@
     <input matInput (keyup)="applyFilter($event)" #input />
   </mat-form-field>
 
-  <div class="mat-elevation-z8">
+  <div *ngIf="dataLoaded; else loading" class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="businessid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Business ID</th>
@@ -56,11 +56,16 @@
 
       <!-- Row shown when there is no matching data. -->
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">
-          No data matching the filter "{{ input.value }}"
+        <td class="mat-cell" colspan="4" style="padding: 10px;">
+          No data matching "{{ input.value }}"
         </td>
       </tr>
     </table>
     <!-- <mat-paginator [pageSizeOptions]="[25, 50, 75, 100]" aria-label="Select page of users"></mat-paginator> -->
   </div>
 </div>
+<ng-template #loading>
+  <div class="spinner mx-auto">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+</ng-template>

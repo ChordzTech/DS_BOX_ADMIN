@@ -72,7 +72,7 @@ export class EditAppConfigComponent implements OnInit {
     this.service.updateappConfig(this.appConfigForm.value, this.configIdToUpdate)
       .subscribe(res => {
         this.toastr.success('Update Successfully');
-        this.router.navigate(['appConfig']);
+        this.router.navigate(['/home/appConfig']);
         this.appConfigForm.reset();
       });
 

@@ -5,11 +5,9 @@ mat-sidenav {
 }
 
 mat-sidenav-content {
-    height: 100vh;
-
-    // background-color: cadetblue;
     .main {
         margin-left: 30px;
+        min-height: 76vh;
     }
 }
 

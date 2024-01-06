@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   businessData: any;
   data: any;
 
-  constructor(private service: ServiceService) {}
+  constructor(private service: ServiceService) { }
 
   public chart: Chart | undefined;
   ngOnInit(): void {
@@ -60,7 +60,6 @@ export class DashboardComponent implements OnInit {
   allCountBusiness() {
     this.service.getAllCountBusiness().subscribe({
       next: (res: any) => {
-        console.log(res);
         this.data = res.data;
       },
       error: (err: any) => {
@@ -81,7 +80,7 @@ export class DashboardComponent implements OnInit {
     const rearrangedDays = [...days.slice(currentDayIndex), ...days.slice(0, currentDayIndex)];
     return rearrangedDays;
   }
-  
+
   rearrangeData(data: any, currentDay: string): number[] {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const currentDayIndex = days.indexOf(currentDay);
@@ -95,7 +94,6 @@ export class DashboardComponent implements OnInit {
   getChartData(): void {
     this.service.getChartInfo().subscribe((res) => {
       this.chartData = res.data;
-      // console.log("chart data", this.data);
       this.RenderChart();
     });
   }
@@ -108,7 +106,7 @@ export class DashboardComponent implements OnInit {
     const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels:this.rearrangeDays(currentDay), // ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        labels: this.rearrangeDays(currentDay), // ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         datasets: [
           {
             label: 'Past Week Records',

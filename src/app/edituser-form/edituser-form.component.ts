@@ -65,7 +65,7 @@ export class EdituserFormComponent implements OnInit {
     this.service.updateUser(this.usersForm.value, this.userIdToUpdate)
       .subscribe(res => {
         this.toastr.success('Update Successfully');
-        this.router.navigate(['users']);
+        this.router.navigate(['/home/users']);
         this.usersForm.reset();
       });
   }

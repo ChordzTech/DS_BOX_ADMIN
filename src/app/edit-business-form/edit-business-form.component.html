@@ -1,10 +1,3 @@
-<!-- <mat-card>
-  <mat-card-title>
-    <b>DS Box Admin Pannel <i class="fa-solid fa-arrow-right-long"></i> Businesses
-    </b>
-  </mat-card-title>
-</mat-card><br> -->
-
 <div class="main-div" style="padding-top: 20px;">
   <div class="py-2">
     <div class="card px-5 py-3">
@@ -34,15 +27,8 @@
               <input type="date" class="form-control" formControlName="activationdate" readonly />
             </div>
           </div>
-          <!-- <button type="submit" class="btn btn-primary">Update</button> -->
         </form>
         <form [formGroup]="transactionForm" (ngSubmit)="update()">
-          <!-- <div class="row mb-3">
-            <label for="amount" class="col-sm-2 col-form-label">Subscription amount</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" formControlName="amount" />
-            </div>
-          </div> -->
           <div class="row mb-3">
             <label for="subscription" class="col-sm-2 col-form-label">Subscription</label>
             <div class="col-sm-10">

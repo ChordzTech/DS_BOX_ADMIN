@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
 import { ToastrService } from 'ngx-toastr';
-import { Business, TransactionDetails } from '../models';
+import { Business } from '../models';
 
 @Component({
   selector: 'app-edit-business-form',
@@ -63,7 +63,7 @@ export class EditBusinessFormComponent implements OnInit {
     });
 
     this.activatedRoute.params.subscribe(params => {
-      this.businessIdToUpdate = +params['businessid'];
+      this.businessIdToUpdate = +params['id'];
       // Fetch business details
       this.service.getBusinessId(this.businessIdToUpdate)
         .subscribe({
@@ -129,7 +129,7 @@ export class EditBusinessFormComponent implements OnInit {
     this.service.postTransaction(businessId, amount, status)
       .subscribe(res => {
         this.toastr.success('Update Successfully');
-        this.router.navigate(['business']);
+        this.router.navigate(['/home/business']);
       });
   }
 }

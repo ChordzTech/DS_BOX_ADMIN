@@ -7,7 +7,7 @@ import { HomeComponent } from './admin/home/home.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+// import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './admin/sidebar/sidebar.component';
@@ -18,9 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-// import { NonSubsUsersComponent } from './admin/dashboard/user/non-subs-users/non-subs-users.component';
 import { MultiUsersComponent } from './admin/dashboard/user/multi-users/multi-users.component';
-// import { SingleUsersComponent } from './admin/dashboard/user/single-users/single-users.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -30,7 +28,6 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { EdituserFormComponent } from './edituser-form/edituser-form.component';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './admin/login/login.component';
-import { RegisterComponent } from './admin/register/register.component';
 import { BusinessComponent } from './admin/dashboard/business/business.component';
 import { SubscriptonComponent } from './admin/dashboard/subscripton/subscripton.component';
 import { EditSubscriptionFormComponent } from './edit-subscription-form/edit-subscription-form.component';
@@ -40,7 +37,9 @@ import { AppConfigComponent } from './app-config/app-config.component';
 import { EditAppConfigComponent } from './edit-app-config/edit-app-config.component';
 import { MatSelectModule } from '@angular/material/select';
 import { DatePipe } from '@angular/common';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SubscriptionStatusComponent } from './subscription-status/subscription-status.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -49,12 +48,9 @@ import { DatePipe } from '@angular/common';
     SidebarComponent,
     DashboardComponent,
     UserComponent,
-    // NonSubsUsersComponent,
     MultiUsersComponent,
-    // SingleUsersComponent,
     EdituserFormComponent,
     LoginComponent,
-    RegisterComponent,
     BusinessComponent,
     SubscriptonComponent,
     EditSubscriptionFormComponent,
@@ -62,30 +58,33 @@ import { DatePipe } from '@angular/common';
     ChangePasswordComponent,
     AppConfigComponent,
     EditAppConfigComponent,
-
+    SubscriptionStatusComponent,
+    FooterComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule,
+    // MatDialogModule,
     MatToolbarModule,
     BrowserAnimationsModule,
     MatCardModule,
     MatInputModule,
     FlexLayoutModule,
-    MatSliderModule,
+    // MatSliderModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatSelectModule,
-    MatPaginatorModule,
-    MatSortModule,
+    // MatPaginatorModule,
+    // MatSortModule,
     HttpClientModule,
     NgChartsModule,
     HighchartsChartModule,
+    MatProgressSpinnerModule,
     ToastrModule.forRoot()
   ],
   providers: [DatePipe],

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+// import { MatPaginator } from '@angular/material/paginator';
+// import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServiceService } from 'src/app/shared/service.service';
 import { Router } from '@angular/router';
@@ -14,9 +14,10 @@ export class AppConfigComponent {
 
   displayedColumns: string[] = ['configid', 'configname', 'configvalue', 'action'];
   dataSource!: MatTableDataSource<any>;
+  public dataLoaded: boolean = false;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  // @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private service: ServiceService, private router: Router) { }
 
@@ -27,9 +28,10 @@ export class AppConfigComponent {
   getAppConfigList() {
     this.service.getAllAppConfig().subscribe({
       next: (res: any) => {
+        this.dataLoaded = true;
         this.dataSource = new MatTableDataSource(res.data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;
       },
       error: (err: any) => {
         alert(err);
