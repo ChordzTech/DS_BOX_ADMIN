@@ -19,7 +19,7 @@ export class LoginComponent {
     this.authService.login(this.adminname, this.adminpassword)
       .subscribe({
         next: (result: any) => {
-          if (result && result.message === 'Valid User') {
+          if (result && result.message === 'Valid User') { 
             localStorage.setItem('admin', JSON.stringify(result));
             this.router.navigate(['home']);
             this.toastr.success('Login successful!', 'Success');

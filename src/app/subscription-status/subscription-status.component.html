@@ -11,7 +11,7 @@
     </mat-form-field>
 
     <div *ngIf="dataLoaded; else loading" class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table mat-table [dataSource]="dataSource" matSort> 
         <ng-container matColumnDef="business_id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Business ID</th>
           <td mat-cell *matCellDef="let row">{{ row.business_id }}</td>

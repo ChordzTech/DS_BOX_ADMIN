@@ -12,7 +12,7 @@
 
   <mat-form-field style="padding-right: 20px; width: 35%">
     <mat-label>Select Businesses</mat-label>
-    <mat-select (selectionChange)="onChange($event.value)">
+    <mat-select (selectionChange)="onChange($event.value)"> 
       <mat-option value="">All</mat-option>
       <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
     </mat-select>

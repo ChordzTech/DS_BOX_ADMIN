@@ -15,8 +15,10 @@ export class EditBusinessFormComponent implements OnInit {
   businessForm!: FormGroup;
   transactionForm!: FormGroup;
   businessIdToUpdate!: number;
-  transactionIdToUpdate!: number;  
+  transactionIdToUpdate!: number;
+  // multiusers: string[] = ['Multiuser Disable', 'Multiuser Enable'];
   subscriptions: string[] = ['Monthly - Rs. 149', 'Yearly Single User - Rs. 999', 'Yearly Multiuser - Rs. 1799'];
+  isChecked: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -74,7 +76,7 @@ export class EditBusinessFormComponent implements OnInit {
             console.log(err);
           }
         });
-        return this.businessIdToUpdate;
+      return this.businessIdToUpdate;
     });
 
     this.transactionForm.get('amount')?.valueChanges.subscribe((newValue) => {
@@ -119,17 +121,41 @@ export class EditBusinessFormComponent implements OnInit {
       multiuser: business.multiuser,
       status: business.status,
     });
+    this.isChecked = business.multiuser === 1;
+  }
+
+  updateCheckbox() {
+    const currentMultiuserValue = this.businessForm.get('multiuser')?.value;
+
+    // Update the value in your form control
+    this.businessForm.get('multiuser')?.setValue(currentMultiuserValue === 0 ? 1 : 0);
+
+    // Update isChecked based on the new value
+    this.isChecked = this.businessForm.get('multiuser')?.value === 1;
+
   }
 
   update() {
+    const requestData = {
+      ...this.businessForm.value,
+      multiuser: this.businessForm.get('multiuser')?.value ? 1 : 0,
+    };
+
+    this.service.updateBusiness(requestData, this.businessIdToUpdate)
+      .subscribe(res => {
+        this.router.navigate(['/home/business']);
+        window.location.reload();
+      });
+
     const businessId = this.businessForm.get('businessid')?.value;
     const amount = this.transactionForm.get('amount')?.value;
     const status = this.transactionForm.get('status')?.value;
-  
+
     this.service.postTransaction(businessId, amount, status)
       .subscribe(res => {
-        this.toastr.success('Update Successfully');
-        this.router.navigate(['/home/business']);
       });
+    this.toastr.success('Update Successfully');
+    this.router.navigate(['/home/business']);
+    this.businessForm.reset();
   }
 }
