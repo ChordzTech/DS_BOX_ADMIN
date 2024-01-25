@@ -37,6 +37,10 @@ table {
         width: 95%;
         height: 40%;
     }
+
+    mat-card {
+        width: 50%;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -44,12 +48,20 @@ table {
         width: 98%;
         height: 45%;
     }
+
+    mat-card {
+        width: 50%;
+    }
 }
 
 @media only screen and (max-width: 350px) {
     .mat-elevation-z8 {
         width: 90%;
         height: 90%;
+    }
+
+    mat-card {
+        width: 50%;
     }
 }
 

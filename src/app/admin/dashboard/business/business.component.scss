@@ -16,7 +16,14 @@ mat-card-title {
 
 mat-form-field {
     padding-top: 15px;
-    
+    padding-right: 10px;
+    width: 35%
+}
+
+.sub-btn {
+    width: 29%;
+    padding: 25px;
+    margin-bottom: 20px;
 }
 
 .main-div {
@@ -69,17 +76,52 @@ table {
     }
 }
 
-.trial-row {
-    background-color: orange;
+/* Common styles for form fields and buttons */
+// mat-form-field,
+// button {
+//     // margin-right: 3px;
+// }
+
+/* Adjust the width of form fields based on screen size */
+@media only screen and (max-width: 600px) {
+
+    mat-form-field,
+    mat-label {
+        width: 48%;
+        /* Make form fields full width on smaller screens */
+        margin-right: 5px;
+        /* Remove right margin to utilize the full width */
+    }
+
+    button {
+        // width: 100%;
+        /* Make the button full width on smaller screens */
+        margin: 3px;
+        /* Add spacing above and below the button */
+    }
+
+    .sub-btn {
+        width: 95%;
+    }
 }
 
-.active-row {
-    background-color: green;
-}
+/* Adjust button padding for better visual appearance */
+// button {
+//     padding: 15px;
+// }
 
-.expired-row {
-    background-color: red;
-}
+
+// .trial-row {
+//     background-color: orange;
+// }
+
+// .active-row {
+//     background-color: green;
+// }
+
+// .expired-row {
+//     background-color: red;
+// }
 
 .spinner {
     display: flex;

@@ -2,7 +2,7 @@
   <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center">
     <mat-card class="login-card">
       <mat-card-title>
-        <img src="..\assets\image\DS-BOX.png"> 
+        <img src="..\assets\image\DS-BOX+1.svg"> 
       </mat-card-title>
       <mat-card-content>
         <form class="example-form" (submit)="login()">
@@ -15,7 +15,7 @@
             <mat-label><i class="fa fa-lock"></i>&nbsp; Password</mat-label>
             <input matInput type="password" id="adminpassword" [(ngModel)]="adminpassword" name="adminpassword"
               required />
-          </mat-form-field>
+          </mat-form-field><br>
 
           <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px">
             <button type="submit" mat-raised-button color="primary">Login</button>

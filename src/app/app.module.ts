@@ -40,6 +40,7 @@ import { DatePipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SubscriptionStatusComponent } from './subscription-status/subscription-status.component';
 import { FooterComponent } from './footer/footer.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,7 @@ import { FooterComponent } from './footer/footer.component';
     MatProgressSpinnerModule,
     ToastrModule.forRoot()
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -1,7 +1,0 @@
-{
-    "/api": {
-        "target": "https://dsboxapi.beatsacademy.in",
-        "secure": false,
-        "changeOrigin": true
-    }
-}

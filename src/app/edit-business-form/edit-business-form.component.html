@@ -27,19 +27,6 @@
               <input type="date" class="form-control" formControlName="activationdate" readonly />
             </div>
           </div>
-          <!-- <div class="row mb-3">
-            <label for="multiusers" class="col-sm-2 col-form-label">Multiusers</label>
-            <div class="col-sm-10">
-              <div class="dropdown-with-arrow">
-                <select class="form-control" aria-label="Default select example" formControlName="multiuser">
-                  <option *ngFor="let multiuser of multiusers; let idx = index;" value="{{idx}}">
-                    {{multiuser}}
-                  </option>
-                </select>
-                <div class="arrow-down"></div>
-              </div>
-            </div>
-          </div> -->
 
           <form [formGroup]="transactionForm" (ngSubmit)="update()">
             <div class="row mb-3">

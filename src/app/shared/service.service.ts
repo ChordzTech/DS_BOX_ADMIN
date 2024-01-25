@@ -2,35 +2,37 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import { DatePipe } from '@angular/common';
+import { environment } from 'environment';
 import { User, Business, appConfig, Subscription, changePassword, TransactionDetails } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
+  private url = environment.apiUrl;
 
   constructor(private http: HttpClient, private datePipe: DatePipe) { }
 
   //Home Page
   getAllCountBusiness(): Observable<any> {
-    return this.http.get<any>("/api/AdminHome/");
+    return this.http.get<any>(`${this.url}/api/AdminHome/`);
   }
   getChartInfo(): Observable<any> {
-    return this.http.get<any>("/api/AdminHome/");
+    return this.http.get<any>(`${this.url}/api/AdminHome/`);
   }
 
   //Businesses Page
   getAllBusinessDetails(): Observable<any> {
-    return this.http.get<any>(`/api/AdminHome2/`);
+    return this.http.get<any>(`${this.url}/api/AdminHome2/`);
   }
   getBusinessId(id: number): Observable<any> {
-    return this.http.get<any>(`/api/BusinessDetails/${id}/`);
+    return this.http.get<any>(`${this.url}/api/BusinessDetails/${id}/`);
   }
   updateBusiness(businessData: Business, id: number) {
-    return this.http.put<any>(`/api/BusinessDetails/${id}/`, businessData);
+    return this.http.put<any>(`${this.url}/api/BusinessDetails/${id}/`, businessData);
   }
   SubcriptionEndingSoon(): Observable<any> {
-    return this.http.get<any>(`/api/SubcriptionEndingSoon/`);
+    return this.http.get<any>(`${this.url}/api/SubcriptionEndingSoon/`);
   }
 
   //Display multiusers by business id 
@@ -67,7 +69,7 @@ export class ServiceService {
       perticulars: '',
     };
 
-    return this.http.post<TransactionDetails>(`/api/TransactionDetails/`, postData as TransactionDetails);
+    return this.http.post<TransactionDetails>(`${this.url}/api/TransactionDetails/`, postData as TransactionDetails);
   }
 
   // Function to extract the numeric value from the amount string
@@ -78,45 +80,45 @@ export class ServiceService {
 
   //Users Page
   getAllUserDetails(): Observable<any> {
-    return this.http.get<User[]>(`/api/UserDetails/`);
+    return this.http.get<User[]>(`${this.url}/api/UserDetails/`);
   }
   getUserId(id: number): Observable<any> {
-    return this.http.get<User>(`/api/UserDetails/${id}/`);
+    return this.http.get<User>(`${this.url}/api/UserDetails/${id}/`);
   }
   updateUser(userData: User, id: number) {
-    return this.http.put<User>(`/api/UserDetails/${id}/`, userData);
+    return this.http.put<User>(`${this.url}/api/UserDetails/${id}/`, userData);
   }
 
   //Subscriptions Page
   getAllSubscriptionDetails(): Observable<any> {
-    return this.http.get<Subscription[]>(`/api/SubscriptionsDetails/`);
+    return this.http.get<Subscription[]>(`${this.url}/api/SubscriptionsDetails/`);
   }
   getSubscriptionId(id: number): Observable<any> {
-    return this.http.get<Subscription>(`/api/SubscriptionsDetails/${id}/`);
+    return this.http.get<Subscription>(`${this.url}/api/SubscriptionsDetails/${id}/`);
   }
   updateSubscription(subscriptionData: Subscription, id: number) {
-    return this.http.put<Subscription>(`/api/SubscriptionsDetails/${id}/`, subscriptionData);
+    return this.http.put<Subscription>(`${this.url}/api/SubscriptionsDetails/${id}/`, subscriptionData);
   }
 
   // Change Password Page
   updateAdminPassword(adminData: changePassword, id: number) {
-    return this.http.put<changePassword>(`/api/Administrators/${id}/`, adminData);
+    return this.http.put<changePassword>(`${this.url}/api/Administrators/${id}/`, adminData);
   }
   getAdminId(id: number): Observable<any> {
-    return this.http.get<changePassword>(`/api/Administrators/${id}/`);
+    return this.http.get<changePassword>(`${this.url}/api/Administrators/${id}/`);
   }
 
   //App Configuration Page
   getAllAppConfig(): Observable<any> {
-    return this.http.get<appConfig[]>(`/api/AppConfig/`);
+    return this.http.get<appConfig[]>(`${this.url}/api/AppConfig/`);
   }
   getappConfigId(id: number): Observable<any> {
-    return this.http.get<appConfig>(`/api/AppConfig/${id}/`);
+    return this.http.get<appConfig>(`${this.url}/api/AppConfig/${id}/`);
   }
   updateappConfig(appConfigData: appConfig, id: number): Observable<any> {
-    return this.http.put<appConfig>(`/api/AppConfig/${id}/`, appConfigData);
+    return this.http.put<appConfig>(`${this.url}/api/AppConfig/${id}/`, appConfigData);
   }
   postImage(imageData: any): Observable<any> {
-    return this.http.post(`/api/UploadCode/`, { base64_code: imageData });
-  } 
+    return this.http.post(`${this.url}/api/UploadCode/`, { base64_code: imageData });
+  }
 }

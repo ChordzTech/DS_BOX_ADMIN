@@ -5,21 +5,20 @@
 </mat-card>
 
 <div class="main-div">
-  <mat-form-field style="padding-right: 20px; width: 35%">
+  <mat-form-field>
     <mat-label>Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" #input />
   </mat-form-field>
 
-  <mat-form-field style="padding-right: 20px; width: 35%">
+  <mat-form-field>
     <mat-label>Select Businesses</mat-label>
-    <mat-select (selectionChange)="onChange($event.value)"> 
+    <mat-select (selectionChange)="onChange($event.value)">
       <mat-option value="">All</mat-option>
       <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" style="width: 29%; padding: 25px; margin-bottom: 20px;"
-    routerLink="/home/subscription-status">Subscription Status</button>
+  <button mat-raised-button class="sub-btn" color="primary" routerLink="/home/subscription-status">Subscription Status</button>
 
   <div *ngIf="dataLoaded; else loading" class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
@@ -59,9 +58,9 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button (click)="edit(row.businessid)">
+          <button (click)="edit(row.businessid)" style="margin-right: 3px;">
             <mat-icon color="primary">edit</mat-icon>
-          </button>&nbsp;&nbsp;
+          </button>
           <button (click)="showUsers(row.businessid)">
             <mat-icon color="primary">people</mat-icon>
           </button>
