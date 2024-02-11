@@ -21,7 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MultiUsersComponent } from './admin/dashboard/user/multi-users/multi-users.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
+// import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule } from '@angular/common/http';
 import { NgChartsModule } from 'ng2-charts';
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -40,6 +40,7 @@ import { DatePipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SubscriptionStatusComponent } from './subscription-status/subscription-status.component';
 import { FooterComponent } from './footer/footer.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -74,20 +75,20 @@ import { FooterComponent } from './footer/footer.component';
     MatCardModule,
     MatInputModule,
     FlexLayoutModule,
-    // MatSliderModule,
+    MatSliderModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatSelectModule,
     // MatPaginatorModule,
-    // MatSortModule,
+    MatSortModule,
     HttpClientModule,
     NgChartsModule,
     HighchartsChartModule,
     MatProgressSpinnerModule,
     ToastrModule.forRoot()
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

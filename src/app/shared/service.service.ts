@@ -2,26 +2,29 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import { DatePipe } from '@angular/common';
+// import { environment } from 'environment';
 import { User, Business, appConfig, Subscription, changePassword, TransactionDetails } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
+  // private url = environment.apiUrl;
 
   constructor(private http: HttpClient, private datePipe: DatePipe) { }
 
   //Home Page
   getAllCountBusiness(): Observable<any> {
-    return this.http.get<any>("/api/AdminHome/");
+    return this.http.get<any>(`/api/AdminHome/`);
   }
   getChartInfo(): Observable<any> {
-    return this.http.get<any>("/api/AdminHome/");
+    return this.http.get<any>(`/api/AdminHome/`);
   }
 
   //Businesses Page
-  getAllBusinessDetails(): Observable<any> {
-    return this.http.get<any>(`/api/AdminHome2/`);
+  getAllBusinessDetails(page: number): Observable<any> {
+    const startIndex = (page - 1) * 50;
+    return this.http.get<any>(`/api/AdminHome2/?start_index=${startIndex}&limit=50`);
   }
   getBusinessId(id: number): Observable<any> {
     return this.http.get<any>(`/api/BusinessDetails/${id}/`);
@@ -77,8 +80,9 @@ export class ServiceService {
   }
 
   //Users Page
-  getAllUserDetails(): Observable<any> {
-    return this.http.get<User[]>(`/api/UserDetails/`);
+  getAllUserDetails(page: number): Observable<any> {
+    const startIndex = (page - 1) * 50;
+    return this.http.get<any>(`/api/UserDetails/?start_index=${startIndex}&limit=50`);
   }
   getUserId(id: number): Observable<any> {
     return this.http.get<User>(`/api/UserDetails/${id}/`);
@@ -118,5 +122,5 @@ export class ServiceService {
   }
   postImage(imageData: any): Observable<any> {
     return this.http.post(`/api/UploadCode/`, { base64_code: imageData });
-  } 
+  }
 }

@@ -5,9 +5,21 @@
     text-align: center;
 }
 
-p {
-    text-align: center;
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
 }
+
+p {
+    margin: 0;
+}
+
 a {
     text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .footer {
+        padding: 10px;
+    }
 }

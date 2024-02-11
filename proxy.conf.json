@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "https://dsboxapi.beatsacademy.in",
+        "target": "https://dsboxplus.dishaswaraj.in",
         "secure": false,
         "changeOrigin": true
     }

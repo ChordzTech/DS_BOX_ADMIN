@@ -10,7 +10,7 @@
     <input matInput (keyup)="applyFilter($event)" #input />
   </mat-form-field>
 
-  <div *ngIf="dataLoaded; else loading" class="mat-elevation-z8">
+  <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="configid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -47,8 +47,8 @@
         </td>
       </tr>
     </table>
-    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
   </div>
+  <div *ngIf="dataLoaded; else loading"></div>
 </div>
 <ng-template #loading>
   <div class="spinner mx-auto">

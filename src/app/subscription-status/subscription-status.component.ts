@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServiceService } from 'src/app/shared/service.service';
 
@@ -7,10 +8,12 @@ import { ServiceService } from 'src/app/shared/service.service';
   templateUrl: './subscription-status.component.html',
   styleUrls: ['./subscription-status.component.scss']
 })
-export class SubscriptionStatusComponent implements OnInit {
+export class SubscriptionStatusComponent {
   displayedColumns: string[] = ['business_id', 'business_name', 'contact_no', 'subscription_date', 'remaining_days'];
   dataSource!: MatTableDataSource<any>;
   public dataLoaded: boolean = false;
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private service: ServiceService) { }
 
@@ -23,6 +26,8 @@ export class SubscriptionStatusComponent implements OnInit {
       next: (res: any) => {
         this.dataLoaded = true;
         this.dataSource = new MatTableDataSource(res.data);
+        this.dataSource.sort = this.sort;
+
       },
       error: (err: any) => {
         alert(err);

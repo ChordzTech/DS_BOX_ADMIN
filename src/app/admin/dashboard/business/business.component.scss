@@ -16,7 +16,14 @@ mat-card-title {
 
 mat-form-field {
     padding-top: 15px;
-    
+    padding-right: 10px;
+    width: 35%
+}
+
+.sub-btn {
+    width: 29%;
+    padding: 25px;
+    margin-bottom: 20px;
 }
 
 .main-div {
@@ -69,16 +76,22 @@ table {
     }
 }
 
-.trial-row {
-    background-color: orange;
-}
+/* Adjust the width of form fields based on screen size */
+@media only screen and (max-width: 600px) {
 
-.active-row {
-    background-color: green;
-}
+    mat-form-field,
+    mat-label {
+        width: 48%;
+        margin-right: 5px;
+    }
 
-.expired-row {
-    background-color: red;
+    button {
+        margin: 3px;
+    }
+
+    .sub-btn {
+        width: 95%;
+    }
 }
 
 .spinner {

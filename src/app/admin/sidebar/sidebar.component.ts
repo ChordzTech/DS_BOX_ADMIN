@@ -11,6 +11,6 @@ export class SidebarComponent {
 
   logout() {
     localStorage.removeItem('admin');
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 }

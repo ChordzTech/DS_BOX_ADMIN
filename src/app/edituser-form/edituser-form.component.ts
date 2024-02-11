@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./edituser-form.component.scss']
 })
 export class EdituserFormComponent implements OnInit {
-  isMarkUserClicked = false;
+  isMarkUserClicked: boolean = false;
   usersForm!: FormGroup;
   public userIdToUpdate!: number;
   useraccesses: string[] = ['Read Only', 'Full Access', 'No Access'];
@@ -72,5 +72,11 @@ export class EdituserFormComponent implements OnInit {
 
   markNewUser() {
     this.isMarkUserClicked = true;
+
+    // Set default values for Android ID and Device Info for a new user
+    this.usersForm.patchValue({
+      androidid: 'New User',
+      deviceinfo: 'New User'
+    });
   }
 }

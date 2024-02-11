@@ -5,23 +5,23 @@
 </mat-card>
 
 <div class="main-div">
-  <mat-form-field style="padding-right: 20px; width: 35%">
+  <mat-form-field>
     <mat-label>Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" #input />
   </mat-form-field>
 
-  <mat-form-field style="padding-right: 20px; width: 35%">
+  <mat-form-field>
     <mat-label>Select Businesses</mat-label>
-    <mat-select (selectionChange)="onChange($event.value)"> 
+    <mat-select (selectionChange)="onChange($event.value)">
       <mat-option value="">All</mat-option>
       <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" style="width: 29%; padding: 25px; margin-bottom: 20px;"
-    routerLink="/home/subscription-status">Subscription Status</button>
+  <button mat-raised-button class="sub-btn" color="primary" routerLink="/home/subscription-status">Subscription
+    Status</button>
 
-  <div *ngIf="dataLoaded; else loading" class="mat-elevation-z8">
+  <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="businessid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Business ID</th>
@@ -35,7 +35,12 @@
 
       <ng-container matColumnDef="contactno">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Contact No</th>
-        <td mat-cell *matCellDef="let row">{{ row.contactno }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.contactno }}</td>estimate_count
+      </ng-container>
+
+      <ng-container matColumnDef="estimate_count">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estimates</th>
+        <td mat-cell *matCellDef="let row">{{ row.estimate_count }}</td>
       </ng-container>
 
       <ng-container matColumnDef="multiuser">
@@ -48,20 +53,12 @@
         <td mat-cell *matCellDef="let row">{{ row.status }}</td>
       </ng-container>
 
-      <!-- <ng-container matColumnDef="activationdate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Subscription</th>
-        <td mat-cell *matCellDef="let row" [style.color]="getRowTextColor(row)">
-          <i class="fa-solid fa-calendar-check"></i>
-          {{ calculateRemainingDays(row.activationdate) }}
-        </td>
-      </ng-container> -->
-
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button (click)="edit(row.businessid)">
+          <button (click)="edit(row.businessid)" style="margin-right: 3px;">
             <mat-icon color="primary">edit</mat-icon>
-          </button>&nbsp;&nbsp;
+          </button>
           <button (click)="showUsers(row.businessid)">
             <mat-icon color="primary">people</mat-icon>
           </button>
@@ -79,6 +76,12 @@
       </tr>
     </table>
   </div>
+  <br>
+  <div style="float: right;">{{ getRange() }}&nbsp;&nbsp;&nbsp;&nbsp;
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>&nbsp;&nbsp;
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+  <div *ngIf="dataLoaded; else loading"></div>
 </div>
 <ng-template #loading>
   <div class="spinner mx-auto">
