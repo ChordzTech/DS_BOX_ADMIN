@@ -1,6 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-// import { MatPaginator } from '@angular/material/paginator';
-// import { MatSort } from '@angular/material/sort';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServiceService } from 'src/app/shared/service.service';
 import { Router } from '@angular/router';
@@ -11,30 +10,36 @@ import { Business } from 'src/app/models';
   templateUrl: './business.component.html',
   styleUrls: ['./business.component.scss']
 })
-export class BusinessComponent {
-  displayedColumns: string[] = ['businessid', 'businessname', 'contactno', 'multiuser', 'status', 'action'];
+export class BusinessComponent implements OnInit {
+  displayedColumns: string[] = ['businessid', 'businessname', 'contactno', 'estimate_count', 'multiuser', 'status', 'action'];
   dataSource!: MatTableDataSource<Business>;
   public business!: Business[];
   public statusList: string[] = ['Active', 'Trial', 'Expired'];
   public dataLoaded: boolean = false;
+  totalRecords!: number;
+  currentPage = 1;
+  totalPages!: number;
+  filteredRecords: any[] = [];
+  searchTerm: string = '';
+  validationMessage: string = '';
 
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private service: ServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.getBusinessList();
   }
 
-  constructor(private service: ServiceService, private router: Router) { }
-
   getBusinessList() {
-    this.service.getAllBusinessDetails().subscribe({
+    this.service.getAllBusinessDetails(this.currentPage).subscribe({
       next: (res: any) => {
         this.dataLoaded = true;
         this.business = res.data;
         this.dataSource = new MatTableDataSource(this.business);
-        // this.dataSource.sort = this.sort;
-        // this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalRecords = res.total_records;
+        this.totalPages = Math.ceil(this.totalRecords / 50); // Assuming 50 records per page
       },
       error: (err: any) => {
         alert(err);
@@ -42,13 +47,72 @@ export class BusinessComponent {
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.getBusinessList();
+    }
+  }
 
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getBusinessList();
+    }
+  }
+
+  getRange(): string {
+    const start = (this.currentPage - 1) * 50 + 1;
+    const end = Math.min(this.currentPage * 50, this.totalRecords);
+    return `${start} - ${end} of ${this.totalRecords}`;
+  }
+
+  applyFilter(searchTerm: string) {
+    if (!searchTerm || searchTerm.trim() === '') {
+      // If search term is empty, fetch all records
+      this.getBusinessList();
+      return;
+    }
+
+    this.searchTerm = searchTerm.trim(); // Update the search term
+
+    if (!this.isSearchTermValid()) {
+      return; // Exit search if search term is invalid
+    }
+
+    this.service.businessSearch(this.searchTerm).subscribe({
+      next: (res: any) => {
+        this.dataLoaded = true;
+        this.business = res.data;
+        this.dataSource = new MatTableDataSource(this.business);
+        this.dataSource.sort = this.sort;
+      },
+      error: (err: any) => {
+        alert(err);
+      }
+    });
+  }
+
+  isSearchTermValid(): boolean {
+    // Check if the search term is valid based on the search type
+    if (this.isMobileSearch()) {
+      if (this.searchTerm.length < 5) {
+        this.validationMessage = 'At least 5 numbers are required for mobile number search.';
+        return false;
+      }
+    } else {
+      if (this.searchTerm.length < 3) {
+        this.validationMessage = 'At least 3 characters are required for name search.';
+        return false;
+      }
+    }
+    this.validationMessage = ''; // Reset validation message if search term is valid
+    return true;
+  }
+
+  isMobileSearch(): boolean {
+    // Check if the search term contains only digits
+    return /^\d+$/.test(this.searchTerm);
   }
 
   onChange(filterValue: string) {
@@ -64,61 +128,3 @@ export class BusinessComponent {
     this.router.navigate(['/home/multiusers', businessId]);
   }
 }
-
-// calculateRemainingDays(activationDate: string): string {
-//   const currentDate = new Date();
-//   const activationDateObj = new Date(activationDate); // Assuming activationDate is in a valid date format
-
-//   // Calculate the difference in days
-//   const differenceInDays = Math.floor(
-//     (activationDateObj.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24)
-//   );
-
-//   if (differenceInDays > 0) {
-//     if (differenceInDays <= 7) {
-//       return `${differenceInDays} days remaining`;
-//     } else {
-//       return 'Expired';
-//     }
-//   } else {
-//     return 'Expired';
-//   }
-// }
-
-// calculateRemainingDays(activationDate: string): string {
-//   const currentDate = new Date();
-//   const activationDateObj = new Date(activationDate); // Assuming activationDate is in 'YYYY-MM-DD' format
-
-//   // Calculate the date that is 7 days from the activation date
-//   const expirationDate = new Date(activationDateObj.getTime() + 7 * 24 * 60 * 60 * 1000);
-
-//   // Calculate the difference in days
-//   const differenceInDays = Math.floor(
-//     (expirationDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24)
-//   );
-
-//   // Check if the activation date is within the next 7 days
-//   if (differenceInDays >= 0 && differenceInDays <= 6) {
-//     return `Active ${differenceInDays} Day${differenceInDays === 1 ? '' : 's'}`;
-//   } else {
-//     return 'Expired';
-//   }
-// }
-
-// getRowTextColor(row: Business): string {
-//   const remainingDays = this.calculateRemainingDays(row.activationdate);
-//   const remainingDaysNumber = parseInt(remainingDays);
-
-//   if (!isNaN(remainingDaysNumber)) {
-//     if (remainingDaysNumber > 7) {
-//       return 'green'; // Set the desired color for active text
-//     } else {
-//       return 'orange'; // Set the desired color for trial text
-//     }
-//   } else if (remainingDays.toLowerCase().includes('expired')) {
-//     return 'red'; // Set the desired color for expired text
-//   } else {
-//     return 'green'; // Default color for other statuses
-//   }
-// }
-

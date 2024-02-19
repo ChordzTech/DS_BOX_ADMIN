@@ -22,8 +22,9 @@ export class ServiceService {
   }
 
   //Businesses Page
-  getAllBusinessDetails(): Observable<any> {
-    return this.http.get<any>(`${this.url}/api/AdminHome2/`);
+  getAllBusinessDetails(page: number): Observable<any> {
+    const startIndex = (page - 1) * 50;
+    return this.http.get<any>(`${this.url}/api/AdminHome2/?start_index=${startIndex}&limit=50`);
   }
   getBusinessId(id: number): Observable<any> {
     return this.http.get<any>(`${this.url}/api/BusinessDetails/${id}/`);
@@ -79,8 +80,9 @@ export class ServiceService {
   }
 
   //Users Page
-  getAllUserDetails(): Observable<any> {
-    return this.http.get<User[]>(`${this.url}/api/UserDetails/`);
+  getAllUserDetails(page: number): Observable<any> {
+    const startIndex = (page - 1) * 50;
+    return this.http.get<User[]>(`${this.url}/api/UserDetails/?start_index=${startIndex}&limit=50`);
   }
   getUserId(id: number): Observable<any> {
     return this.http.get<User>(`${this.url}/api/UserDetails/${id}/`);
@@ -120,5 +122,48 @@ export class ServiceService {
   }
   postImage(imageData: any): Observable<any> {
     return this.http.post(`${this.url}/api/UploadCode/`, { base64_code: imageData });
+  }
+
+  //Business and users search operation
+  businessSearch(searchTerm: string): Observable<any[]> {
+    if (!searchTerm || searchTerm.trim() === '') {
+      return new Observable<any[]>(observer => {
+        observer.next([]); // Return an empty array if search term is empty
+        observer.complete();
+      });
+    }
+
+    const searchType = this.businessSearchType(searchTerm);
+
+    return this.http.get<any[]>(`${this.url}/api/BusinessSearch/search/?search_term=${searchTerm}&search_type=${searchType}`);
+  }
+
+  private businessSearchType(value: string): string {
+    // Check if the value contains only digits
+    if (/^\d+$/.test(value)) {
+      return 'mobile';
+    }
+    return 'name';
+  }
+
+  userSearch(searchTerm: string): Observable<any[]> {
+    if (!searchTerm || searchTerm.trim() === '') {
+      return new Observable<any[]>(observer => {
+        observer.next([]); // Return an empty array if search term is empty
+        observer.complete();
+      });
+    }
+
+    const searchType = this.userSearchType(searchTerm);
+
+    return this.http.get<any[]>(`${this.url}/api/UserSearch/search/?search_term=${searchTerm}&search_type=${searchType}`);
+  }
+
+  private userSearchType(value: string): string {
+    // Check if the value contains only digits
+    if (/^\d+$/.test(value)) {
+      return 'mobile';
+    }
+    return 'name';
   }
 }

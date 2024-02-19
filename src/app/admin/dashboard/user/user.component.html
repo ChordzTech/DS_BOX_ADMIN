@@ -7,10 +7,11 @@
 <div class="main-div">
   <mat-form-field>
     <mat-label>Search</mat-label>
-    <input matInput (keyup)="applyFilter($event)" #input />
+    <input matInput [(ngModel)]="searchTerm" (input)="applyFilter(searchTerm)" />
+    <mat-hint *ngIf="validationMessage && searchTerm" class="text-danger">{{ validationMessage }}</mat-hint>
   </mat-form-field>
 
-  <div *ngIf="dataLoaded; else loading" class="mat-elevation-z8">
+  <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="userid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
@@ -52,12 +53,17 @@
       <!-- Row shown when there is no matching data. -->
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4" style="padding: 10px;">
-          No data matching "{{ input.value }}"
+          No data matching "{{ searchTerm }}"
         </td>
       </tr>
     </table>
-    <!-- <mat-paginator [pageSizeOptions]="[25, 50, 75, 100]" aria-label="Select page of users"></mat-paginator> -->
   </div>
+  <br>
+  <div style="float: right;">{{ getRange() }}&nbsp;&nbsp;&nbsp;&nbsp;
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>&nbsp;&nbsp;
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+  <div *ngIf="dataLoaded; else loading"></div>
 </div>
 <ng-template #loading>
   <div class="spinner mx-auto">

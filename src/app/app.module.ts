@@ -15,7 +15,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { UserComponent } from './admin/dashboard/user/user.component';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatSliderModule } from '@angular/material/slider';
+// import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MultiUsersComponent } from './admin/dashboard/user/multi-users/multi-users.component';
@@ -80,8 +80,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     ReactiveFormsModule,
     MatTableModule,
     MatSelectModule,
-    // MatPaginatorModule,
-    // MatSortModule,
+    MatPaginatorModule,
+    MatSortModule,
     HttpClientModule,
     NgChartsModule,
     HighchartsChartModule,
