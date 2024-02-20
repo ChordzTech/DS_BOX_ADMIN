@@ -29,6 +29,9 @@ export class ServiceService {
   getBusinessId(id: number): Observable<any> {
     return this.http.get<any>(`${this.url}/api/BusinessDetails/${id}/`);
   }
+  getSubscriptionEndDate(id: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/api/SubscriptionforBusiness/${id}`);
+  }
   updateBusiness(businessData: Business, id: number) {
     return this.http.put<any>(`${this.url}/api/BusinessDetails/${id}/`, businessData);
   }

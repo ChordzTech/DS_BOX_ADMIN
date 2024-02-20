@@ -16,7 +16,6 @@ export class EditBusinessFormComponent implements OnInit {
   transactionForm!: FormGroup;
   businessIdToUpdate!: number;
   transactionIdToUpdate!: number;
-  // multiusers: string[] = ['Multiuser Disable', 'Multiuser Enable'];
   subscriptions: string[] = ['Monthly - Rs. 149', 'Yearly Single User - Rs. 999', 'Yearly Multiuser - Rs. 1799'];
   isChecked: boolean = false;
 
@@ -52,6 +51,7 @@ export class EditBusinessFormComponent implements OnInit {
       subscriptiondate: [''],
       multiuser: [''],
       status: [''],
+      end_date: ['']
     });
 
     this.transactionForm = this.fb.group({
@@ -79,6 +79,23 @@ export class EditBusinessFormComponent implements OnInit {
       return this.businessIdToUpdate;
     });
 
+    this.service.getSubscriptionEndDate(this.businessIdToUpdate)
+      .subscribe({
+        next: (res) => {
+          if (res && res.data && res.data.length > 0) {
+            const endDate = res.data[0].end_date; // Accessing end_date property from the first object in the data array
+            this.businessForm.patchValue({
+              end_date: endDate
+            });
+          } else {
+            console.log('No data found for end date');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+
     this.transactionForm.get('amount')?.valueChanges.subscribe((newValue) => {
       // Extract the numeric value and update the form control
       const numericValue = this.extractNumericValue(newValue);
@@ -97,7 +114,7 @@ export class EditBusinessFormComponent implements OnInit {
   }
 
   fillFormToUpdate(business: Business): void {
-    this.businessForm.setValue({
+    this.businessForm.patchValue({
       businessid: business.businessid,
       businessname: business.businessname,
       address: business.address,
