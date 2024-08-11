@@ -14,24 +14,24 @@ export class BusinessComponent implements OnInit {
   displayedColumns: string[] = ['businessid', 'businessname', 'contactno', 'estimate_count', 'multiuser', 'status', 'action'];
   dataSource!: MatTableDataSource<Business>;
   public business!: Business[];
-  public statusList: string[] = ['Active', 'Trial', 'Expired'];
+  public statusList: string[] = ['All', 'Active', 'Trial', 'Expired'];
   public dataLoaded: boolean = false;
   totalRecords!: number;
   currentPage = 1;
   totalPages!: number;
-  filteredRecords: any[] = [];
   searchTerm: string = '';
   validationMessage: string = '';
+  selectedStatus: string = '';
 
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private service: ServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getBusinessList();
+    this.getAllBusinessList();  // Load all business data initially
   }
 
-  getBusinessList() {
+  getAllBusinessList() {
     this.service.getAllBusinessDetails(this.currentPage).subscribe({
       next: (res: any) => {
         this.dataLoaded = true;
@@ -45,6 +45,24 @@ export class BusinessComponent implements OnInit {
         alert(err);
       }
     });
+  }
+
+  getBusinessByStatus() {
+    if (this.selectedStatus) {
+      this.service.getBusinessByStatus(this.selectedStatus, this.currentPage).subscribe({
+        next: (res: any) => {
+          this.dataLoaded = true;
+          this.business = res.data;
+          this.dataSource = new MatTableDataSource(this.business);
+          this.dataSource.sort = this.sort;
+          this.totalRecords = res.total_records;
+          this.totalPages = Math.ceil(this.totalRecords / 50);
+        },
+        error: (err: any) => {
+          alert(err);
+        }
+      });
+    }
   }
 
   nextPage(): void {
@@ -69,15 +87,14 @@ export class BusinessComponent implements OnInit {
 
   applyFilter(searchTerm: string) {
     if (!searchTerm || searchTerm.trim() === '') {
-      // If search term is empty, fetch all records
       this.getBusinessList();
       return;
     }
 
-    this.searchTerm = searchTerm.trim(); // Update the search term
+    this.searchTerm = searchTerm.trim();
 
     if (!this.isSearchTermValid()) {
-      return; // Exit search if search term is invalid
+      return;
     }
 
     this.service.businessSearch(this.searchTerm).subscribe({
@@ -94,7 +111,6 @@ export class BusinessComponent implements OnInit {
   }
 
   isSearchTermValid(): boolean {
-    // Check if the search term is valid based on the search type
     if (this.isMobileSearch()) {
       if (this.searchTerm.length < 5) {
         this.validationMessage = 'At least 5 numbers are required for mobile number search.';
@@ -106,17 +122,18 @@ export class BusinessComponent implements OnInit {
         return false;
       }
     }
-    this.validationMessage = ''; // Reset validation message if search term is valid
+    this.validationMessage = '';
     return true;
   }
 
   isMobileSearch(): boolean {
-    // Check if the search term contains only digits
     return /^\d+$/.test(this.searchTerm);
   }
 
   onChange(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.selectedStatus = filterValue.toLowerCase();
+    this.currentPage = 1;
+    this.getBusinessByStatus();  // Only fetch data based on selected status
   }
 
   edit(id: number) {
@@ -126,5 +143,13 @@ export class BusinessComponent implements OnInit {
   showUsers(businessId: string) {
     this.service.setSelectedBusinessId(businessId);
     this.router.navigate(['/home/multiusers', businessId]);
+  }
+
+  private getBusinessList() {
+    if (this.selectedStatus) {
+      this.getBusinessByStatus();
+    } else {
+      this.getAllBusinessList();
+    }
   }
 }

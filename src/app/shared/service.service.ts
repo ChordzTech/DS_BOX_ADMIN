@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import { DatePipe } from '@angular/common';
@@ -37,6 +37,13 @@ export class ServiceService {
   }
   SubcriptionEndingSoon(): Observable<any> {
     return this.http.get<any>(`${this.url}/api/SubcriptionEndingSoon/`);
+  }
+  getBusinessByStatus(status: string, page: number): Observable<any> {
+    const startIndex = (page - 1) * 50;
+    const params = new HttpParams()
+      .set('start_index', startIndex.toString())
+      .set('limit', '50');
+    return this.http.get<any>(`${this.url}/api/BusinessByStatus/?status=${status}`, { params });
   }
 
   //Display multiusers by business id 
@@ -92,6 +99,9 @@ export class ServiceService {
   }
   updateUser(userData: User, id: number) {
     return this.http.put<User>(`${this.url}/api/UserDetails/${id}/`, userData);
+  }
+  getMultiusers(businessId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}/api/GetSubUserList/${businessId}/`);
   }
 
   //Subscriptions Page
