@@ -58,7 +58,9 @@ export class EditAppConfigComponent implements OnInit {
     if (this.selectedFile) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.base64Image = e.target?.result as string;
+        const result = e.target?.result as string;
+        // Remove the prefix (e.g., 'data:image/webp;base64,')
+        this.base64Image = result.split(',')[1];
       };
       reader.readAsDataURL(this.selectedFile);
     }

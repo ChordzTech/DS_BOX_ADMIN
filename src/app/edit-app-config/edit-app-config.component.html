@@ -28,7 +28,8 @@
                                     class="form-control" formControlName="base64_code" placeholder="Value"
                                     (change)="onFileSelected($event)" /><br>
                                 <div *ngIf="selectedFile">
-                                    <img [src]="getBase64Image()" height="150px" width="150px" />
+                                    <img [src]="'data:image/webp;base64,' + getBase64Image()" height="150px"
+                                        width="150px" />
                                 </div>
                             </ng-template>
                         </div>
