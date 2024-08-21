@@ -49,6 +49,7 @@ export class EditBusinessFormComponent implements OnInit {
       estimatenote: [''],
       activationdate: [''],
       subscriptiondate: [''],
+      subscription_date: [''],
       multiuser: [''],
       status: [''],
       end_date: ['']
@@ -83,8 +84,11 @@ export class EditBusinessFormComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res && res.data && res.data.length > 0) {
-            const endDate = res.data[0].end_date; // Accessing end_date property from the first object in the data array
+            const subscriptionData = res.data[0]; // Access the first object in the data array
+            const subscriptionDate = subscriptionData.subscription_date;
+            const endDate = subscriptionData.end_date;// Accessing end_date property from the first object in the data array
             this.businessForm.patchValue({
+              subscription_date: subscriptionDate,
               end_date: endDate
             });
           } else {
@@ -152,7 +156,33 @@ export class EditBusinessFormComponent implements OnInit {
 
   }
 
+  updateEndDate(endDate: string): void {
+    const data = { end_date: endDate };
+
+    this.service.updateEndDate(data, this.businessIdToUpdate)
+      .subscribe({
+        next: (res) => {
+          // this.toastr.success('End date updated successfully');
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error('Failed to update end date');
+        }
+      });
+  }
+
   update() {
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+
+    // Manually set subscriptiondate and status based on the selected subscription
+    const selectedSubscription = this.transactionForm.get('amount')?.value;
+    if (selectedSubscription) {
+      this.businessForm.patchValue({
+        subscriptiondate: today,
+        status: 'Active'
+      });
+    }
+
     const requestData = {
       ...this.businessForm.value,
       multiuser: this.businessForm.get('multiuser')?.value ? 1 : 0,
@@ -171,6 +201,12 @@ export class EditBusinessFormComponent implements OnInit {
     this.service.postTransaction(businessId, amount, status)
       .subscribe(res => {
       });
+    // Update end_date if necessary
+    const endDate = this.businessForm.get('end_date')?.value;
+    if (endDate) {
+      this.updateEndDate(endDate);
+    }
+
     this.toastr.success('Update Successfully');
     this.router.navigate(['/home/business']);
     this.businessForm.reset();
