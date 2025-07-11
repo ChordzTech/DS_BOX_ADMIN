@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import { DatePipe } from '@angular/common';
@@ -29,11 +29,24 @@ export class ServiceService {
   getBusinessId(id: number): Observable<any> {
     return this.http.get<any>(`/api/BusinessDetails/${id}/`);
   }
+  getSubscriptionEndDate(id: number): Observable<any> {
+    return this.http.get<any>(`/api/SubscriptionforBusiness/${id}`);
+  }
   updateBusiness(businessData: Business, id: number) {
     return this.http.put<any>(`/api/BusinessDetails/${id}/`, businessData);
   }
+  updateEndDate(data: any, id: number) {
+    return this.http.patch<any>(`/api/SubscriptionforBusiness/${id}`, data);
+  }
   SubcriptionEndingSoon(): Observable<any> {
     return this.http.get<any>(`/api/SubcriptionEndingSoon/`);
+  }
+  getBusinessByStatus(status: string, page: number): Observable<any> {
+    const startIndex = (page - 1) * 50;
+    const params = new HttpParams()
+      .set('start_index', startIndex.toString())
+      .set('limit', '50');
+    return this.http.get<any>(`/api/BusinessByStatus/?status=${status}`, { params });
   }
 
   //Display multiusers by business id 
@@ -90,6 +103,9 @@ export class ServiceService {
   updateUser(userData: User, id: number) {
     return this.http.put<User>(`/api/UserDetails/${id}/`, userData);
   }
+  getMultiusers(businessId: string): Observable<any> {
+    return this.http.get<any>(`/api/GetSubUserList/${businessId}/`);
+  }
 
   //Subscriptions Page
   getAllSubscriptionDetails(): Observable<any> {
@@ -122,5 +138,47 @@ export class ServiceService {
   }
   postImage(imageData: any): Observable<any> {
     return this.http.post(`/api/UploadCode/`, { base64_code: imageData });
+  }
+
+  businessSearch(searchTerm: string): Observable<any[]> {
+    if (!searchTerm || searchTerm.trim() === '') {
+      return new Observable<any[]>(observer => {
+        observer.next([]); // Return an empty array if search term is empty
+        observer.complete();
+      });
+    }
+
+    const searchType = this.businessSearchType(searchTerm);
+
+    return this.http.get<any[]>(`/api/BusinessSearch/search/?search_term=${searchTerm}&search_type=${searchType}`);
+  }
+
+  private businessSearchType(value: string): string {
+    // Check if the value contains only digits
+    if (/^\d+$/.test(value)) {
+      return 'mobile';
+    }
+    return 'name';
+  }
+
+  userSearch(searchTerm: string): Observable<any[]> {
+    if (!searchTerm || searchTerm.trim() === '') {
+      return new Observable<any[]>(observer => {
+        observer.next([]); // Return an empty array if search term is empty
+        observer.complete();
+      });
+    }
+
+    const searchType = this.userSearchType(searchTerm);
+
+    return this.http.get<any[]>(`/api/UserSearch/search/?search_term=${searchTerm}&search_type=${searchType}`);
+  }
+
+  private userSearchType(value: string): string {
+    // Check if the value contains only digits
+    if (/^\d+$/.test(value)) {
+      return 'mobile';
+    }
+    return 'name';
   }
 }

@@ -75,8 +75,8 @@ export class EdituserFormComponent implements OnInit {
 
     // Set default values for Android ID and Device Info for a new user
     this.usersForm.patchValue({
-      androidid: 'New User',
-      deviceinfo: 'New User'
+      androidid: 'NewUser',
+      deviceinfo: 'NewUser'
     });
   }
 }

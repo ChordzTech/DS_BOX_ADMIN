@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://dsboxapi.beatsacademy.in',
+    apiUrl: 'https://dsboxplus.dishaswaraj.in',
 };

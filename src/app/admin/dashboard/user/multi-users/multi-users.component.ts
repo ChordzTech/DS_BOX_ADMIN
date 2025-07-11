@@ -12,10 +12,8 @@ import { User } from 'src/app/models';
 export class MultiUsersComponent implements OnInit {
   displayedColumns: string[] = ['businessid', 'userid', 'username', 'mobileno', 'userrole', 'status'];
   dataSource!: MatTableDataSource<User>;
-  public users!: User[];
   selectedBusinessId: string | null = null;
   public dataLoaded: boolean = false;
-  currentPage = 1;
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -29,25 +27,20 @@ export class MultiUsersComponent implements OnInit {
   }
 
   getUsersList(businessId: string | null) {
-    this.service.getAllUserDetails(this.currentPage).subscribe({
-      next: (res: any) => {
-        if (Array.isArray(res.data)) {
-          if (businessId) {
-            this.users = res.data.filter((user: User) => user.businessid === businessId);
-          } else {
-            this.users = res.data;
-          }
+    if (businessId) {
+      this.service.getMultiusers(businessId).subscribe({
+        next: (res: any) => {
           this.dataLoaded = true;
-          this.dataSource = new MatTableDataSource(this.users);
+          this.dataSource = new MatTableDataSource(res.data);
           this.dataSource.sort = this.sort;
-        } else {
-          console.error('API response is not an array:', res.data);
+        },
+        error: (err: any) => {
+          console.error('Error fetching user data:', err);
         }
-      },
-      error: (err: any) => {
-        alert(err);
-      }
-    })
+      });
+    } else {
+      console.warn('No business ID selected.');
+    }
   }
 
   applyFilter(event: Event) {

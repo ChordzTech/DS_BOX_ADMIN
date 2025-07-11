@@ -13,8 +13,11 @@
 
           <mat-form-field class="example-full-width">
             <mat-label><i class="fa fa-lock"></i>&nbsp; Password</mat-label>
-            <input matInput type="password" id="adminpassword" [(ngModel)]="adminpassword" name="adminpassword"
-              required />
+            <input matInput [type]="hide ? 'password' : 'text'" id="adminpassword"
+              [(ngModel)]="adminpassword" name="adminpassword" required />
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
           </mat-form-field>
 
           <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px">

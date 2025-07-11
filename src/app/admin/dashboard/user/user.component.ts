@@ -18,6 +18,9 @@ export class UserComponent implements OnInit {
   totalRecords!: number;
   currentPage = 1;
   totalPages!: number;
+  filteredRecords: any[] = [];
+  searchTerm: string = '';
+  validationMessage: string = '';
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -63,9 +66,52 @@ export class UserComponent implements OnInit {
     return `${start} - ${end} of ${this.totalRecords}`;
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(searchTerm: string) {
+    if (!searchTerm || searchTerm.trim() === '') {
+      // If search term is empty, fetch all records
+      this.getUsersList();
+      return;
+    }
+
+    this.searchTerm = searchTerm.trim(); // Update the search term
+
+    if (!this.isSearchTermValid()) {
+      return; // Exit search if search term is invalid
+    }
+
+    this.service.userSearch(this.searchTerm).subscribe({
+      next: (res: any) => {
+        this.dataLoaded = true;
+        this.users = res.data;
+        this.dataSource = new MatTableDataSource(this.users);
+        this.dataSource.sort = this.sort;
+      },
+      error: (err: any) => {
+        alert(err);
+      }
+    });
+  }
+
+  isSearchTermValid(): boolean {
+    // Check if the search term is valid based on the search type
+    if (this.isMobileSearch()) {
+      if (this.searchTerm.length < 5) {
+        this.validationMessage = 'At least 5 numbers are required for mobile number search.';
+        return false;
+      }
+    } else {
+      if (this.searchTerm.length < 3) {
+        this.validationMessage = 'At least 3 characters are required for name search.';
+        return false;
+      }
+    }
+    this.validationMessage = ''; // Reset validation message if search term is valid
+    return true;
+  }
+
+  isMobileSearch(): boolean {
+    // Check if the search term contains only digits
+    return /^\d+$/.test(this.searchTerm);
   }
 
   edit(id: number) {
